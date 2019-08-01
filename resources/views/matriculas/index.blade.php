@@ -72,9 +72,9 @@
                 <a href="#" class="ls-btn" role="combobox" aria-expanded="false"></a>
                 <ul class="ls-dropdown-nav" aria-hidden="true">
                 @if( $matricula->pago  == false )
-                <li><a href="/matriculas/pagamento/{{ $matricula->id }}" style="cursor:pointer;" data-ls-module="modal" data-target="#modalSmall" role="option">Informar Pagamento</a></li>
+                <li><a href="/matriculas/pagamento-in/{{ $matricula->id }}" style="cursor:pointer;" data-ls-module="modal" data-target="#modalSmall" role="option">Informar Pagamento</a></li>
                 @else
-                <li><a href="/matriculas/pagamento/{{ $matricula->id }}" style="cursor:pointer;" data-ls-module="modal" data-target="#modalSmall" role="option">Cancelar Pagamento</a></li>
+                <li><a href="/matriculas/pagamento-out/{{ $matricula->id }}" style="cursor:pointer;" data-ls-module="modal" data-target="#modalSmall" role="option">Cancelar Pagamento</a></li>
                 @endif
                 <li><a onclick="return confirm('Tem certeza que quer apagar ?')" href="/matriculas/delete/{{$matricula->id}}" class="ls-color-danger" role="option">Excluir</a></li>
 

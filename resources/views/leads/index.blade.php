@@ -41,8 +41,8 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
       <div class="ls-custom-select ls-field-sm">
         <select name="order" class="ls-select">
           <option>Todos</option>
-          <option value="1" >Oportunidades</option>
-          <option value="2" >Desistentes</option>
+          <option value="2" >Oportunidades </option>
+          <option value="4" >Desqualificados </option>
         </select>
       </div>
     </label>

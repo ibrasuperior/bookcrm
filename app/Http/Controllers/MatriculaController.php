@@ -55,15 +55,14 @@ class MatriculaController extends Controller
         //
     }
 
-    public function pagamento(Request $request){
-        $id = $request->input('id');
-        $matricula = Matricula::find('id', $id);
+    public function pagamentoIn($id){
+        Matricula::where('id', $id)->update(['pago' => 1 ]);
+        return redirect('/matriculas')->with('success',"Alterado com sucesso");        
+    }
 
-        $matricula->pago = 0 ;
-        $matricula->update();
-        
-
-        return redirect('/matriculas')->with('success',"Alterado com sucesso");
+    public function pagamentoOut($id){
+        Matricula::where('id', $id)->update(['pago' => 0 ]);
+        return redirect('/matriculas')->with('success',"Alterado com sucesso");        
     }
 
     public function search(Request $request){

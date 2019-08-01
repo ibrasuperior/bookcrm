@@ -18,7 +18,8 @@ Route::middleware(['auth'])->group(function(){
     //matrícula
     Route::get('/matriculas/search',"MatriculaController@search");
     Route::get('/matriculas',"MatriculaController@index");
-    Route::get('/matriculas/pagamento/{id}',"MatriculaController@pagamento");
+    Route::get('/matriculas/pagamento-in/{id}',"MatriculaController@pagamentoIn");
+    Route::get('/matriculas/pagamento-out/{id}',"MatriculaController@pagamentoOut");
     Route::post('/matriculas/add',"MatriculaController@store");
     Route::get('/matriculas/{id}',"MatriculaController@edit");
     Route::get('/matriculas/show/{id}', "MatriculaController@show");
