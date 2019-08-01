@@ -84,7 +84,7 @@ class leadsController extends Controller
     public function search(Request $request){
         $order = $request->input('order');
         $leads = Lead::where('nome', 'LIKE', '%'.$order.'%')->orWhere('email','LIKE',
-    '%'.$order.'%')->get();
+    '%'.$order.'%')->paginate(20);
         
         if( count($leads) > 0 ){
             return view('leads.search')->with('leads',$leads);
@@ -95,7 +95,7 @@ class leadsController extends Controller
 
     public function filter(Request $request){
         $order = $request->input('order');
-        $leads = Lead::where('estagio_id', $order )->orderBy('id', 'desc')->get();
+        $leads = Lead::where('estagio_id', $order )->orderBy('id', 'desc')->paginate(20);
         
         return view('leads.search')->with('leads',$leads);
     
