@@ -11,7 +11,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/leads/novo',"LeadsController@create");
     Route::post('/leads/add',"LeadsController@store");
     Route::get('/leads/{id}',"LeadsController@edit");
-    Route::get('/leads/show?{id}', "LeadsController@show");
+    Route::get('/leads/show/{id}', "LeadsController@show");
     Route::put('/leads/update/{lead}',"LeadsController@update");
     Route::get('/leads/delete/{lead}',"LeadsController@destroy");
     
@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/matriculas/pagamento-out/{id}',"MatriculaController@pagamentoOut");
     Route::post('/matriculas/add',"MatriculaController@store");
     Route::get('/matriculas/{id}',"MatriculaController@edit");
-    Route::get('/matriculas/show?{id}', "MatriculaController@show");
+    Route::get('/matriculas/show/{id}', "MatriculaController@show");
     Route::put('/matriculas/update/{matricula}',"MatriculaController@update");
     Route::get('/matriculas/delete/{matricula}',"MatriculaController@destroy");
 
