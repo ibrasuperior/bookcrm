@@ -62,7 +62,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
       <th class="ls-txt-center ls-data-descending" > <a> Lead</a> </th>
       <th class="ls-txt-center ls-data-descending"> <a>E-mail </a></th>
       <th class="ls-txt-center ls-data-descending"><a>Telefone </a></th>
-      <th class="ls-txt-center ls-data-descending"><a>Mídia </a></th>
+      <th class="ls-txt-center ls-data-descending"><a>Operador </a></th>
       <th class="ls-txt-center ls-data-descending"><a>Ações </a></th>
     </tr>
   </thead>
@@ -81,7 +81,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
         <td class="ls-txt-center">{{$lead->email}}</td>
         <td class="ls-txt-center">{{$lead->telefone}}</td>
         <td class="ls-txt-center">
-          {{$lead->canal->nome}}
+          {{$lead->colaborador->name}}
         </td>
 
         <td class="ls-txt-center ls-regroup">

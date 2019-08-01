@@ -95,7 +95,9 @@ class leadsController extends Controller
 
     public function filter(Request $request){
         $order = $request->input('order');
-        $leads = Lead::where('estagio_id', $order )->orderBy('id', 'desc')->paginate(20);
+        $id = \Auth::user()->id;
+        $leads = Lead::where('estagio_id', $order )
+        ->where('colaborador_id', $id)->orderBy('id', 'desc')->paginate(20);
         
         return view('leads.search')->with('leads',$leads);
     
