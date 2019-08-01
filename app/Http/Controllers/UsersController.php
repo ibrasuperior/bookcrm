@@ -52,7 +52,7 @@ class UsersController extends Controller
     {
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-
+        $user->active = $request->input('active');
         $user->password = Hash::make($request->input('password'));
         
         $user->update();

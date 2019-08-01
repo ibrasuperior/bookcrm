@@ -58,6 +58,7 @@ class ApiController extends Controller
         $lead = new Lead;
 
         $user = User::where('permissoes' ,'>', 1)
+        ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
         
         User::where('id', $user['id'] )->increment( 'leads_daily', 1 );

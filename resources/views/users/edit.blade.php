@@ -12,6 +12,17 @@
 
         <legend class="ls-title-2">Alterar Usuário</legend>
         <div class="row">
+        
+            <label class="ls-label col-md-6">
+                <b class="ls-label-text">Recebe Leads ?</b>
+                <div class="ls-custom-select">
+                    <select name="active" class="ls-select">
+                        <option value="1" <?php if( $user->active == true ){ echo 'selected'; } ?> > Sim </option>
+                        <option value="0" <?php if( $user->active == false ){ echo 'selected'; } ?> > Não </option>
+                    </select>
+                </div>
+            </label>
+
             <label class="ls-label col-md-6">
             <span class="ls-label-text">Nome</span>
             <input type="text" name="name" autocomplete="off" value="{{ $user->name  }}" >
