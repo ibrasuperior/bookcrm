@@ -160,7 +160,7 @@
 
 <?php 
 $now = date('d/m/20y'); 
-$agendas = \App\Agenda::get(); 
+$agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get(); 
 ?>
 
  <aside class="ls-notification">
