@@ -28,7 +28,9 @@
   <div class="ls-login-inner">
     <div class="ls-login-container">
       <div class="ls-login-box">
-  <h1 class="ls-login-logo">IBRA  Comercial</h1>
+  <h1 class="ls-login-logo">
+    <img src="img/login.png" />
+  </h1>
     
     <!-- FORMULÁRIO DE LOGIN -->
     <form method="post" role="form" class="ls-form ls-login-form" action="{{ route('login')}}">
