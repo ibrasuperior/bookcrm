@@ -73,7 +73,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
     @foreach( $leads as $lead )
       <tr class="shadow" >
         <td class="ls-txt-center"> 
-          <a href="/leads/show/{{$lead->id}}">{{ $lead->nome}}</a>
+          <a href="/leads/show?{{$lead->id}}">{{ $lead->nome}}</a>
           @if( $lead->matriculado  == true )
           </br><span class="ls-tag-success">Matriculado</span>
           @endif
@@ -91,7 +91,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
             <div data-ls-module="dropdown" class="ls-dropdown">
                 <a href="#" class="ls-btn" role="combobox" aria-expanded="false"></a>
                 <ul class="ls-dropdown-nav" aria-hidden="true">
-                    <li><a href="/leads/show/{{$lead->id}}" class="" role="option">Visualizar</a></li>
+                    <li><a href="/leads/show?{{$lead->id}}" class="" role="option">Visualizar</a></li>
                     <li><a href="/leads/delete/{{$lead->id}}" onclick="return confirm('tem certeza que quer excluir?')" class="ls-color-danger" role="option">Excluir</a></li>
                 </ul>
             </div>

@@ -129,7 +129,7 @@ class leadsController extends Controller
         $lead->estagio_id = $request->input('estagio');
         $lead->update();
 
-        return redirect('/leads/show/'.$id )->with("success","Estagio alterado com sucesso!");
+        return redirect('/leads/show?'.$id )->with("success","Estagio alterado com sucesso!");
     }
 
     public function destroy(Request $request,Lead $lead)

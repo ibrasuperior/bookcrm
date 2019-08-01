@@ -11,7 +11,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/leads/novo',"LeadsController@create");
     Route::post('/leads/add',"LeadsController@store");
     Route::get('/leads/{id}',"LeadsController@edit");
-    Route::get('/leads/show/{id}', "LeadsController@show");
+    Route::get('/leads/show?{id}', "LeadsController@show");
     Route::put('/leads/update/{lead}',"LeadsController@update");
     Route::get('/leads/delete/{lead}',"LeadsController@destroy");
     
