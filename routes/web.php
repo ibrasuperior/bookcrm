@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/matriculas/pagamento-out/{id}',"MatriculaController@pagamentoOut");
     Route::post('/matriculas/add',"MatriculaController@store");
     Route::get('/matriculas/{id}',"MatriculaController@edit");
-    Route::get('/matriculas/show/{id}', "MatriculaController@show");
+    Route::get('/matriculas/show?{id}', "MatriculaController@show");
     Route::put('/matriculas/update/{matricula}',"MatriculaController@update");
     Route::get('/matriculas/delete/{matricula}',"MatriculaController@destroy");
 
