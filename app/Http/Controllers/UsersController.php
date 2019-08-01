@@ -53,7 +53,11 @@ class UsersController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->active = $request->input('active');
-        $user->password = Hash::make($request->input('password'));
+        $user->permissoes = $request->input('permissoes');
+
+        if(!empty($request->input('password'))){
+            $user->password = Hash::make($request->input('password'));
+        }
         
         $user->update();
         return redirect('/users')->with("success","Alterado com sucesso!");

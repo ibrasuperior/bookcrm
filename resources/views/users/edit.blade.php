@@ -24,6 +24,16 @@
             </label>
 
             <label class="ls-label col-md-6">
+                <b class="ls-label-text">Permissões</b>
+                <div class="ls-custom-select">
+                    <select name="permissoes" class="ls-select">
+                        <option value="1" <?php if( $user->permissoes == 1 ){ echo 'selected'; } ?> > Administrador </option>
+                        <option value="2" <?php if( $user->permissoes == 2 ){ echo 'selected'; } ?> > Operador </option>
+                    </select>
+                </div>
+            </label>
+
+            <label class="ls-label col-md-6">
             <span class="ls-label-text">Nome</span>
             <input type="text" name="name" autocomplete="off" value="{{ $user->name  }}" >
             </label>
