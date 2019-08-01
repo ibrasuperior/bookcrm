@@ -1,14 +1,16 @@
 @extends('layouts.default')
 
 @section('content')
+<script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/78b1a1af-93a2-4578-80be-7a2ed67e0e28-loader.js" ></script>
+
     <div class="container-fluid">
         <h1 class="ls-title-intro ls-ico-users">Formulário de Matrícula</h1>
 
-    <form action="/formulario/envia" id="form" class="ls-form" method="post" >
+    <form action="/formulario/envia" id="formMy" class="ls-form" method="post" >
         @csrf
         <legend class="ls-title-2">Nova Matrícula</legend>
         <?php $nome= \Auth::user()->name; ?> 
-        <input type="hidden" value="{{$nome}}" name="operador">
+        <input type="hidden" required value="{{$nome}}" name="operador">
 
         <div style="margin-top:20px;">
 
@@ -24,7 +26,7 @@
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Nome Completo" required type="text" name="nome">
+            <input autocomplete="off " required placeholder="Nome Completo"  type="text" name="nome">
             </label>
 
             <label class="ls-label col-md-6">
@@ -38,15 +40,15 @@
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" id="telefone" placeholder="Celular DD - XXXXX-XXXX" required type="text" name="celular">
+            <input autocomplete="off" required id="telefone" placeholder="Celular DD - XXXXX-XXXX"  type="text" name="celular">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="E-mail" required type="email" name="email">
+            <input autocomplete="off" required placeholder="E-mail" type="email" name="email">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Curso matriculado" required type="text" name="curso">
+            <input autocomplete="off" required placeholder="Curso matriculado"  type="text" name="curso">
             </label>
 
             <label class="ls-label col-md-6">
@@ -63,7 +65,7 @@
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Carga Horária" required type="text" name="cargaHoraria">
+            <input autocomplete="off" required placeholder="Carga Horária"  type="text" name="cargaHoraria">
             </label>
 
 
@@ -115,51 +117,51 @@
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Graduação" required type="text" name="graduacao">
+            <input autocomplete="off" required placeholder="Graduação"  type="text" name="graduacao">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Estado" required type="text" name="estado">
+            <input autocomplete="off" required placeholder="Estado"  type="text" name="estado">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Cidade" required type="text" name="cidade">
+            <input autocomplete="off" required  placeholder="Cidade"  type="text" name="cidade">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Rua" required type="text" name="rua">
+            <input autocomplete="off" required placeholder="Rua"  type="text" name="rua">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Número" required type="number" name="numero">
+            <input autocomplete="off" required placeholder="Número"  type="number" name="numero">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Bairro" required type="text" name="bairro">
+            <input autocomplete="off" required placeholder="Bairro"  type="text" name="bairro">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Cep" required type="text" name="cep">
+            <input autocomplete="off" required placeholder="Cep"  type="text" name="cep">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="País" required type="text" name="pais">
+            <input autocomplete="off" required placeholder="País"  type="text" name="pais">
             </label>
 
             <label class="ls-label col-md-6">
-            <input OnKeyUp="mascaraData(this, 'dd');" maxlength="10" id="dd" autocomplete="off" placeholder="Data de Nascimento" required type="text" name="dataNasc">
+            <input OnKeyUp="mascaraData(this, 'dd');" maxlength="10" required id="dd" autocomplete="off" placeholder="Data de Nascimento"  type="text" name="dataNasc">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="CPF" required type="text" name="cpf">
+            <input autocomplete="off" required placeholder="CPF"  type="text" name="cpf">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Nome da Mãe" required type="text" name="nomeMae">
+            <input autocomplete="off" required placeholder="Nome da Mãe"  type="text" name="nomeMae">
             </label>
 
             <label class="ls-label col-md-6">
-            <input autocomplete="off" placeholder="Nome do Pai" required type="text" name="nomePai">
+            <input autocomplete="off" required placeholder="Nome do Pai"  type="text" name="nomePai">
             </label>
 
             <label class="ls-label col-md-6">
@@ -174,19 +176,19 @@
 
             <label class="ls-label col-md-6">
             <h4 style="padding-bottom:20px;">Plano Financeiro</h4>
-            <input autocomplete="off" id="valor2" maxlength="10" onkeyup="formatarMoeda('valor2');" placeholder="Valor da Matrícula" required type="text" name="valorMatricula">
+            <input autocomplete="off" required id="valor2" maxlength="10" onkeyup="formatarMoeda('valor2');" placeholder="Valor da Matrícula"  type="text" name="valorMatricula">
             </label>
 
             <label class="ls-label col-md-6">
-            <input OnKeyUp="mascaraData(this, 'ddd');" maxlength="10" id="ddd" autocomplete="off" placeholder="Vencimento da Matrícula" required type="text" name="vencimentoMatricula">
+            <input OnKeyUp="mascaraData(this, 'ddd');" required maxlength="10" id="ddd" autocomplete="off" placeholder="Vencimento da Matrícula"  type="text" name="vencimentoMatricula">
             </label>
             
             <label class="ls-label col-md-6">
-            <input autocomplete="off" id="valor3" maxlength="10" onkeyup="formatarMoeda('valor3');" placeholder="Valor da Mensalidade" required type="text" name="valorMensalidade">
+            <input autocomplete="off" id="valor3" required maxlength="10" onkeyup="formatarMoeda('valor3');" placeholder="Valor da Mensalidade"  type="text" name="valorMensalidade">
             </label>
 
             <label class="ls-label col-md-6">
-            <input OnKeyUp="mascaraData(this, 'dd2');" maxlength="10" id="dd2" autocomplete="off" placeholder="Vencimento da Mensalidade" required type="text" name="vencimentoMensalidade">
+            <input OnKeyUp="mascaraData(this, 'dd2');" required maxlength="10" id="dd2" autocomplete="off" placeholder="Vencimento da Mensalidade"  type="text" name="vencimentoMensalidade">
             </label>
 
             <label class="ls-label col-md-6">
@@ -227,18 +229,18 @@
             </label>
             
             <label class="ls-label col-md-6">
-            <input  id="valorTotal" maxlength="10" onkeyup="formatarMoeda('valorTotal')"  autocomplete="off" placeholder="Valor Total do curso (sem matrícula)" required type="text" name="valorTotal">
+            <input  id="valorTotal" required maxlength="10" onkeyup="formatarMoeda('valorTotal')"  autocomplete="off" placeholder="Valor Total do curso (sem matrícula)"  type="text" name="valorTotal">
             </label>
 
             <label class="ls-label col-md-6">
             <p>Observações:</p>
-            <textarea name="obs" id="" cols="30"></textarea>
+            <textarea name="obs"  id="" cols="30"></textarea>
             </label>
 
         </div>
         
         <hr>
-        <a onclick="enviar()" class="col-md-6 ls-btn-primary">Enviar</a>
+        <button type="submit" class="col-md-6 ls-btn-primary">Enviar</button>
     </form>
 
     </div>
@@ -254,7 +256,7 @@
                 <p>Por favor digite a senha do Gerente!</p>
                 <label class="ls-label col-md-6">
                 <form autocomplete="off">
-                <input id="senha" autocomplete="off" placeholder="Senha" required type="password" />
+                <input id="senha" autocomplete="off" placeholder="Senha"  type="password" />
                 </label>
                 </form>
             </div>
@@ -267,28 +269,33 @@
 
     <script type="text/javascript">
 
-        function enviar(){
+            document.getElementById('formMy').onsubmit = function(){
+
             var tipo = document.getElementById('tipo').value;
             var valor = document.getElementById('valorTotal').value;
 
             if( valor < 1499.00 && tipo == 'Pós-Graduação' ){
                 locastyle.modal.open("#myAwesomeModal");
+                return false;
                 
             }else{
-                document.getElementById('form').submit();
+                return true;
             }
-        }
+            
+            };
+
 
         function check(){
             var senha = 'ibra@gerencia4039';
             var check = document.getElementById('senha').value;
             
             if( check == senha  ){
-                document.getElementById('form').submit();
+                document.getElementById('formMy').submit();
             }else{
                 window.alert('Senha errada!');
             }
         }
+        
     </script>
 
 <!-- MÁSCARA TELEFONE  -->
