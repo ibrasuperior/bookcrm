@@ -1,8 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-<script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/78b1a1af-93a2-4578-80be-7a2ed67e0e28-loader.js" ></script>
-
 <!--POP UP PARA CADASTRO DE ALUNO -->
 
 <div class="ls-modal" id="myAwesomeModal">
