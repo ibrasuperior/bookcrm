@@ -14,9 +14,9 @@ class Kernel extends ConsoleKernel
     
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            DB::table('users')->update(['leads_daily' => 0] );
-          })->everyMinute();
+        //$schedule->call(function () {
+           // DB::table('users')->update(['leads_daily' => 0] );
+          //})->everyMinute();
     }
     
     protected function commands()
