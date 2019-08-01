@@ -291,7 +291,7 @@
             <small>Fazer a matrícula do aluno</small>
           </div>
           <div class="ls-box-footer">
-            <button data-target="#myAwesomeModal" data-ls-module="modal" class="@if($lead->matriculado==true)ls-disabled @endif ls-btn-primary ls-btn-block ls-btn-sm">Matricular</button>
+            <button data-target="#myAwesomeModal" data-ls-module="modal" class="ls-btn-primary ls-btn-block ls-btn-sm">Matricular</button>
           </div>
         </div>
       </div>
