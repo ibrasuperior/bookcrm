@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtplw.com.br'),
+    'host' => env('MAIL_HOST', 'mail.ibrasuperior.com.br'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'atendimento@ibrasuperior.com.br'),
+        'address' => env('MAIL_FROM_ADDRESS', 'crm@ibrasuperior.com.br'),
         'name' => env('MAIL_FROM_NAME', 'Site'),
     ],
 
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => 'institutoibra',
+    'username' => 'crm@ibrasuperior.com.br',
 
-    'password' => 'oKRdHjLK8121',
+    'password' => 'ibra2019',
 
     /*
     |--------------------------------------------------------------------------
