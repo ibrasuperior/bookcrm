@@ -75,7 +75,7 @@
 </div>
 
 
-    <aside class="ls-sidebar">
+  <aside class="ls-sidebar">
 
   <div class="ls-sidebar-inner">
       <a href="/locawebstyle/documentacao/exemplos//pre-painel"  class="ls-go-prev"><span class="ls-text">Voltar à lista de serviços</span></a>
@@ -89,6 +89,10 @@
 
            <li>
             <a href="/formulario"  class="ls-ico-thumbs-up"> Formulário de Matrícula </a>
+          </li>
+
+          <li>
+            <a href="/documentos"  class="ls-ico-book"> Documentos Oficiais </a>
           </li>
 
           <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">

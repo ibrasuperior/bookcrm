@@ -38,6 +38,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile/{id}',"UsersController@profile");
     Route::put('/profile/update/{user}',"UsersController@updateProfile");
 
+    /*/Documentos/*/
+    Route::get('/documentos', function(){
+        return view('documentos.index');
+    });
+
+    
     //Formulario de matrícula
     Route::get('/formulario', 'FormularioController@index');
     Route::post('/formulario/envia', 'FormularioController@envia');
