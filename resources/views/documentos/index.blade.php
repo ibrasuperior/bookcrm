@@ -41,7 +41,7 @@
           <?php echo $documento['id']; ?>
         </td>
             <td class="ls-txt-center" >
-              <?php echo $documento['nome']; ?>
+              <?php echo  utf8_decode($documento['nome']); ?>
             </td>
             
             <td class="ls-txt-center ls-regroup ">
