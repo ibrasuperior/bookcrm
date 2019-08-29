@@ -95,7 +95,9 @@ Route::middleware(['security'])->group(function(){
 Route::post('/api/export',"ApiController@export");
 Route::post('/api/lead', 'ApiController@leadsStation');
 Route::get('/api/chart-matriculas',"ApiController@chartSales");
-
+Route::get('/auth/callback', function(){
+     echo 'ok';
+});
 
  /* Route::get('/home', 'HomeController@index')->name('home'); */
 
