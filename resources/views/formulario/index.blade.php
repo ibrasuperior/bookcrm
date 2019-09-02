@@ -13,11 +13,6 @@
         <div style="margin-top:20px;">
 
             <label class="ls-label col-md-6">
-            nome : {{$lead->nome}}
-            <input autocomplete="off " value="{{$lead->nome}}" placeholder="Nome Completo"  type="hidden" name="nome">
-            </label>
-
-            <label class="ls-label col-md-6">
             email : {{$lead->email}}
             <input autocomplete="off" value="{{$lead->email}}" placeholder="E-mail" type="hidden" name="email">
             </label>
@@ -28,7 +23,12 @@
             <input value="{{$lead->canal->nome}}" type="hidden" name="midia">
             </label>
             <!-- HIDDENS INPUTS  -->
-
+            
+            <label class="ls-label col-md-6">
+            nome :
+            <input autocomplete="off " value="{{$lead->nome}}" placeholder="Nome Completo" type="text" name="nome">
+            </label>
+            
             <label class="ls-label col-md-6">
             <p> Comercial</p>
             <div class="ls-custom-select">
