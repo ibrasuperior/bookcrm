@@ -37,7 +37,7 @@ class FormularioController extends Controller
             $to = 'cadastro03@ibrasuperior.com.br';
         }
 
-        //Mail::to($to)->send(new FormularioDeMatricula($formulario));
+        Mail::to($to)->send(new FormularioDeMatricula($formulario));
         
         //ENVIA DADOS PARA RD STATION
         //URLS
