@@ -20,8 +20,7 @@
 
         <fieldset>
           <label class="ls-label col-md-12">
-            <b class="ls-label-text">Email</b>
-            <input type="email" name="email" autocomplete="off" value="{{$lead->email}}" required >
+            <input  type="hidden" name="email" autocomplete="off" value="{{$lead->email}}" required >
             </label>
 
             <label class="ls-label col-md-12">
@@ -32,7 +31,7 @@
 
             <label class="ls-label col-md-12">
               <b class="ls-label-text">Vencimento</b>
-              <input type="text" name="vencimento" class="datepicker" placeholder="dd/mm/aaaa">
+              <input type="text" name="vencimento" class="datepicker" required placeholder="dd/mm/aaaa">
             </label>
 
             <label class="ls-label col-md-12">
