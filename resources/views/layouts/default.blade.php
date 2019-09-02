@@ -87,10 +87,6 @@
            <li><a href="/agenda" class="ls-ico-calendar-check" title="Agenda">Agenda</a></li>
            <li><a href="/matriculas" class="ls-ico-checkmark" title="Matrículas">Matrículas</a></li>
 
-           <li>
-            <a href="/formulario"  class="ls-ico-thumbs-up"> Formulário de Matrícula </a>
-          </li>
-
           <li>
             <a href="/documentos"  class="ls-ico-book"> Documentos Oficiais </a>
           </li>

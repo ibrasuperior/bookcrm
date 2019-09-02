@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function(){
 
     
     //Formulario de matrícula
-    Route::get('/formulario', 'FormularioController@index');
+    Route::get('/formulario/{id}', 'FormularioController@index');
     Route::post('/formulario/envia', 'FormularioController@envia');
 
     /*/Relatórios/*/

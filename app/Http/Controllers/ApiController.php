@@ -112,18 +112,27 @@ class ApiController extends Controller
         $lead->canal_id = $canal['id'];  
         
         //Verifica se já é lead  
-        $verifica = Lead::where('email', $request->input('leads.0.email') )->count();
+        $verifica = Lead::where('email', $request->input('leads.0.email') )
+        ->count();
 
         if( $verifica > 0  ){
             $leadFind = Lead::where('email', $request->input('leads.0.email') )
             ->first();
 
-            $lead->colaborador_id = $leadFind['colaborador_id'];
+            //verifica se o user esta ativo
+            $userToSelect = User::where('id', $leadFind['colaborador_id'] )->first();
+            
+            if(  $userToSelect['active'] == 1 ){
+                $lead->colaborador_id = $leadFind['colaborador_id'];
 
+                $leadFind->delete();
+                $lead->save();
+                return $lead;
+            }
             $leadFind->delete();
             $lead->save();
             return $lead;
-        }else{
+        } else{
             $lead->save();
             return $lead;
         }

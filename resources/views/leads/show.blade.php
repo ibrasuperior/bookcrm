@@ -10,7 +10,7 @@
       <h4 class="ls-modal-title"> Insira os dados da matrícula</h4>
     </div>
     <div class="ls-modal-body" id="myModalBody">
-    
+  
     <form action="/matriculas/add" method="post" class="ls-form row">
         @csrf
         <input type="hidden" value="{{$lead->id}}" name="id_lead">
