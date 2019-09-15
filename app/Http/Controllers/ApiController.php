@@ -69,6 +69,8 @@ class ApiController extends Controller
         
         if( !empty( $indicacao['leads']) && !empty( $indicacao['matriculas'] ) ){
             $indicacao['conversao'] =  $indicacao['matriculas'] * 100 / $indicacao['leads'] ;
+        }else{
+            $indicacao['conversao'] = 0;
         }
 
         $indicacao['pos'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Pós-Graduação')
@@ -77,7 +79,7 @@ class ApiController extends Controller
         $indicacao['segundaLicenciatura'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Segunda Licenciatura')
         ->whereBetween('created_at',[$inicio,$final])->count();
 
-        $indicacao['R2'] =  Matricula::where('canal', 'Indicação')->where('produto', 'R2')
+        $indicacao['r2'] =  Matricula::where('canal', 'Indicação')->where('produto', 'R2')
         ->whereBetween('created_at',[$inicio,$final])->count();
 
         $indicacao['Capacitação'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Capacitação')
@@ -91,7 +93,9 @@ class ApiController extends Controller
          
          if( !empty( $actual['leads']) && !empty( $actual['matriculas'] ) ){
              $actual['conversao'] =  $actual['matriculas'] * 100 / $actual['leads'] ;
-         }
+         }else{
+            $actual['conversao'] = 0;
+        }
  
          $actual['pos'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Pós-Graduação')
          ->whereBetween('created_at',[$inicio,$final])->count();
@@ -99,7 +103,7 @@ class ApiController extends Controller
          $actual['segundaLicenciatura'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Segunda Licenciatura')
          ->whereBetween('created_at',[$inicio,$final])->count();
  
-         $actual['R2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
+         $actual['r2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
          ->whereBetween('created_at',[$inicio,$final])->count();
  
          $actual['Capacitação'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Capacitação')
@@ -113,7 +117,9 @@ class ApiController extends Controller
          
          if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
              $midia['conversao'] =  $midia['matriculas'] * 100 / $midia['leads'] ;
-         }
+         }else{
+            $midia['conversao'] = 0;
+        }
  
          $midia['pos'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Pós-Graduação')
          ->whereBetween('created_at',[$inicio,$final])->count();
@@ -121,16 +127,16 @@ class ApiController extends Controller
          $midia['segundaLicenciatura'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Segunda Licenciatura')
          ->whereBetween('created_at',[$inicio,$final])->count();
  
-         $midia['R2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'R2')
+         $midia['r2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'R2')
          ->whereBetween('created_at',[$inicio,$final])->count();
  
          $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Capacitação')
          ->whereBetween('created_at',[$inicio,$final])->count();
 
         $dados =  array(
-            'Indicação' => $indicacao,
-            'Actual_Sales' => $actual,
-            'Midia' => $midia
+            'indicacao' => $indicacao,
+            'actual' => $actual,
+            'midia' => $midia
         );
 
         return $dados;

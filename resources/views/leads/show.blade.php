@@ -34,11 +34,7 @@
               <input type="text" name="vencimento" class="datepicker" required placeholder="dd/mm/aaaa">
             </label>
 
-            <label class="ls-label col-md-12">
-            <b class="ls-label-text">Qual o número de matrículas</b>
-            <p class="ls-label-info">Digite a quantidade</p>
-            <input type="number" name="quant"autocomplete="off"  placeholder="quant" required maxlength="1" >
-            </label>
+            <input type="hidden" name="quant" value="1" autocomplete="off"  placeholder="quant" required maxlength="1" >
 
             <label class="ls-label col-md-12">
               <b class="ls-label-text">Produto</b>
