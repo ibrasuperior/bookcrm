@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Canal;
 use App\Estagio;
 use App\User;
-use App\Matricula;
+use App\matricula;
 use App\Lead;
 use App\Exports\ReportExport;
 use Maatwebsite\Excel\Facades\Excel;
