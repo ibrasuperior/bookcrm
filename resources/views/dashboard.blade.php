@@ -88,11 +88,13 @@
 
 </br></br>
 
+@if( \Auth::user()->permissoes == 1 )
 <div id="analise">
   <div class="spinner-border" style="position:relative;left:50%;" role="status">
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+@endif
 
 </div>
 
