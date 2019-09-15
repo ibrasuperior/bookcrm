@@ -20,6 +20,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         "api/lead",
-        'http://book.ibraeducacional.com.br/api/analise',
+        'api/analise',
     ];
 }
