@@ -51,6 +51,90 @@ class ApiController extends Controller
         return Excel::download(new ReportExport($data), 'relatorio.xlsx');
     }
 
+    public function analise(Request $request){
+        $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('inicio') );
+        $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('final') );
+
+        $inicio =  Carbon::parse( $inputInicio )
+        ->format('Y-m-d');
+        
+        $final = Carbon::parse( $inputFinal )
+        ->format('Y-m-d');
+
+        //INDICAÇÃO
+        $indicacao = array();
+
+        $indicacao['leads'] = Lead::where('canal_id', 7)->whereBetween('created_at',[$inicio,$final])->count();
+        $indicacao['matriculas'] =  Matricula::where('canal', 'Indicação')->whereBetween('created_at',[$inicio,$final])->count();
+        
+        if( !empty( $indicacao['leads']) && !empty( $indicacao['matriculas'] ) ){
+            $indicacao['conversao'] =  $indicacao['matriculas'] * 100 / $indicacao['leads'] ;
+        }
+
+        $indicacao['pos'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Pós-Graduação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $indicacao['segundaLicenciatura'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Segunda Licenciatura')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $indicacao['R2'] =  Matricula::where('canal', 'Indicação')->where('produto', 'R2')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $indicacao['Capacitação'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Capacitação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+        
+         //Actual
+         $actual = array();
+
+         $actual['leads'] = Lead::where('canal_id', 3)->whereBetween('created_at',[$inicio,$final])->count();
+         $actual['matriculas'] =  Matricula::where('canal', 'Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
+         
+         if( !empty( $actual['leads']) && !empty( $actual['matriculas'] ) ){
+             $actual['conversao'] =  $actual['matriculas'] * 100 / $actual['leads'] ;
+         }
+ 
+         $actual['pos'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Pós-Graduação')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $actual['segundaLicenciatura'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Segunda Licenciatura')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $actual['R2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $actual['Capacitação'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Capacitação')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+
+         //Midia
+         $midia = array();
+
+         $midia['leads'] = Lead::where('canal_id','!=', 3)->where('canal_id','!=', 7)->whereBetween('created_at',[$inicio,$final])->count();
+         $midia['matriculas'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
+         
+         if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
+             $midia['conversao'] =  $midia['matriculas'] * 100 / $midia['leads'] ;
+         }
+ 
+         $midia['pos'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Pós-Graduação')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $midia['segundaLicenciatura'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Segunda Licenciatura')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $midia['R2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'R2')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+ 
+         $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Capacitação')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $dados =  array(
+            'Indicação' => $indicacao,
+            'Actual_Sales' => $actual,
+            'Midia' => $midia
+        );
+
+        return $dados;
+    }
     
     //INTEGRAÇÃO COM RD STATION
 

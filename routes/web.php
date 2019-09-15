@@ -56,7 +56,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/api/users',"ApiController@users");
     Route::get('/api/user-attempt',"ApiController@userAttempt");
     Route::get('/api/estagios',"ApiController@estagios");
-
     
 });
 
@@ -100,4 +99,7 @@ Route::get('/auth/callback', function(){
 });
 
  /* Route::get('/home', 'HomeController@index')->name('home'); */
+
+ //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
+ Route::post('/api/analise',"ApiController@analise");
 
