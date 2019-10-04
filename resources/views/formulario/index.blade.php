@@ -36,6 +36,7 @@
                     <option value="1">Comercial 1</option>
                     <option value="2">Comercial 2</option>
                     <option value="3">Comercial 3</option>
+                    <option value="4">Agenciador</option>
                 </select>
             </div>
             </label>
