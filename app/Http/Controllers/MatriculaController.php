@@ -20,10 +20,10 @@ class MatriculaController extends Controller
     public function store(Request $request)
     {
         $matricula = new Matricula;
-
-        $matricula->nome = $request->input('nome') ;
+        
+        $matricula->nome = $request->input('nome') ; 
         $matricula->quant = $request->input('quant') ;
-        $matricula->canal =  $request->input('canal');
+        $matricula->canal =  $request->input('canal'); 
         $matricula->valor =$request->input('valor') ;
         $matricula->vencimento =$request->input('vencimento') ;
         $matricula->produto =  $request->input('produto');
@@ -33,14 +33,14 @@ class MatriculaController extends Controller
         $matricula->save();
 
         $id_lead = $request->input('id_lead') ;
-
+        
         $lead = \App\lead::find($id_lead);
 
         $lead->matriculado = true ;
 
         $lead->save();
 
-        return redirect('/matriculas')->with('success', 'Matriculado com sucesso!');
+        return redirect('formulario/' . $id_lead );
     }
 
     public function show(Request $request)
@@ -57,18 +57,18 @@ class MatriculaController extends Controller
 
     public function pagamentoIn($id){
         Matricula::where('id', $id)->update(['pago' => 1 ]);
-        return redirect('/matriculas')->with('success',"Alterado com sucesso");
+        return redirect('/matriculas')->with('success',"Alterado com sucesso");        
     }
 
     public function pagamentoOut($id){
         Matricula::where('id', $id)->update(['pago' => 0 ]);
-        return redirect('/matriculas')->with('success',"Alterado com sucesso");
+        return redirect('/matriculas')->with('success',"Alterado com sucesso");        
     }
 
     public function search(Request $request){
         $order = $request->input('order');
         $matriculas = Matricula::orderBy('id','DESC')->where('nome', 'LIKE', '%'.$order.'%')->get();
-
+        
         if( count($matriculas) > 0 ){
             return view('matriculas.search')->with('matriculas',$matriculas);
         }else{
@@ -81,7 +81,7 @@ class MatriculaController extends Controller
         $id = $request->input('id');
         $matricula->where('id',$id);
         $matricula->delete();
-
+        
         return redirect('/matriculas')->with('success',"Excluido com sucesso!");
     }
 
