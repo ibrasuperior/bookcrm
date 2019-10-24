@@ -37,10 +37,6 @@ class FormularioController extends Controller
             $to = 'cadastro03@ibrasuperior.com.br';
         }
 
-        if( $comercial == 4 ){
-            $to = 'expansao@ibrasuperior.com.br';
-        }
-
         Mail::to($to)->send(new FormularioDeMatricula($formulario));
         
         //ENVIA DADOS PARA RD STATION
