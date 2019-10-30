@@ -5,14 +5,14 @@
 <div class="container-fluid">
       <h1 class="ls-title-intro ls-ico-users">Pesquisa</h1>
 
-@if( session('success') ) 
+@if( session('success') )
   <div class="ls-alert-success ls-dismissable">
     <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
     {{ session('success') }}
   </div>
 @endif
 
-@if( session('danger') ) 
+@if( session('danger') )
   <div class="ls-alert-danger ls-dismissable">
     <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
     {{ session('danger') }}
@@ -69,7 +69,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
   <tbody>
     @foreach( $leads as $lead )
       <tr class="shadow" >
-        <td class="ls-txt-center"> 
+        <td class="ls-txt-center">
           <a href="/leads/show/{{$lead->id}}">{{ $lead->nome}}</a>
           @if( $lead->matriculado  == true )
           </br><span class="ls-tag-success">Matriculado</span>
@@ -81,7 +81,11 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
         <td class="ls-txt-center">{{$lead->email}}</td>
         <td class="ls-txt-center">{{$lead->telefone}}</td>
         <td class="ls-txt-center">
-          {{$lead->colaborador->name}}
+          @if( isset($lead->colaborador->name) )
+            {{$lead->colaborador->name}}
+          @else
+                sem operador
+          @endif
         </td>
 
         <td class="ls-txt-center ls-regroup">
@@ -95,9 +99,9 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
                 </ul>
             </div>
         </td>
-    
+
       </tr>
-      
+
        @endforeach
 
   </tbody>
@@ -158,7 +162,7 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
               </div>
           </label>
           </div>
-          
+
           <div class="row">
               <label class="ls-label col-md-12">
               <span class="ls-label-text">Observação</span>
@@ -166,7 +170,7 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
               </label>
           </div>
 
-      
+
     </div>
     <div class="ls-modal-footer">
           <button type="submit" class="ls-btn-block ls-btn-primary">Adicionar</button>
