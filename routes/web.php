@@ -3,6 +3,9 @@
 Route::middleware(['auth'])->group(function(){
     Route::get('/',"LeadsController@dashboard");
 
+    //NOTAS
+    Route::post('/notas/add',"NotaController@store");
+
     //Lead
     Route::put('/leads/updateEstagio/{lead}',"LeadsController@updateEstagio");
     Route::get('/leads/filter',"LeadsController@filter");
@@ -14,7 +17,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/leads/show/{id}', "LeadsController@show");
     Route::put('/leads/update/{lead}',"LeadsController@update");
     Route::get('/leads/delete/{lead}',"LeadsController@destroy");
-    
+
     //matrícula
     Route::get('/matriculas/search',"MatriculaController@search");
     Route::get('/matriculas',"MatriculaController@index");
@@ -51,7 +54,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/api/user-attempt',"ApiController@userAttempt");
     Route::get('/api/estagios',"ApiController@estagios");
 
-    
+
 });
 
 Auth::routes();

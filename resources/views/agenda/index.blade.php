@@ -95,7 +95,7 @@ box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.15);">
         <div class="row">
             <label class="ls-label col-md-12">
             <span class="ls-label-text"> Notas sobre a conversa</span>
-            <textarea rows="2" required name="descricao" ></textarea>
+            <textarea rows="4" required name="descricao" ></textarea>
             <p class="ls-helper-text">Descreva aqui quais são as dores do seu cliente.</p>
             </label>
         </div>

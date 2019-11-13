@@ -10,7 +10,7 @@
     <link href="http://assets.locaweb.com.br/locastyle/3.10.1/stylesheets/locastyle.css" rel="stylesheet" type="text/css">
     <link rel="icon" sizes="192x192" href="/locawebstyle/assets/images/ico-boilerplate.png">
     <link rel="apple-touch-icon" href="/locawebstyle/assets/images/ico-boilerplate.png">
-    
+
     <!-- JQUERY -->
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -29,7 +29,7 @@
     <!-- Links de apoio -->
     <div class="ls-alerts-list">
       <a href="#" class="ls-ico-bell-o" data-counter="8" data-ls-module="topbarCurtain" data-target="#ls-notification-curtain"><span>Notificações</span></a>
-      
+
     </div>
 
     <!-- Dropdown com detalhes da conta de usuário -->
@@ -37,7 +37,7 @@
       <a href="#" class="ls-ico-user">
         <img src="/locawebstyle/assets/images/locastyle/avatar-example.jpg" alt="" />
         <span class="ls-name"><?php $nome= \Auth::user()->name; ?> {{$nome}}</span>
-        
+
       </a>
 
       <nav class="ls-dropdown-nav ls-user-menu">
@@ -54,7 +54,7 @@
                 @csrf
             </form>
           </li>
-          
+
          </ul>
       </nav>
     </div>
@@ -149,18 +149,16 @@
       </ul>
   </nav>
   <div class="ls-footer-info">
-    <span class="last-access ls-ico-screen"><strong>Último acesso: </strong>99/99/9999 99:99:99</span>
-    <div class="set-ip"><strong>IP:</strong> 000.00.00.000</div>
-    <p class="ls-copy-right">Copyright © 1997-2017 Serviços de Internet S/A.</p>
+    <p class="ls-copy-right">Copyright © 2018-2019 Grupo IBRA.</p>
   </div>
 </footer>
 
 
 </main>
 
-<?php 
-$now = date('d/m/20y'); 
-$agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get(); 
+<?php
+$now = date('d/m/20y');
+$agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
 ?>
 
  <aside class="ls-notification">
@@ -170,13 +168,13 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
         @foreach($agendas as $agenda)
         @if( $agenda->data == $now )
           <li class="ls-dismissable">
-      
-            <a href="#"> <span style="color:#fff;font-size:110%;font-weight:bold;"> {{$agenda->nome}} </span> <br> {{$agenda->descricao}}</a>
+            <a href="/agenda/show/{{ $agenda->id }}"> <span style="color:#fff;font-size:110%;font-weight:bold;"> {{$agenda->nome}}
+            <span class="ls-tag-danger">Hoje!</span> <br></a>
             <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
           </li>
         @endif
         @endforeach
-         
+
         </ul>
       </nav>
 
@@ -209,6 +207,6 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
     </style>
     <script src="http://assets.locaweb.com.br/locastyle/3.10.1/javascripts/locastyle.js" type="text/javascript"></script>
 
-  
+
   </body>
 </html>

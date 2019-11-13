@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLeadsTable extends Migration
 {
-    
+
     public function up()
     {
         Schema::create('leads', function (Blueprint $table) {
@@ -15,7 +15,7 @@ class CreateLeadsTable extends Migration
             $table->string('email');
             $table->string('telefone');
             $table->integer('canal_id')->default(0);
-            $table->text('obs')->default(0);
+            $table->text('obs')->nullable();
             $table->text('origem')->nullable();
             $table->integer('estagio_id')->references('id')->on('users');
             $table->boolean('open')->default(0);
@@ -26,7 +26,7 @@ class CreateLeadsTable extends Migration
         });
     }
 
-   
+
     public function down()
     {
         Schema::dropIfExists('leads');

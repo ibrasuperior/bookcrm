@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\lead;
+use App\Nota;
 use App\matricula;
 use App\Agenda;
 use App\Canal;
@@ -10,9 +11,9 @@ use Illuminate\Http\Request;
 
 class leadsController extends Controller
 {
- 
+
     public function dashboard(){
-        
+
         $dateStart = date('y-m-01') ;
         $dateEnd = date('y-m-31');
 
@@ -37,7 +38,7 @@ class leadsController extends Controller
         return view('leads.index')->with("leads",$data);
     }
 
-    
+
     public function create()
     {
         $canais = Canal::get();
@@ -47,7 +48,7 @@ class leadsController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $lead = new Lead;
         $lead->nome = $request->input('nome');
         $lead->email = $request->input('email');
@@ -55,7 +56,7 @@ class leadsController extends Controller
         $lead->obs = $request->input('obs');
         $lead->canal_id = $request->input('canal_id');
         $lead->colaborador_id = \Auth::user()->id;
-        
+
         $verifica = Lead::where('email', $lead->email )->count();
 
         if( $verifica > 0 ){
@@ -63,19 +64,21 @@ class leadsController extends Controller
         }else{
             $lead->save();
             return redirect('/leads')->with('success',"Cadastrado com sucesso!");
-        
+
         }
     }
 
-    
+
     public function show($id)
     {
         $lead = Lead::findOrFail($id);
         $lead->open = true ;
         $lead->update();
 
+        $notas = Nota::orderBy('id', 'desc')->where('lead_id', $id )->paginate(4);
+
         if( $lead->colaborador_id == \Auth::user()->id or \Auth::user()->permissoes == 1 ){
-            return view('leads.show',['lead' => Lead::findOrFail($id)]);
+            return view('leads.show',['lead' => Lead::findOrFail($id)])->with('notas', $notas);
         }else{
             return redirect('/leads')->with('danger','Você não é o dono do Lead !');
         }
@@ -85,7 +88,7 @@ class leadsController extends Controller
         $order = $request->input('order');
         $leads = Lead::where('nome', 'LIKE', '%'.$order.'%')->orWhere('email','LIKE',
     '%'.$order.'%')->paginate(20);
-        
+
         if( count($leads) > 0 ){
             return view('leads.search')->with('leads',$leads);
         }else{
@@ -98,9 +101,9 @@ class leadsController extends Controller
         $id = \Auth::user()->id;
         $leads = Lead::where('estagio_id', $order )
         ->where('colaborador_id', $id)->orderBy('id', 'desc')->paginate(20);
-        
+
         return view('leads.search')->with('leads',$leads);
-    
+
     }
 
     public function edit($id)
@@ -121,9 +124,9 @@ class leadsController extends Controller
         $lead->update();
 
         return redirect('/leads')->with("success","Lead alterado com sucesso!");
-        
+
     }
-    
+
     public function updateEstagio(Request $request,Lead $lead){
 
         $id = $request->input('id') ;

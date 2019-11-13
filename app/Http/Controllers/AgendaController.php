@@ -10,7 +10,7 @@ class AgendaController extends Controller
     public function index()
     {
         $id =\Auth::user()->id ;
-        $agendas = Agenda::where("colaborador_id",$id)->get();
+        $agendas = Agenda::orderBy('id', 'desc')->where("colaborador_id",$id)->get();
         return view('agenda.index')->with('agendas',$agendas);
     }
 
@@ -30,7 +30,7 @@ class AgendaController extends Controller
         $agenda->descricao = $request->input('descricao');
         $agenda->colaborador_id = \Auth::user()->id;
         $agenda->save();
-        
+
         return redirect('/agenda')->with('success',"Cadastrado com sucesso!");
     }
 
@@ -44,13 +44,13 @@ class AgendaController extends Controller
          }
     }
 
-   
+
     public function edit(d $d)
     {
         //
     }
 
-  
+
     public function update(Request $request, Agenda $agenda)
     {
         $agenda->nome = $request->input('nome');
