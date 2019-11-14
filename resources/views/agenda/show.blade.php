@@ -6,7 +6,7 @@ function formatar(mascara, documento){
   var i = documento.value.length;
   var saida = mascara.substring(0,1);
   var texto = mascara.substring(i)
-  
+
   if (texto.substring(0,1) != saida){
             documento.value += texto.substring(0,1);
   }
@@ -27,7 +27,7 @@ function formatar(mascara, documento){
             <li>
             <a href="/agenda/{{$agenda->id}}" data-ls-fields-enable="#domain-form" data-toggle-class="ls-display-none" data-target=".domain-actions" class="domain-actions" role="option">Editar</a>
             </li>
-           
+
             <li><a href="/agenda/delete/{{$agenda->id}}" class="ls-color-danger"  onclick="return confirm('tem certeza que quer excluir?')" role="option">Excluir</a></li>
         </ul>
         </div>
@@ -40,10 +40,10 @@ function formatar(mascara, documento){
         @csrf
         <fieldset id="domain-form" class="ls-form-disable ls-form-text">
         <label class="ls-label col-md-6 col-lg-8">
-            <b class="ls-label-text">Nome:</b>
+            <b class="ls-label-text">Descrição:</b>
             <input type="text" name="nome" value="{{ $agenda->nome }}" required="" disabled="disabled" class="ls-form-text">
         </label>
-        
+
         <label class="ls-label col-md-6 col-lg-8">
             <b class="ls-label-text">Horas:</b>
             <input type="text"  maxlength="5" autocomplete="off" OnKeyPress="formatar('##:##', this)" name="hora" value="{{$agenda->hora}}" required="" disabled="disabled" class="ls-form-text">
@@ -53,8 +53,9 @@ function formatar(mascara, documento){
             <input name="data" type="text" value="{{$agenda->data}}" required="" disabled="disabled" class="ls-form-text datepicker">
         </label>
         <label class="ls-label col-md-6 col-lg-8">
-            <b class="ls-label-text">Descrição:</b>
-            <textarea name="descricao" id="" cols="30" rows="5" disabled="disabled" class="ls-form-text">{{ $agenda->descricao}}</textarea>
+            <b class="ls-label-text">Nota:</b>
+            <textarea name="descricao" id="editor" cols="30" rows="5" disabled="disabled" class="ls-form-text">
+             {{$agenda->descricao}} </textarea>
         </label>
         </fieldset>
         <div class="domain-actions ls-display-none">
@@ -65,6 +66,23 @@ function formatar(mascara, documento){
     </div>
 
     </div>
+    <style>
+            .ck-editor{
+                max-width: 90%;
+            }
+        </style>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+    <script>
+    ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+    </script>
 
 
 @stop

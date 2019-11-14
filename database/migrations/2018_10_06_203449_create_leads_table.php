@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLeadsTable extends Migration
 {
-    
+
     public function up()
     {
         Schema::create('leads', function (Blueprint $table) {
@@ -26,7 +26,7 @@ class CreateLeadsTable extends Migration
         });
     }
 
-   
+
     public function down()
     {
         Schema::dropIfExists('leads');

@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Lead' => $baseDir . '/app/lead.php',
     'App\\Mail\\FormularioDeMatricula' => $baseDir . '/app/Mail/FormularioDeMatricula.php',
+    'App\\Nota' => $baseDir . '/app/Nota.php',
     'App\\Policies\\update' => $baseDir . '/app/Policies/update.php',
     'App\\Produto' => $baseDir . '/app/Produto.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
