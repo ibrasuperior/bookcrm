@@ -3,6 +3,8 @@
 @section('content')
 <!--POP UP PARA CADASTRO DE ALUNO -->
 
+<script src="/js/moment.js"></script>
+
 <div class="ls-modal" id="myAwesomeModal">
   <div class="ls-modal-box">
     <div class="ls-modal-header">
@@ -357,7 +359,7 @@
         <div class="col-md-8">
             <div class="ls-box">
                 <header class="ls-info-header">
-                    <h2 class="ls-title-3">Notas:</h2>
+                    <h2 class="ls-title-3">Jornada do Cliente:</h2>
                     <p class="ls-float-right ls-float-none-xs ls-small-info"></p>
                 </header>
 
@@ -366,11 +368,11 @@
                     @csrf
 
                     <input type="hidden" name="lead_id" value="{{ $lead->id }}" />
-                    <b>Título da nota: </b>
+                    <b>Nova anotação: </b>
                     <input required type="text" name="titulo" placeholder="Ex: Dores do Cliente" style="width:90%;margin-bottom:10px;" />
                     <br>
 
-                    <b>Texto da nota: </b>
+                    <b>Descrição: </b>
                     <textarea rows="6" name="corpo" id="editor2" >
                     </textarea><br>
                     <button type="submit" class="ls-ico-text ls-btn ls-btn-primary">
@@ -387,21 +389,18 @@
                 box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.15);">
 
                     <div data-ls-module="collapse" data-target="#0" class="ls-collapse ">
-                        <a href="#" class="ls-collapse-header">
+                        <a href="#" onclick="format('{{$nota->created_at}}')" class="ls-collapse-header">
                             <h3 class="ls-collapse-title">{{$nota->titulo}}</h3>
-                            <span class="ls-tag">Data: 11/10/2019</span>
+                        </span>
                         </a>
                         <div class="ls-collapse-body" id="0">
-                        <p>
                         <?php echo html_entity_decode($nota->corpo, ENT_QUOTES, 'UTF-8'); ?>
-
-                        </p>
+                        <span id="calendar" class="ls-tag"> {{$nota->created_at}}
                         </div>
                     </div>
 
                 </div>
                 @endforeach
-
             </div>
         </div>
 
