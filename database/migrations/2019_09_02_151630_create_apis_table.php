@@ -15,6 +15,12 @@ class CreateApisTable extends Migration
     {
         Schema::create('apis', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nome');
+            $table->string('client_id');
+            $table->string('client_secret');
+            $table->string('code');
+            $table->string('refresh_token');
+            $table->string('access_token');
             $table->timestamps();
         });
     }

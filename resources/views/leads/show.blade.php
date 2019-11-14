@@ -389,13 +389,13 @@
                 box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.15);">
 
                     <div data-ls-module="collapse" data-target="#0" class="ls-collapse ">
-                        <a href="#" onclick="format('{{$nota->created_at}}')" class="ls-collapse-header">
+                        <a href="#" class="ls-collapse-header">
                             <h3 class="ls-collapse-title">{{$nota->titulo}}</h3>
-                        </span>
+
                         </a>
                         <div class="ls-collapse-body" id="0">
                         <?php echo html_entity_decode($nota->corpo, ENT_QUOTES, 'UTF-8'); ?>
-                        <span id="calendar" class="ls-tag"> {{$nota->created_at}}
+                        <span id="calendar" class="ls-tag"> {{$nota->created_at}} </span>
                         </div>
                     </div>
 

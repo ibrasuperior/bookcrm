@@ -7,8 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="Insira aqui a descrição da página.">
-    <link href="http://assets.locaweb.com.br/locastyle/3.10.1/stylesheets/locastyle.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/edge/stylesheets/locastyle.css">
+
     <link rel="icon" sizes="192x192" href="/locawebstyle/assets/images/ico-boilerplate.png">
+
     <link rel="apple-touch-icon" href="/locawebstyle/assets/images/ico-boilerplate.png">
 
     <!-- JQUERY -->
@@ -75,7 +78,7 @@
 </div>
 
 
-    <aside class="ls-sidebar">
+  <aside class="ls-sidebar">
 
   <div class="ls-sidebar-inner">
       <a href="/locawebstyle/documentacao/exemplos//pre-painel"  class="ls-go-prev"><span class="ls-text">Voltar à lista de serviços</span></a>
@@ -87,8 +90,8 @@
            <li><a href="/agenda" class="ls-ico-calendar-check" title="Agenda">Agenda</a></li>
            <li><a href="/matriculas" class="ls-ico-checkmark" title="Matrículas">Matrículas</a></li>
 
-           <li>
-            <a href="/formulario"  class="ls-ico-thumbs-up"> Formulário de Matrícula </a>
+          <li>
+            <a href="/documentos"  class="ls-ico-book"> Documentos Oficiais </a>
           </li>
 
           <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
@@ -205,8 +208,13 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
       color: #666 ;
     }
     </style>
-    <script src="http://assets.locaweb.com.br/locastyle/3.10.1/javascripts/locastyle.js" type="text/javascript"></script>
 
+  <footer>
+    <!-- JQUERY -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Coloque o JS no seu FOOTER, logo depois da jQuery -->
+    <script src="//assets.locaweb.com.br/locastyle/edge/javascripts/locastyle.js"></script>
 
+  </footer>
   </body>
 </html>

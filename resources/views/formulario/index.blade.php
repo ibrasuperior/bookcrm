@@ -1,19 +1,34 @@
 @extends('layouts.default')
 
 @section('content')
-<script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/78b1a1af-93a2-4578-80be-7a2ed67e0e28-loader.js" ></script>
-
     <div class="container-fluid">
-        <h1 class="ls-title-intro ls-ico-users">Formulário de Matrícula</h1>
+    <h1 class="ls-title-intro ls-ico-users">Formulário de Matrícula</h1>
 
     <form action="/formulario/envia" id="formMy" class="ls-form" method="post" >
         @csrf
-        <legend class="ls-title-2">Nova Matrícula</legend>
+        <legend class="ls-title-2">Nova Matrícula - {{$lead->nome}} </legend>
         <?php $nome= \Auth::user()->name; ?> 
         <input type="hidden" required value="{{$nome}}" name="operador">
 
         <div style="margin-top:20px;">
 
+            <label class="ls-label col-md-6">
+            email : {{$lead->email}}
+            <input autocomplete="off" value="{{$lead->email}}" placeholder="E-mail" type="hidden" name="email">
+            </label>
+
+            <!-- HIDDENS INPUTS  -->
+            <label class="ls-label col-md-6">
+            midia : {{$lead->canal->nome}}
+            <input value="{{$lead->canal->nome}}" type="hidden" name="midia">
+            </label>
+            <!-- HIDDENS INPUTS  -->
+            
+            <label class="ls-label col-md-6">
+            nome :
+            <input autocomplete="off " value="{{$lead->nome}}" placeholder="Nome Completo" type="text" name="nome">
+            </label>
+            
             <label class="ls-label col-md-6">
             <p> Comercial</p>
             <div class="ls-custom-select">
@@ -23,10 +38,6 @@
                     <option value="3">Comercial 3</option>
                 </select>
             </div>
-            </label>
-
-            <label class="ls-label col-md-6">
-            <input autocomplete="off " required placeholder="Nome Completo"  type="text" name="nome">
             </label>
 
             <label class="ls-label col-md-6">
@@ -41,10 +52,6 @@
 
             <label class="ls-label col-md-6">
             <input autocomplete="off" required id="telefone" placeholder="Celular DD - XXXXX-XXXX"  type="text" name="celular">
-            </label>
-
-            <label class="ls-label col-md-6">
-            <input autocomplete="off" required placeholder="E-mail" type="email" name="email">
             </label>
 
             <label class="ls-label col-md-6">
@@ -78,20 +85,6 @@
                     <option>IDEAL</option>
                     <option>CEPED</option>
                     <option>FAMART</option>
-                </select>
-            </div>
-            </label>
-
-            <label class="ls-label col-md-6">
-            <p> Mídia</p>
-            <div class="ls-custom-select">
-                <select name="midia" class="ls-select">
-                    <option>Social</option>
-                    <option>Site</option>
-                    <option>Actual Sales</option>
-                    <option>Google Ads</option>
-                    <option>Indicação</option>
-                    <option>Outros</option>
                 </select>
             </div>
             </label>

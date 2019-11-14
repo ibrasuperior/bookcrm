@@ -152,9 +152,8 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
               <b class="ls-label-text">Canal</b>
               <div class="ls-custom-select">
                   <select name="canal_id" class="ls-select">
-                  @foreach($canais as $canal)
-                  <option value="{{$canal->id}}"> {{$canal->nome}}</option>
-                  @endforeach
+                    <option value="0"> Outros </option>
+                    <option value="7"> Indicação </option>
                   </select>
               </div>
           </label>

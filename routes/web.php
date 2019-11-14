@@ -41,8 +41,14 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile/{id}',"UsersController@profile");
     Route::put('/profile/update/{user}',"UsersController@updateProfile");
 
+    /*/Documentos/*/
+    Route::get('/documentos', function(){
+        return view('documentos.index');
+    });
+
+
     //Formulario de matrícula
-    Route::get('/formulario', 'FormularioController@index');
+    Route::get('/formulario/{id}', 'FormularioController@index');
     Route::post('/formulario/envia', 'FormularioController@envia');
 
     /*/Relatórios/*/
@@ -92,7 +98,12 @@ Route::middleware(['security'])->group(function(){
 Route::post('/api/export',"ApiController@export");
 Route::post('/api/lead', 'ApiController@leadsStation');
 Route::get('/api/chart-matriculas',"ApiController@chartSales");
-
+Route::get('/auth/callback', function(){
+     echo 'ok';
+});
 
  /* Route::get('/home', 'HomeController@index')->name('home'); */
+
+ //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
+ Route::post('/api/analise',"ApiController@analise");
 
