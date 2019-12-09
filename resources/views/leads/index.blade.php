@@ -95,7 +95,12 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
           {{$lead->canal->nome}}
         </td>
         <td class="ls-txt-center">
-          {{$lead->colaborador->name}}
+          <?php if($lead->colaborador_id == 0 )
+            {
+                echo 'Sem operador';
+            }else{
+                echo $lead->colaborador->name;
+            }  ?>
         </td>
 
         <td class="ls-txt-center ls-regroup">
