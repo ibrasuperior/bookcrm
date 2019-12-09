@@ -21,10 +21,7 @@ class ReportExport implements FromView
 
     public function view(): View
     {
-        $canal = $this->data['aquisicao_id'];
-        $estagio = $this->data['estagio'];
         $operador = $this->data['colaborador_id'];
-
         //formatando datas
         $dataInicio = str_replace('/', '-', $this->data['dataInicio'] ) ;
         $dataFinal = str_replace('/', '-', $this->data['dataFinal'] ) ;

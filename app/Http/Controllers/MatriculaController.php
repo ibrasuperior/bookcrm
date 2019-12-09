@@ -40,7 +40,7 @@ class MatriculaController extends Controller
 
         $lead->save();
 
-        return redirect('/matriculas')->with('success', 'Matriculado com sucesso!');
+        return view('matriculas.indicacao')->with('info', 'Matriculado com sucesso, solicite uma indicação!');
     }
 
     public function show(Request $request)

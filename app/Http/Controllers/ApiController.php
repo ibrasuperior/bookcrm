@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class ApiController extends Controller
 {
     public function chartSales(){
-        
+
         $matriculas['first'] = Matricula::whereBetween("created_at",
         [ Carbon::now()->subMonth(2) , Carbon::now()->subMonth(1) ])
         ->sum('quant');
@@ -45,11 +45,12 @@ class ApiController extends Controller
         return $users;
     }
 
-    public function export(Request $request) 
+    public function report(Request $request)
     {
         $data = $request->all();
         return Excel::download(new ReportExport($data), 'relatorio.xlsx');
     }
+
 
     public function analise(Request $request){
         $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('inicio') );
@@ -57,7 +58,7 @@ class ApiController extends Controller
 
         $inicio =  Carbon::parse( $inputInicio )
         ->format('Y-m-d');
-        
+
         $final = Carbon::parse( $inputFinal )
         ->format('Y-m-d');
 
@@ -66,7 +67,7 @@ class ApiController extends Controller
 
         $indicacao['leads'] = Lead::where('canal_id', 7)->whereBetween('created_at',[$inicio,$final])->count();
         $indicacao['matriculas'] =  Matricula::where('canal', 'Indicação')->whereBetween('created_at',[$inicio,$final])->count();
-        
+
         if( !empty( $indicacao['leads']) && !empty( $indicacao['matriculas'] ) ){
             $indicacao['conversao'] =  $indicacao['matriculas'] * 100 / $indicacao['leads'] ;
         }else{
@@ -84,28 +85,28 @@ class ApiController extends Controller
 
         $indicacao['Capacitação'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Capacitação')
         ->whereBetween('created_at',[$inicio,$final])->count();
-        
+
          //Actual
          $actual = array();
 
          $actual['leads'] = Lead::where('canal_id', 3)->whereBetween('created_at',[$inicio,$final])->count();
          $actual['matriculas'] =  Matricula::where('canal', 'Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
-         
+
          if( !empty( $actual['leads']) && !empty( $actual['matriculas'] ) ){
              $actual['conversao'] =  $actual['matriculas'] * 100 / $actual['leads'] ;
          }else{
             $actual['conversao'] = 0;
         }
- 
+
          $actual['pos'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Pós-Graduação')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $actual['segundaLicenciatura'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Segunda Licenciatura')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $actual['r2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $actual['Capacitação'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Capacitação')
          ->whereBetween('created_at',[$inicio,$final])->count();
 
@@ -114,22 +115,22 @@ class ApiController extends Controller
 
          $midia['leads'] = Lead::where('canal_id','!=', 3)->where('canal_id','!=', 7)->where('canal_id','!=', 0)->whereBetween('created_at',[$inicio,$final])->count();
          $midia['matriculas'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
-         
+
          if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
              $midia['conversao'] =  $midia['matriculas'] * 100 / $midia['leads'] ;
          }else{
             $midia['conversao'] = 0;
         }
- 
+
          $midia['pos'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Pós-Graduação')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $midia['segundaLicenciatura'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Segunda Licenciatura')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $midia['r2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'R2')
          ->whereBetween('created_at',[$inicio,$final])->count();
- 
+
          $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Capacitação')
          ->whereBetween('created_at',[$inicio,$final])->count();
 
@@ -141,7 +142,7 @@ class ApiController extends Controller
 
         return $dados;
     }
-    
+
     //INTEGRAÇÃO COM RD STATION
 
     public function leadsStation(Request $request){
@@ -150,16 +151,16 @@ class ApiController extends Controller
         $user = User::where('permissoes' ,'>', 1)
         ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
-        
+
         User::where('id', $user['id'] )->increment( 'leads_daily', 1 );
-        
+
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
-        
+
         //traduzir canais
         if( $channel == 'Direct'){
             $channel = 'Tráfego Direto' ;
         }
-        
+
         if( $channel == 'Referral'){
             $channel = 'Referência' ;
         }
@@ -184,24 +185,24 @@ class ApiController extends Controller
         if( $channel == 'Unknown'){
             $channel = 'Actual Sales' ;
         }
-        
+
         //CANAL PARA INSERÇÃO
         $canal = Canal::where('nome', $channel )->first();
 
         $conversao = $request->input('leads.0.last_conversion.content.identificador');
         $link = $request->input('leads.0.public_url');
 
-        //regras    
-        $lead->nome = $request->input('leads.0.name');  
+        //regras
+        $lead->nome = $request->input('leads.0.name');
         $lead->email = $request->input('leads.0.email');
         $lead->telefone = $request->input('leads.0.personal_phone');
         $lead->origem = $conversao . '<a target="_blank" class="ls-btn-xs ls-btn-default" href=" ' . $link . ' ">
             Link do RD Station
         </a>' ;
         $lead->colaborador_id = $user['id'];
-        $lead->canal_id = $canal['id'];  
-        
-        //Verifica se já é lead  
+        $lead->canal_id = $canal['id'];
+
+        //Verifica se já é lead
         $verifica = Lead::where('email', $request->input('leads.0.email') )
         ->count();
 
@@ -211,7 +212,7 @@ class ApiController extends Controller
 
             //verifica se o user esta ativo
             $userToSelect = User::where('id', $leadFind['colaborador_id'] )->first();
-            
+
             if(  $userToSelect['active'] == 1 ){
                 $lead->colaborador_id = $leadFind['colaborador_id'];
 
@@ -226,7 +227,7 @@ class ApiController extends Controller
             $lead->save();
             return $lead;
         }
-        
+
     }
 
 }

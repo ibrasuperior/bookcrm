@@ -254,13 +254,10 @@
 
 
     <div class="container-fluid" onload="ClickBotao()">
-        <h1 class="ls-title-intro ls-ico-users">Lead : <strong>{{ $lead->nome }}</strong></h1>
-
-       <h3>
-       @if( $lead->matriculado == true)
-       <a href="#" class="ls-tag-success">Matriculado</a>
-       @endif
-       </h3>
+        <h1 class="ls-title-intro ls-ico-users">Lead : <strong>{{ $lead->nome }}</strong>
+        @if( $lead->matriculado == true)
+            <a href="#" class="ls-tag-success">Matriculado</a>
+        @endif</h1>
 
 
     <!-- BOX INFORMATIVO -->
@@ -304,9 +301,7 @@
             <button data-target="#myAwesomeModal" data-ls-module="modal" class="ls-btn-primary ls-btn-block ls-btn-sm">
                 Matricular
             </button>
-            <button data-target="#modalSmall" data-ls-module="modal" class="ls-btn-primary ls-btn-block ls-btn-sm">
-                Pedir Indicação
-            </button>
+
           </div>
         </div>
       </div>
@@ -318,7 +313,7 @@
           </div>
           <div class="ls-box-body">
             <strong class="ls-ico-star"></strong>
-            <small>Quão estágio o lead se encontra?</small>
+            <small>Qual estágio o lead se encontra?</small>
           </div>
           <div class="ls-box-footer">
             <button data-ls-module="modal" data-target="#leadEstado" class="ls-btn-block ls-btn-sm">Mudar estado</button>
@@ -391,11 +386,12 @@
                     <div data-ls-module="collapse" data-target="#0" class="ls-collapse ">
                         <a href="#" class="ls-collapse-header">
                             <h3 class="ls-collapse-title">{{$nota->titulo}}</h3>
+                            <span id="calendar" class="ls-tag "> {{$nota->created_at}} </span>
+
 
                         </a>
                         <div class="ls-collapse-body" id="0">
                         <?php echo html_entity_decode($nota->corpo, ENT_QUOTES, 'UTF-8'); ?>
-                        <span id="calendar" class="ls-tag"> {{$nota->created_at}} </span>
                         </div>
                     </div>
 
@@ -507,11 +503,12 @@ function formatarMoeda() {
 
 </script>
 
-<div class="ls-modal" id="modalSmall">
+<!-- INDICAÇÃO MODAL
+<div class="ls-modal" id="indicacao">
   <div class="ls-modal-small">
     <div class="ls-modal-header">
       <button data-dismiss="modal">&times;</button>
-      <h4>Novo contato</h4>
+      <h4>Indicação de aluno</h4>
     </div>
     <div class="ls-modal-body">
       <form action="/leads/add" class="ls-form" method="post" data-ls-module="form" >
@@ -563,4 +560,5 @@ function formatarMoeda() {
   </div>
 </div>
 
+-->
 @stop

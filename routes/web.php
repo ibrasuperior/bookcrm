@@ -92,6 +92,9 @@ Route::middleware(['security'])->group(function(){
     Route::get('/users/{id}',"UsersController@edit");
     Route::put('/users/update/{user}',"UsersController@update");
     Route::get('/users/delete/{user}',"UsersController@destroy");
+
+    //EXPORTAR RELATÓRIOS
+    Route::post('/report',"ApiController@report");
 });
 
 

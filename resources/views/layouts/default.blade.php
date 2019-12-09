@@ -8,10 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="Insira aqui a descrição da página.">
 
-    <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/edge/stylesheets/locastyle.css">
-
+    <link href="http://assets.locaweb.com.br/locastyle/3.10.1/stylesheets/locastyle.css" rel="stylesheet" type="text/css">
     <link rel="icon" sizes="192x192" href="/locawebstyle/assets/images/ico-boilerplate.png">
-
     <link rel="apple-touch-icon" href="/locawebstyle/assets/images/ico-boilerplate.png">
 
     <!-- JQUERY -->
@@ -19,8 +17,6 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Signika:300,400,600,700&display=swap" rel="stylesheet">
-
-
 
   </head>
   <body>
@@ -213,7 +209,7 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
     <!-- JQUERY -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Coloque o JS no seu FOOTER, logo depois da jQuery -->
-    <script src="//assets.locaweb.com.br/locastyle/edge/javascripts/locastyle.js"></script>
+    <script src="/js/locastyle.js"></script>
 
   </footer>
   </body>

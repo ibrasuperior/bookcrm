@@ -90,9 +90,9 @@ class leadsController extends Controller
     '%'.$order.'%')->paginate(20);
 
         if( count($leads) > 0 ){
-            return view('leads.search')->with('leads',$leads);
+            return view('leads.index')->with('leads',$leads);
         }else{
-            return redirect('/leads')->with('success','nenhum registro foi localizado');
+            return redirect('/leads')->with('info','nenhum registro foi localizado');
         }
     }
 
@@ -102,7 +102,7 @@ class leadsController extends Controller
         $leads = Lead::where('estagio_id', $order )
         ->where('colaborador_id', $id)->orderBy('id', 'desc')->paginate(20);
 
-        return view('leads.search')->with('leads',$leads);
+        return view('leads.index')->with('leads',$leads);
 
     }
 
