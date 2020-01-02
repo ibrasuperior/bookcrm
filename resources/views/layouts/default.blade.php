@@ -93,10 +93,11 @@
           <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
               <a href="#" class="ls-ico-stats"  title="Configurações" role="menuitem">Relatórios</a>
               <ul class="ls-submenu" role="menu">
+              <li><a href="/relatorios/matriculas">Matrículas</a></li>
               @if( \Auth::user()->permissoes == 1 )<li><a href="/relatorios">Conversão</a></li>@endif
               @if( \Auth::user()->permissoes == 1 ) <li><a href="/relatorios">Estados</a></li>@endif
               @if( \Auth::user()->permissoes == 1 ) <li><a href="/relatorios">Defeituosos</a></li>@endif
-              @if( \Auth::user()->permissoes == 1 ) <li><a href="/relatorios">Leads</a></li> @endif
+
 
               </ul>
           </li>

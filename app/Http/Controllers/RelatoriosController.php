@@ -9,5 +9,9 @@ class RelatoriosController extends Controller
 {
     public function index(){
         return view('relatorios.index');
-    } 
+    }
+
+    public function matriculas(){
+        return view('relatorios.matriculas.index');
+    }
 }

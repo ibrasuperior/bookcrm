@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function(){
 
     /*/Relatórios/*/
     Route::get('/relatorios',"RelatoriosController@index");
+    Route::get('/relatorios/matriculas',"RelatoriosController@matriculas");
 
     /*/API/*/
     Route::get('/api/midias',"ApiController@midia");

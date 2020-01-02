@@ -5,36 +5,80 @@
 <div class="container-fluid">
       <h1 class="ls-title-intro ls-ico-users">Matrículas</h1>
 
-@if( session('success') ) 
+@if( session('success') )
   <div class="ls-alert-success ls-dismissable">
     <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
     {{ session('success') }}
   </div>
 @endif
 
-<div class="ls-box-filter">
-  <form action="" class="ls-form ls-form-inline ls-float-left">
-    <label class="ls-label col-md-6 col-sm-8">
-      <b class="ls-label-text">Status</b>
-      <div class="ls-custom-select ls-field-sm">
-        <select name="" class="ls-select">
-          <option>Esse mês</option>
-          <option>Todas</option>
+
+<div data-ls-module="collapse" data-target="#0" class="shadow ls-collapse ">
+    <a href="#" class="ls-collapse-header">
+      <h2 style="padding:5px;" class="ls-collapse-title">Filtros</h2>
+    </a>
+    <div class="ls-collapse-body" id="0">
+    <div class="ls-box-filter">
+
+    <form action="" class="ls-form ls-form-horizontal row">
+    <fieldset>
+
+    <label class="ls-label col-md-4 col-xs-12">
+      <b class="ls-label-text">Nome</b>
+      <input autocomplete="off" type="text" name="nome" placeholder="Primeiro nome" class="ls-field" required>
+    </label>
+
+    <label class="ls-label col-md-4 col-xs-12">
+      <b class="ls-label-text">Origem</b>
+      <div class="ls-custom-select">
+      <?php $canais = \App\Canal::get(); ?>
+        <select name="canal" class="ls-select">
+          @foreach($canais as $canal)
+            <option>{{$canal->nome}}</option>
+          @endforeach
         </select>
       </div>
     </label>
-  </form>
 
-  <form action="/matriculas/search" class="ls-form ls-form-inline ls-float-right">
-    <label class="ls-label" role="search">
-      <b class="ls-label-text ls-hidden-accessible">Nome do cliente</b>
-      <input type="text" autocomplete="off" name="order" aria-label="Faça sua busca por cliente" placeholder="Nome do cliente" required="" class="ls-field-sm">
+    <label class="ls-label col-md-4 col-xs-12">
+      <b class="ls-label-text">Produto:</b>
+      <div class="ls-custom-select">
+        <select name="produto" class="ls-select">
+          <option>Todos</option>
+          <option>Pós-Graduação	</option>
+          <option>Complementação</option>
+          <option>Capacitação</option>
+        </select>
+      </div>
     </label>
-    <div class="ls-actions-btn">
-      <input type="submit" value="Buscar" class="ls-btn ls-btn-sm" title="Buscar">
-    </div>
-  </form>
+
+    <HR/>
+
+    <h3 style="padding-left:20px;padding-top:10px;">Data de Matrícula:</h3>
+
+
+    <label class="ls-label col-md-4 col-xs-12">
+        <b class="ls-label-text">De: </b>
+        <input type="text" name="cel2" class="datepicker"  placeholder="dd/mm/aaaa">
+    </label>
+
+
+    <label class="ls-label col-md-4 col-xs-12">
+        <b class="ls-label-text">Até: </b>
+        <input type="text" name="cel2" class="datepicker"  placeholder="dd/mm/aaaa">
+    </label>
+
+  </fieldset>
+  <button class="ls-ico-list ls-btn ls-btn-primary">Filtrar</button>
+    </form>
+
+
 </div>
+    </div>
+  </div>
+
+
+
 
 <table class="ls-table  ls-bg-header ">
   <thead>
@@ -46,20 +90,20 @@
       <th class="ls-txt-center">Vencimento</th>
       <th class="ls-txt-center">Produto</th>
       <th class="ls-txt-center">Ações</th>
-      
-      
+
+
     </tr>
   </thead>
   <tbody>
     @foreach( $matriculas as $matricula )
       <tr>
       <td class="ls-txt-center"><strong>{{$matricula->quant}}</strong></td>
-        <td class="ls-txt-center"> 
+        <td class="ls-txt-center">
           {{ $matricula->nome}}
           @if( $matricula->pago  == true )
           </br><span class="ls-tag-success ls-ico-checkmark">Pago</span>
           @endif
-          
+
         </td>
         <td class="ls-txt-center">{{$matricula->canal}}</td>
         <td class="ls-txt-center">{{$matricula->valor}}</td>
@@ -81,9 +125,9 @@
                 </ul>
             </div>
         </td>
-    
+
       </tr>
-      
+
        @endforeach
 
   </tbody>
@@ -94,6 +138,14 @@
 </div>
 
 
+
+<style>
+.shadow{
+-webkit-box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.18);
+box-shadow: 0px 2px 4px 1px rgba(0,0,0,0.18);
+}
+</style>
 
 
 @stop
