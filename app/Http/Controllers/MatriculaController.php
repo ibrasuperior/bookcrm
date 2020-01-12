@@ -5,18 +5,95 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioDeMatricula;
 use App\matricula;
 use App\Formulario;
+use Carbon\Carbon;
+use App\Exports\MatriculasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // TRANSFORMAR DATA ----------------------------------
+        if( !empty($request->input('dateStart'))){
+            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') );
+            $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') );
+    
+            $dateStart =  Carbon::parse( $inputInicio )
+            ->format('Y-m-d');
+    
+            $dateEnd = Carbon::parse( $inputFinal )
+            ->format('Y-m-d');
+        }
+        // TRANSFORMAR DATA ----------------------------------
+
         $id = \Auth::user()->id;
-        $dados = Matricula::where('colaborador_id',$id)->orderBy('id','desc')->paginate(5);
-        return view('matriculas.index')->with('matriculas',$dados);
+        $query = Matricula::query();
+        $produto =  $request->input('produto');
+        $user =  $request->input('user');
+        
+        if(!empty($dateStart) && !empty($dateEnd)  ){
+            $query->whereBetween('created_at', [$dateStart, $dateEnd]);
+        }
+
+        if(!empty($produto) ){
+            $query->where('produto',$produto);
+        }
+
+        if(!empty($user) ){
+            $query->where('colaborador_id',$user);
+        }else{
+            $query->where('colaborador_id', $id);
+        }
+        
+        $data = $query->orderBy('id','desc')->paginate(20);
+
+        return view('matriculas.index')->with('export')->with('matriculas',$data);
     }
 
+     // EXPORTAR DATA ----------------------------------
+    public function report(Request $request)
+    {
+        // TRANSFORMAR DATA ----------------------------------
+        if( !empty($request->input('dateStart'))){
+            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') );
+            $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') );
+    
+            $dateStart =  Carbon::parse( $inputInicio )
+            ->format('Y-m-d');
+    
+            $dateEnd = Carbon::parse( $inputFinal )
+            ->format('Y-m-d');
+        }
+        // TRANSFORMAR DATA ----------------------------------
+
+        $id = \Auth::user()->id;
+        $query = Matricula::query();
+        $produto =  $request->input('produto');
+        $user =  $request->input('user');
+        
+        if(!empty($dateStart) ){
+            $query->whereBetween('created_at',[$dateStart, $dateEnd]);
+        }
+
+        if(!empty($produto) ){
+            $query->where('produto',$produto);
+        }
+
+        if(!empty($user) ){
+            $query->where('colaborador_id',$user);
+        }else{
+            $query->where('colaborador_id', $id);
+        }
+        
+        $data = $query->orderBy('id','desc')->paginate(20);
+        
+        return Excel::download(new MatriculasExport($data), 'relatorio.xlsx');
+    }
+    // EXPORTAR DATA ----------------------------------
+
+    
     public function store(Request $request)
     {
         $matricula = new Matricula;
@@ -67,12 +144,12 @@ class MatriculaController extends Controller
 
     public function search(Request $request){
         $order = $request->input('order');
-        $matriculas = Matricula::orderBy('id','DESC')->where('nome', 'LIKE', '%'.$order.'%')->get();
+        $matriculas = Matricula::orderBy('id','DESC')->where('nome', 'LIKE', '%'.$order.'%')->paginate(20);
 
         if( count($matriculas) > 0 ){
-            return view('matriculas.search')->with('matriculas',$matriculas);
+            return view('matriculas.index')->with('matriculas',$matriculas);
         }else{
-            return redirect('/matriculas')->with('success','nenhum registro foi localizado');
+            return redirect('/matriculas')->with('info','nenhum registro foi localizado');
         }
     }
 

@@ -2,7 +2,7 @@
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/',"LeadsController@dashboard");
-
+    Route::get('/matriculas/report', "MatriculaController@report");
     //NOTAS
     Route::post('/notas/add',"NotaController@store");
 
@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/matriculas/add',"MatriculaController@store");
     Route::get('/matriculas/{id}',"MatriculaController@edit");
     Route::get('/matriculas/show/{id}', "MatriculaController@show");
+    Route::get('/matriculas/report', "MatriculaController@report");
     Route::put('/matriculas/update/{matricula}',"MatriculaController@update");
     Route::get('/matriculas/delete/{matricula}',"MatriculaController@destroy");
 
@@ -50,9 +51,6 @@ Route::middleware(['auth'])->group(function(){
     //Formulario de matrícula
     Route::get('/formulario/{id}', 'FormularioController@index');
     Route::post('/formulario/envia', 'FormularioController@envia');
-
-    /*/Relatórios/*/
-    Route::get('/relatorios',"RelatoriosController@index");
 
     /*/API/*/
     Route::get('/api/midias',"ApiController@midia");
@@ -109,4 +107,3 @@ Route::get('/auth/callback', function(){
 
  //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
  Route::post('/api/analise',"ApiController@analise");
-

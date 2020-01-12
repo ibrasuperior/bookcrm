@@ -12,4 +12,8 @@ class Colaborador extends Model
     public function lead(){
         return $this->hasMany('App\Lead');
     }
+
+    public function matricula(){
+        return $this->hasMany('App\Matricula');
+    }
 }
