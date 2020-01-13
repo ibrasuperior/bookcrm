@@ -97,11 +97,12 @@
                     <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
                         <a href="#" class="ls-ico-stats" title="Configurações" role="menuitem">Relatórios</a>
                         <ul class="ls-submenu" role="menu">
-                            <li><a href="/relatorios/matriculas">Leads</a></li>
+                            <li><a href="/relatorios/leads">Leads</a></li>
                         </ul>
                     </li>
                     @endif
 
+                    @if( \Auth::user()->permissoes == 1 )
                     <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
                         <a href="#" class="ls-ico-cog" title="Configurações" role="menuitem">Configurações</a>
                         <ul class="ls-submenu" role="menu">
@@ -111,6 +112,7 @@
 
                         </ul>
                     </li>
+                    @endif
 
                 </ul>
             </nav>

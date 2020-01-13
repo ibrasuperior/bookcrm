@@ -17,12 +17,14 @@
         <form action="/matriculas" class="ls-form ls-form-inline  ">
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">De:</b>
-                <input autocomplete="off" type="text" name="dateStart" class="datepicker" placeholder="dd/mm/aaaa">
+                <input required autocomplete="off" type="text" name="dateStart" class="datepicker"
+                    placeholder="dd/mm/aaaa">
             </label>
 
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">Até:</b>
-                <input autocomplete="off" type="text" name="dateEnd" class="datepicker" placeholder="dd/mm/aaaa">
+                <input required autocomplete="off" type="text" name="dateEnd" class="datepicker"
+                    placeholder="dd/mm/aaaa">
             </label>
 
             <label class="ls-label" role="search">
@@ -51,21 +53,26 @@
             </label>
             @endif
 
-            <div class="ls-actions-btn">
+            <div class="ls-actions-btn" style="margin-top:10px;">
                 <button type="submit" class="ls-btn ls-btn-primary">Buscar</button>
                 <?php $url =  \Request::fullUrl(); ?>
 
-                @if( session('export') )
-                <a href="<?php echo str_replace('matriculas', 'matriculas/report',$url); ?>" class="ls-btn">Exportar</a>
+                @if( strstr($url, 'dateStart') == true )
+                <a href="<?php echo str_replace('matriculas', 'matriculas/report',$url); ?>" class="ls-btn">
+                    Exportar
+                </a>
                 @endif
             </div>
         </form>
     </div>
 
+
+
+
+
     <table class="ls-table  ls-bg-header ">
         <thead>
             <tr>
-                <th class="ls-txt-center">Quant</th>
                 <th class="ls-txt-center">Nome</th>
                 <th class="ls-txt-center">Canal</th>
                 <th class="ls-txt-center">Valor</th>
@@ -80,13 +87,11 @@
         <tbody>
             @foreach( $matriculas as $matricula )
             <tr>
-                <td class="ls-txt-center"><strong>{{$matricula->quant}}</strong></td>
                 <td class="ls-txt-center">
                     {{ $matricula->nome}}
                     @if( $matricula->pago == true )
                     </br><span class="ls-tag-success ls-ico-checkmark">Pago</span>
                     @endif
-
                 </td>
                 <td class="ls-txt-center">{{$matricula->canal}}</td>
                 <td class="ls-txt-center">{{$matricula->valor}}</td>

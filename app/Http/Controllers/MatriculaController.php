@@ -49,7 +49,7 @@ class MatriculaController extends Controller
         
         $data = $query->orderBy('id','desc')->paginate(20);
 
-        return view('matriculas.index')->with('export')->with('matriculas',$data);
+        return view('matriculas.index')->with('matriculas',$data);
     }
 
      // EXPORTAR DATA ----------------------------------
@@ -99,7 +99,6 @@ class MatriculaController extends Controller
         $matricula = new Matricula;
 
         $matricula->nome = $request->input('nome') ;
-        $matricula->quant = $request->input('quant') ;
         $matricula->canal =  $request->input('canal');
         $matricula->valor =$request->input('valor') ;
         $matricula->vencimento =$request->input('vencimento') ;

@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th style="background-color:#800;color:#fff;"><strong>Nome</strong></th>
+            <th><strong>Nome</strong></th>
             <th><strong>Canal</strong></th>
             <th><strong>Valor</strong></th>
             <th><strong>Pagamento</strong></th>

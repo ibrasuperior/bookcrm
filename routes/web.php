@@ -2,7 +2,22 @@
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/',"LeadsController@dashboard");
+
+    //relatórios matricula
     Route::get('/matriculas/report', "MatriculaController@report");
+    
+    //relatórios leads
+    Route::get('/relatorios/leads', function(){
+        if(\Auth::user()->permissoes == 1){
+            $leads = \App\Lead::orderBy('id','desc')->paginate(15);
+            return view('relatorios.leads')->with('leads' ,$leads);
+        }else{
+            return redirect('/leads')->with('danger' ,'você não tem acesso à relatórios');
+        }
+    });
+    Route::get('/relatorios/leads/filter', "LeadsController@reportFilter");
+    Route::get('/relatorios/leads/report', "LeadsController@report");
+
     //NOTAS
     Route::post('/notas/add',"NotaController@store");
 
