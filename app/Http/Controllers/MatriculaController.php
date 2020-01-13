@@ -16,16 +16,18 @@ class MatriculaController extends Controller
     public function index(Request $request)
     {
         // TRANSFORMAR DATA ----------------------------------
-        if( !empty($request->input('dateStart'))){
-            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') );
-            $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') );
-    
+        if( !empty($request->input('dateStart')) ){
+            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);     
             $dateStart =  Carbon::parse( $inputInicio )
             ->format('Y-m-d');
-    
-            $dateEnd = Carbon::parse( $inputFinal )
-            ->format('Y-m-d');
+   
         }
+
+        if( !empty($request->input('dateEnd')) ){
+           $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') )->addDay(1);
+           $dateEnd = Carbon::parse( $inputFinal )
+           ->format('Y-m-d');
+       }
         // TRANSFORMAR DATA ----------------------------------
 
         $id = \Auth::user()->id;
@@ -33,9 +35,12 @@ class MatriculaController extends Controller
         $produto =  $request->input('produto');
         $user =  $request->input('user');
         
-        if(!empty($dateStart) && !empty($dateEnd)  ){
-            $query->whereBetween('created_at', [$dateStart, $dateEnd]);
+        if(!empty($dateStart) && !empty($dateEnd)){
+            $query->whereBetween('created_at',[$dateStart, $dateEnd]);
         }
+        if(!empty($dateStart) && empty($dateEnd)){
+           $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
+       }
 
         if(!empty($produto) ){
             $query->where('produto',$produto);
@@ -55,17 +60,19 @@ class MatriculaController extends Controller
      // EXPORTAR DATA ----------------------------------
     public function report(Request $request)
     {
-        // TRANSFORMAR DATA ----------------------------------
-        if( !empty($request->input('dateStart'))){
-            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') );
-            $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') );
-    
+         // TRANSFORMAR DATA ----------------------------------
+         if( !empty($request->input('dateStart')) ){
+            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);     
             $dateStart =  Carbon::parse( $inputInicio )
             ->format('Y-m-d');
-    
-            $dateEnd = Carbon::parse( $inputFinal )
-            ->format('Y-m-d');
+   
         }
+
+        if( !empty($request->input('dateEnd')) ){
+           $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') )->addDay(1);
+           $dateEnd = Carbon::parse( $inputFinal )
+           ->format('Y-m-d');
+       }
         // TRANSFORMAR DATA ----------------------------------
 
         $id = \Auth::user()->id;
@@ -73,9 +80,12 @@ class MatriculaController extends Controller
         $produto =  $request->input('produto');
         $user =  $request->input('user');
         
-        if(!empty($dateStart) ){
+        if(!empty($dateStart) && !empty($dateEnd)){
             $query->whereBetween('created_at',[$dateStart, $dateEnd]);
         }
+        if(!empty($dateStart) && empty($dateEnd)){
+           $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
+       }
 
         if(!empty($produto) ){
             $query->where('produto',$produto);

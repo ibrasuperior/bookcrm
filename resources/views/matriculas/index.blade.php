@@ -17,14 +17,12 @@
         <form action="/matriculas" class="ls-form ls-form-inline  ">
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">De:</b>
-                <input required autocomplete="off" type="text" name="dateStart" class="datepicker"
-                    placeholder="dd/mm/aaaa">
+                <input autocomplete="off" type="text" name="dateStart" class="datepicker" placeholder="dd/mm/aaaa">
             </label>
 
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">Até:</b>
-                <input required autocomplete="off" type="text" name="dateEnd" class="datepicker"
-                    placeholder="dd/mm/aaaa">
+                <input autocomplete="off" type="text" name="dateEnd" class="datepicker" placeholder="dd/mm/aaaa">
             </label>
 
             <label class="ls-label" role="search">
