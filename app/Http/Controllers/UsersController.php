@@ -54,6 +54,7 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->active = $request->input('active');
         $user->permissoes = $request->input('permissoes');
+        $user->equipe_id = $request->input('equipe');
 
         if(!empty($request->input('password'))){
             $user->password = Hash::make($request->input('password'));
@@ -68,7 +69,9 @@ class UsersController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
-        $user->password = Hash::make($request->input('password'));
+        if(!empty($request->input('password'))){
+            $user->password = Hash::make($request->input('password'));
+        }
         
         $user->update();
         return redirect('/')->with("success","Alterado com sucesso!");

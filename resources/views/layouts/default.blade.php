@@ -106,6 +106,7 @@
                     <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
                         <a href="#" class="ls-ico-cog" title="Configurações" role="menuitem">Configurações</a>
                         <ul class="ls-submenu" role="menu">
+                            @if( \Auth::user()->permissoes == 1 )<li><a href="/equipes">Equipes</a></li>@endif
                             @if( \Auth::user()->permissoes == 1 )<li><a href="/canal">Canais</a></li>@endif
                             @if( \Auth::user()->permissoes == 1 ) <li><a href="/users">Usuários</a></li>@endif
                             @if( \Auth::user()->permissoes == 1 ) <li><a href="/estagio">Estágios</a></li>@endif

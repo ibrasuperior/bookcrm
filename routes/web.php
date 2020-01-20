@@ -82,6 +82,15 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['security'])->group(function(){
 
+    /*/EQUIPES/*/
+    Route::get("/equipes","EquipeController@index");
+    Route::get("/equipe/novo","EquipeController@create");
+    Route::post("/equipe/add","EquipeController@store");
+    Route::get("/equipe/{id}","EquipeController@edit");
+    Route::put('/equipe/update/{equipe}',"EquipeController@update");
+    Route::get('/equipe/delete/{equipe}',"EquipeController@destroy");
+
+
     /*/Canais/*/
     Route::get("/canal","CanalController@index");
     Route::get("/canal/novo","CanalController@create");
