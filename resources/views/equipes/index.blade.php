@@ -19,6 +19,7 @@
             <tr>
                 <th class="ls-txt-center">id</th>
                 <th class="ls-txt-center">Nome</th>
+                <th class="ls-txt-center">Meta</th>
                 <th> </th>
             </tr>
         </thead>
@@ -31,6 +32,9 @@
 
                 <td class="ls-txt-center">
                     <a href="/equipe/{{$equipe->id}}">{{ $equipe->nome}}</a>
+                </td>
+                <td class="ls-txt-center">
+                    {{ $equipe->meta}}
                 </td>
 
                 <td class="ls-txt-center ls-regroup">

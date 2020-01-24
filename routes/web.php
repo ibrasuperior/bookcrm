@@ -115,8 +115,11 @@ Route::middleware(['security'])->group(function(){
     Route::put('/users/update/{user}',"UsersController@update");
     Route::get('/users/delete/{user}',"UsersController@destroy");
 
-    //EXPORTAR RELATÓRIOS
-    Route::post('/report',"ApiController@report");
+   /*/Relatórios/*/
+   Route::get('/relatorios/matriculas',function(){
+    return view('relatorios.matriculas');
+    });
+
 });
 
 
@@ -131,3 +134,5 @@ Route::get('/auth/callback', function(){
 
  //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
  Route::post('/api/analise',"ApiController@analise");
+
+ Route::get('/relatorios/matriculas/report',"MatriculaController@reportAdmin");

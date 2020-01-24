@@ -39,6 +39,8 @@ class EquipeController extends Controller
     public function update(Request $request, Equipe $equipe)
     {
         $equipe->nome = $request->input('nome');
+        $equipe->meta = $request->input('meta');
+        
         $equipe->update();
         return redirect('/equipes')->with("success","Alterado com sucesso!");
 

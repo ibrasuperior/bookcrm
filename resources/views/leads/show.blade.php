@@ -19,6 +19,8 @@
                 <input type="hidden" value="{{$lead->nome}}" name="nome">
                 <input type="hidden" value="{{$lead->canal->nome}}" name="canal">
                 <input type="hidden" value="{{$lead->colaborador_id}}" name="colaborador_id">
+                <?php $equipe = \Auth::user()->equipe_id; ?>
+                <input type="hidden" value="{{ $equipe }}" name="equipe_id">
 
                 <fieldset>
                     <label class="ls-label col-md-12">

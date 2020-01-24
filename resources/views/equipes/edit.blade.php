@@ -16,6 +16,11 @@
                 <span class="ls-label-text">Nome</span>
                 <input type="text" name="nome" autocomplete="off" value="{{ $equipe->nome  }}">
             </label>
+
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Meta</span>
+                <input type="number" name="meta" autocomplete="off" value="{{ $equipe->meta  }}">
+            </label>
         </div>
 
         <hr>

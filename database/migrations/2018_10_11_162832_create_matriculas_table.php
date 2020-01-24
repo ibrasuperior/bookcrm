@@ -21,6 +21,7 @@ class CreateMatriculasTable extends Migration
             $table->boolean('pago')->default(0);
             $table->string('vencimento')->default(null);
             $table->integer('colaborador_id');
+            $table->integer('equipe_id');
             $table->timestamps();
         });
     }

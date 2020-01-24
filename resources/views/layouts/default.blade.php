@@ -97,7 +97,7 @@
                     <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
                         <a href="#" class="ls-ico-stats" title="Configurações" role="menuitem">Relatórios</a>
                         <ul class="ls-submenu" role="menu">
-                            <li><a href="/relatorios/leads">Leads</a></li>
+                            <li><a href="/relatorios/matriculas">Matrículas</a></li>
                         </ul>
                     </li>
                     @endif
