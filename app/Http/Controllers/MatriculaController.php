@@ -99,7 +99,7 @@ class MatriculaController extends Controller
             $query->where('colaborador_id', $id);
         }
         
-        $data = $query->orderBy('id','desc')->paginate(20);
+        $data = $query->orderBy('id','desc')->get();
         
         return Excel::download(new MatriculasExport($data), 'relatorio.xlsx');
     }
