@@ -127,7 +127,7 @@
         </tbody>
     </table>
 
-    {{ $matriculas->links() }}
+    {{ $matriculas->appends(Request::except('page'))->links() }}
 
 </div>
 
