@@ -143,7 +143,67 @@ class ApiController extends Controller
         return $dados;
     }
 
-    //INTEGRAÇÃO COM RD STATION
+    /*
+    /-------------------------------------------------------------------------
+    /   API PARA EDUCA EDU 
+    /-------------------------------------------------------------------------
+    /
+    /
+    */
+    public function leadsEducaEdu(Request $request){
+        $lead = new Lead;
+
+        $user = User::where('permissoes' ,'>', 1)
+        ->where('active', true)
+        ->orderBy('leads_daily','asc')->first();
+
+        User::where('id', $user['id'] )->increment( 'leads_daily', 1 );
+        
+        $lead->nome = $request->input('name');
+        $lead->email = $request->input('email');
+        $lead->telefone = $request->input('phone');
+        $lead->canal_id = 25;
+        $lead->colaborador_id = $user['id'];
+
+        //Verifica se já é lead
+        $verifica = Lead::where('email', $request->input('email') )
+        ->count();
+
+        if( $verifica > 0  ){
+            $leadFind = Lead::where('email', $request->input('email') )
+            ->first();
+
+            //verifica se o user esta ativo
+            $userToSelect = User::where('id', $leadFind['colaborador_id'] )->first();
+
+            if(  $userToSelect['active'] == 1 ){
+                $lead->colaborador_id = $leadFind['colaborador_id'];
+
+                $leadFind->delete();
+                $lead->save();
+                return $lead;
+            }
+
+            $leadFind->delete();
+            $lead->save();
+            return $lead;
+        } else{
+            $lead->save();
+            return $lead;
+        }
+    }
+    
+
+    
+    /*
+    /-------------------------------------------------------------------------
+    /   API PARA RD STATION 
+    /-------------------------------------------------------------------------
+    /
+    /
+    /
+    /
+    */
 
     public function leadsStation(Request $request){
         $lead = new Lead;

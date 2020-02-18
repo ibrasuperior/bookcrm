@@ -135,4 +135,8 @@ Route::get('/auth/callback', function(){
  //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
  Route::post('/api/analise',"ApiController@analise");
 
+
+ //EDUCA EDU 
+ Route::post('/api/edu',"ApiController@leadsEducaEdu");
+
  Route::get('/relatorios/matriculas/report',"MatriculaController@reportAdmin");
