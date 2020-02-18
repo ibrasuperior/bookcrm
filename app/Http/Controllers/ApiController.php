@@ -162,6 +162,7 @@ class ApiController extends Controller
         $lead->nome = $request->input('name');
         $lead->email = $request->input('email');
         $lead->telefone = $request->input('phone');
+        $lead->obs = $request->input('obs');
         $lead->canal_id = 25;
         $lead->colaborador_id = $user['id'];
 
