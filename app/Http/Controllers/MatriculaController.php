@@ -35,6 +35,7 @@ class MatriculaController extends Controller
         $id = \Auth::user()->id;
         $query = Matricula::query();
         $produto =  $request->input('produto');
+        $nome =  $request->input('nome');
         $user =  $request->input('user');
         
         if(!empty($dateStart) && !empty($dateEnd)){
@@ -46,6 +47,10 @@ class MatriculaController extends Controller
 
         if(!empty($produto) ){
             $query->where('produto',$produto);
+        }
+        
+        if(!empty($nome) ){
+            $query->where('nome', 'LIKE', '%'.$nome.'%');
         }
 
         if(!empty($user) ){
@@ -80,6 +85,7 @@ class MatriculaController extends Controller
         $id = \Auth::user()->id;
         $query = Matricula::query();
         $produto =  $request->input('produto');
+        $nome =  $request->input('nome');
         $user =  $request->input('user');
         
         if(!empty($dateStart) && !empty($dateEnd)){
@@ -91,6 +97,10 @@ class MatriculaController extends Controller
 
         if(!empty($produto) ){
             $query->where('produto',$produto);
+        }
+
+        if(!empty($nome) ){
+            $query->where('nome', 'LIKE', '%'.$nome.'%');
         }
 
         if(!empty($user) ){

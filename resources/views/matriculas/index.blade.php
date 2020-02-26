@@ -37,6 +37,11 @@
                 </div>
             </label>
 
+            <label class="ls-label col-md-3">
+                <b class="ls-label-text">Nome:</b>
+                <input autocomplete="off" type="text" name="nome" placeholder="Nome do matriculado">
+            </label>
+
             @if( \Auth::user()->permissoes == 1 )
             <label class="ls-label" role="search" style="margin-top:10px;">
                 <div class="ls-custom-select">
