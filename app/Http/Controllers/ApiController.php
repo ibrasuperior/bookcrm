@@ -156,8 +156,6 @@ class ApiController extends Controller
         $user = User::where('permissoes' ,'>', 1)
         ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
-
-        User::where('id', $user['id'] )->increment( 'leads_daily', 1 );
         
         $lead->nome = $request->input('name');
         $lead->email = $request->input('email');
@@ -180,15 +178,49 @@ class ApiController extends Controller
             if(  $userToSelect['active'] == 1 ){
                 $lead->colaborador_id = $leadFind['colaborador_id'];
 
+                 //incrementa leads daily 
+                User::where('id', $leadFind['colaborador_id'])->update(['leads_daily' => 1 ]);
+                
+                //collection leads daily 
+                $plucked = User::where('permissoes' ,'>', 1)
+                ->where('active', true)->pluck('leads_daily');
+                
+                if( $plucked->sum() == count($plucked) ){
+                    User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+                }
+            
                 $leadFind->delete();
                 $lead->save();
                 return $lead;
             }
 
+
+            //incrementa leads daily 
+            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            
+            //collection leads daily 
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('active', true)->pluck('leads_daily');
+            
+            if( $plucked->sum() == count($plucked) ){
+                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+            }
+            
             $leadFind->delete();
             $lead->save();
             return $lead;
         } else{
+            //incrementa leads daily 
+            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            
+            //collection leads daily 
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('active', true)->pluck('leads_daily');
+            
+            if( $plucked->sum() == count($plucked) ){
+                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+            }
+
             $lead->save();
             return $lead;
         }
@@ -212,9 +244,7 @@ class ApiController extends Controller
         $user = User::where('permissoes' ,'>', 1)
         ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
-
-        User::where('id', $user['id'] )->increment( 'leads_daily', 1 );
-
+        
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
 
         //traduzir canais
@@ -260,7 +290,7 @@ class ApiController extends Controller
         $lead->origem = $conversao . '<a target="_blank" class="ls-btn-xs ls-btn-default" href=" ' . $link . ' ">
             Link do RD Station
         </a>' ;
-        $lead->colaborador_id = $user['id'];
+
         $lead->canal_id = $canal['id'];
 
         //Verifica se já é lead
@@ -277,14 +307,54 @@ class ApiController extends Controller
             if(  $userToSelect['active'] == 1 ){
                 $lead->colaborador_id = $leadFind['colaborador_id'];
 
-                $leadFind->delete();
-                $lead->save();
-                return $lead;
+            //incrementa leads daily 
+            User::where('id', $leadFind['colaborador_id'])->update(['leads_daily' => 1 ]);
+            
+            //collection leads daily 
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('active', true)->pluck('leads_daily');
+            
+            if( $plucked->sum() == count($plucked) ){
+                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
             }
+            
             $leadFind->delete();
             $lead->save();
             return $lead;
+            }else{
+                $leadFind->delete();
+
+                $lead->colaborador_id = $user['id'];
+
+                //incrementa leads daily 
+                User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+                
+                //collection leads daily 
+                $plucked = User::where('permissoes' ,'>', 1)
+                ->where('active', true)->pluck('leads_daily');
+                
+                if( $plucked->sum() == count($plucked) ){
+                    User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+                }
+            
+                $lead->save();
+                return $lead;
+            }
+            
         } else{
+            $lead->colaborador_id = $user['id'];
+
+            //incrementa leads daily 
+            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            
+            //collection leads daily 
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('active', true)->pluck('leads_daily');
+            
+            if( $plucked->sum() == count($plucked) ){
+                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+            }
+            
             $lead->save();
             return $lead;
         }
