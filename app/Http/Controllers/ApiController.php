@@ -155,7 +155,7 @@ class ApiController extends Controller
 
         $user = User::where('permissoes' ,'>', 1)
         ->where('active', true)
-        ->orderBy('leads_daily','asc')->first();
+        ->orderBy('educa_leads','asc')->first();
         
         $lead->nome = $request->input('name');
         $lead->email = $request->input('email');
@@ -179,14 +179,14 @@ class ApiController extends Controller
                 $lead->colaborador_id = $leadFind['colaborador_id'];
 
                  //incrementa leads daily 
-                User::where('id', $leadFind['colaborador_id'])->update(['leads_daily' => 1 ]);
+                User::where('id', $leadFind['colaborador_id'])->update(['educa_leads' => 1 ]);
                 
                 //collection leads daily 
                 $plucked = User::where('permissoes' ,'>', 1)
-                ->where('active', true)->pluck('leads_daily');
+                ->where('active', true)->pluck('educa_leads');
                 
                 if( $plucked->sum() == count($plucked) ){
-                    User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+                    User::where('permissoes' ,'>', 1)->update(['educa_leads' => 0 ]);
                 }
             
                 $leadFind->delete();
@@ -196,14 +196,14 @@ class ApiController extends Controller
 
 
             //incrementa leads daily 
-            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            User::where('id', $user['id'])->update(['educa_leads' => 1 ]);
             
             //collection leads daily 
             $plucked = User::where('permissoes' ,'>', 1)
-            ->where('active', true)->pluck('leads_daily');
+            ->where('active', true)->pluck('educa_leads');
             
             if( $plucked->sum() == count($plucked) ){
-                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+                User::where('permissoes' ,'>', 1)->update(['educa_leads' => 0 ]);
             }
             
             $leadFind->delete();
@@ -211,14 +211,14 @@ class ApiController extends Controller
             return $lead;
         } else{
             //incrementa leads daily 
-            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            User::where('id', $user['id'])->update(['educa_leads' => 1 ]);
             
             //collection leads daily 
             $plucked = User::where('permissoes' ,'>', 1)
-            ->where('active', true)->pluck('leads_daily');
+            ->where('active', true)->pluck('educa_leads');
             
             if( $plucked->sum() == count($plucked) ){
-                User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
+                User::where('permissoes' ,'>', 1)->update(['educa_leads' => 0 ]);
             }
 
             $lead->save();
