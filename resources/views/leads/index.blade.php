@@ -174,7 +174,7 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
                         <b class="ls-label-text">Canal</b>
                         <div class="ls-custom-select">
                             <select name="canal_id" class="ls-select">
-                                <option value="0"> Outros </option>
+                                <option value="50"> Outros </option>
                                 <option value="7"> Indicação </option>
                             </select>
                         </div>
