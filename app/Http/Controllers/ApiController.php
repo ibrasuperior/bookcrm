@@ -113,7 +113,7 @@ class ApiController extends Controller
          //Midia
          $midia = array();
 
-         $midia['leads'] = Lead::where('canal_id','!=', 3)->where('canal_id','!=', 7)->where('canal_id','!=', 0)->whereBetween('created_at',[$inicio,$final])->count();
+         $midia['leads'] = Lead::where('canal_id','!=', 3)->where('canal_id','!=', 7)->where('canal_id','!=', 50)->whereBetween('created_at',[$inicio,$final])->count();
          $midia['matriculas'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
 
          if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
