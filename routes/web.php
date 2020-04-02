@@ -15,6 +15,12 @@ Route::middleware(['auth'])->group(function(){
             return redirect('/leads')->with('danger' ,'você não tem acesso à relatórios');
         }
     });
+    //Analise de Canais
+    Route::get('/relatorios/analise', function(){
+        return view('relatorios.analise');
+    });
+        
+
     Route::get('/relatorios/leads/filter', "LeadsController@reportFilter");
     Route::get('/relatorios/leads/report', "LeadsController@report");
 

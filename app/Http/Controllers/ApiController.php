@@ -318,10 +318,20 @@ class ApiController extends Controller
                 User::where('permissoes' ,'>', 1)->update(['leads_daily' => 0 ]);
             }
             
+            //verifica se é matriculado
+            if( $leadFind['matriculado'] == 1){
+                $lead->matriculado = 1 ;
+            }
+
             $leadFind->delete();
             $lead->save();
             return $lead;
             }else{
+                 //verifica se é matriculado
+                if( $leadFind['matriculado'] == 1){
+                    $lead->matriculado = 1 ;
+                }
+                
                 $leadFind->delete();
 
                 $lead->colaborador_id = $user['id'];

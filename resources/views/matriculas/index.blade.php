@@ -70,6 +70,12 @@
     </div>
 
 
+    <div class="ls-alert-info ls-dismissable">
+        <span>
+            {{ $matriculas->total() }} Número de Matrículas
+        </span>
+
+    </div>
 
 
 

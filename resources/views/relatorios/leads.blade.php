@@ -17,12 +17,14 @@
         <form action="/relatorios/leads/filter" class="ls-form ls-form-inline  ">
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">De:</b>
-                <input autocomplete="off" type="text" name="dateStart" class="datepicker" placeholder="dd/mm/aaaa">
+                <input autocomplete="off" type="text" name="dateStart" class="datepicker" placeholder="dd/mm/aaaa" @if(
+                    Request::input('dateStart')!=='' ) value="{{  Request::input('dateStart') }}" @endif>
             </label>
 
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">Até:</b>
-                <input autocomplete="off" type="text" name="dateEnd" class="datepicker" placeholder="dd/mm/aaaa">
+                <input autocomplete="off" type="text" name="dateEnd" class="datepicker" placeholder="dd/mm/aaaa" @if(
+                    Request::input('dateEnd')!=='' ) value="{{  Request::input('dateEnd') }}" @endif>
             </label>
 
             <label class="ls-label" role="search">
@@ -31,7 +33,10 @@
                         <option value="">Canal</option>
                         <?php $canais = \App\Canal::get(); ?>
                         @foreach($canais as $canal)
-                        <option value="{{$canal->id}}">{{$canal->nome}}</option>
+                        <option value="{{$canal->id}}" @if( Request::input('canal')==$canal->id )
+                            selected="selected"
+                            @endif>
+                            {{$canal->nome}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -40,22 +45,33 @@
             <label class="ls-label" role="search">
                 <div class="ls-custom-select">
                     <select name="situacao" class="ls-select">
-                        <option value="">Situação</option>
-                        <option>Matriculado</option>
-                        <option>Não Matriculado</option>
-                        <option>Lead Defeituoso</option>
-                        <option>Novos</option>
+                        <option value="">
+                            Situação
+                        </option>
+                        <option @if( Request::input('situacao')=='Matriculado' ) selected="selected" @endif>Matriculado
+                        </option>
+
+                        <option @if( Request::input('situacao')=='Não Matriculado' ) selected="selected" @endif>Não
+                            Matriculado</option>
+
+                        <option @if( Request::input('situacao')=='Defeituoso' ) selected="selected" @endif>Lead
+                            Defeituoso</option>
+
+                        <option @if( Request::input('situacao')=='Novos' ) selected="selected" @endif>Novos
+                        </option>
                     </select>
                 </div>
             </label>
 
-            <label class="ls-label" role="search" style="margin-top:10px;">
+            <label class=" ls-label" role="search" style="margin-top:10px;">
                 <div class="ls-custom-select">
                     <select name="user" class="ls-select">
                         <option value="">Usuário</option>
                         <?php $users = \App\User::where('permissoes', 2)->get(); ?>
                         @foreach($users as $user)
-                        <option value="{{$user->id}}">{{$user->name}}</option>
+                        <option value="{{$user->id}}" @if( Request::input('user')==$user->id )
+                            selected="selected"
+                            @endif>{{$user->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -115,22 +131,20 @@
                     <div data-ls-module="dropdown" class="ls-dropdown">
                         <a href="#" class="ls-btn" role="combobox" aria-expanded="false"></a>
                         <ul class="ls-dropdown-nav" aria-hidden="true">
-                            <li><a onclick="return confirm('Tem certeza que quer apagar ?')"
-                                    href="/leads/delete/{{$lead->id}}" class="ls-color-danger" role="option">Excluir</a>
-                            </li>
-
+                            <li><a href="#">Sem ações</a></li>
                         </ul>
                     </div>
                 </td>
 
             </tr>
 
+
             @endforeach
 
         </tbody>
     </table>
 
-    {{ $leads->links() }}
+    {{  $leads->appends(Request::except('page'))->links() }}
 
 </div>
 
