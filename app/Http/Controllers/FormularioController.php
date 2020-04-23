@@ -20,32 +20,14 @@ class FormularioController extends Controller
         return view('formulario.index', ['lead' => \App\Lead::findOrFail($id)] );
     }
 
-    public function envia(Request $res){
+    public function integrationRd(Request $res){
         $dados = $res->except('_token');
-        $formulario = Formulario::create($dados);
-        $comercial = $res->input('comercial');
-
-        if( $comercial == 1){
-            $to = 'cadastro@ibrasuperior.com.br';
-        }
-        
-        if( $comercial == 2){
-            $to = 'cadastro02@ibrasuperior.com.br';
-        }
-
-        if( $comercial == 3){
-            $to = 'cadastro03@ibrasuperior.com.br';
-        }
-
-        Mail::to($to)->send(new FormularioDeMatricula($formulario));
         
         //ENVIA DADOS PARA RD STATION
         //URLS
         $url = 'https://api.rd.services/platform/contacts/email:'. $dados['email']  .'/funnels/default' ;
         $urlTokenRefresh = 'https://api.rd.services/auth/token' ;
     
-
-        //ATUALIZANDO TOKEN
         //ATUALIZANDO TOKEN
         $api = Api::where('nome', 'RdStation')->first();
 
@@ -75,7 +57,6 @@ class FormularioController extends Controller
             'access_token' => $json['access_token']
         ]);
 
-            //ENVIA OS DADOS PARA RD STATION
             //ENVIA OS DADOS PARA RD STATION
             $token = Api::where('nome', 'RdStation')->first();
 
