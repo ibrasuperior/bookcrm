@@ -447,6 +447,7 @@ class ComposerStaticInit6ede5a9a5b1c71401b249d6eb1338490
     public static $classMap = array (
         'App\\Agenda' => __DIR__ . '/../..' . '/app/Agenda.php',
         'App\\Api' => __DIR__ . '/../..' . '/app/Api.php',
+        'App\\Arte' => __DIR__ . '/../..' . '/app/Arte.php',
         'App\\Canal' => __DIR__ . '/../..' . '/app/Canal.php',
         'App\\Colaborador' => __DIR__ . '/../..' . '/app/Colaborador.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -465,6 +466,7 @@ class ComposerStaticInit6ede5a9a5b1c71401b249d6eb1338490
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\CanalController' => __DIR__ . '/../..' . '/app/Http/Controllers/CanalController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\EquipeController' => __DIR__ . '/../..' . '/app/Http/Controllers/EquipeController.php',
         'App\\Http\\Controllers\\EstagioController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstagioController.php',
         'App\\Http\\Controllers\\FormularioController' => __DIR__ . '/../..' . '/app/Http/Controllers/FormularioController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',

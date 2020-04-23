@@ -89,6 +89,7 @@
                     <li><a href="/leads" class="ls-ico-users" title="Leads">Leads</a></li>
                     <li><a href="/agenda" class="ls-ico-calendar-check" title="Agenda">Agenda</a></li>
                     <li><a href="/matriculas" class="ls-ico-checkmark" title="Matrículas">Matrículas</a></li>
+                    <li><a href="/publicidade" class="ls-ico-images">Publicidade</a></li>
 
                     <li>
                         <a href="/documentos" class="ls-ico-book"> Documentos Oficiais </a>

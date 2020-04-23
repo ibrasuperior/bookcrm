@@ -65,9 +65,16 @@ Route::middleware(['auth'])->group(function(){
 
     /*/Documentos/*/
     Route::get('/documentos', function(){
+        return view('documentos.pastas');
+    });
+
+    Route::get('/documento/pasta', function(){
         return view('documentos.index');
     });
 
+
+    //publicidade
+    Route::get('/publicidade',"ArteController@index");
 
     //Formulario de matrícula
     Route::get('/formulario/{id}', 'FormularioController@index');
