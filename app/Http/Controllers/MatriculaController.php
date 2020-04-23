@@ -5,11 +5,18 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\FormularioDeMatricula;
 use App\matricula;
 use App\User;
+use App\Api;
 use App\Equipe;
 use App\Formulario;
 use Carbon\Carbon;
 use App\Exports\MatriculasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use GuzzleHttp\Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\Request as GuzzleRequest;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Stream\PhpStreamRequestFactory;
 
 use Illuminate\Http\Request;
 
@@ -354,7 +361,75 @@ class MatriculaController extends Controller
 
         $lead->save();
 
-        return view('matriculas.indicacao')->with('info', 'Matriculado com sucesso, solicite uma indicação!');
+
+        /*
+        /
+        /------------------------------------
+        / ENVIANDO DADOS PARA RD 
+        /-------------------------------------
+        /
+        /
+        /
+        */
+        
+        $dados = $request->except('_token');
+        
+        $url = 'https://api.rd.services/platform/contacts/email:'. $dados['email']  .'/funnels/default' ;
+        $urlTokenRefresh = 'https://api.rd.services/auth/token' ;   
+
+        $api = Api::where('nome', 'RdStation')->first();
+
+        $client_id = $api->client_id;
+        $client_secret = $api->client_secret;
+        $refresh_token = $api->refresh_token;
+
+        $refreshData = array();
+        $refreshData['client_id'] =  $client_id;
+        $refreshData['client_secret'] = $client_secret;
+        $refreshData['refresh_token'] = $refresh_token ;
+
+        $refreshBody = json_encode($refreshData);
+
+        try{
+        $client2 = new GuzzleClient();
+        $request2 = new GuzzleRequest('POST', $urlTokenRefresh, [
+            'Content-Type' => 'application/json'
+        ], $refreshBody );
+
+        $response = $client2->send($request2);
+        
+        $refresh = $response->getBody()->getContents();
+        $json = json_decode($refresh, true);
+        
+        Api::where('nome', 'RdStation' )->update([
+            'access_token' => $json['access_token']
+        ]);
+
+            //ENVIA OS DADOS PARA RD STATION
+            $token = Api::where('nome', 'RdStation')->first();
+
+            $headers = [
+                'Authorization' => ['Baerer '.$token->access_token],
+                'Content-Type' => 'application/json'
+            ];
+            $data = array();
+            $data['lifecycle_stage'] = "Client";
+            $data['opportunity'] = false;
+            $data['contact_owner_email'] = null;
+
+            $body = json_encode($data);
+
+            $client = new GuzzleClient();
+            $request = new GuzzleRequest('PUT', $url, $headers, $body );
+            $client->send($request);
+            
+            return view('matriculas.indicacao')->with('info', 'Matriculado com sucesso, solicite uma indicação!');
+
+        }
+            catch (RequestException $e) {
+                return redirect('/');
+            }
+
     }
 
     public function show(Request $request)
