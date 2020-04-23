@@ -5,7 +5,7 @@
  $connect = mysqli_connect('localhost','nzkbevgkvh',
  'tRFv9GWCvX', 'nzkbevgkvh');
 
-  $artes = mysqli_query($connect, 'select * from artes' );
+  $artes = mysqli_query($connect, 'select * from artes ORDER BY id DESC' );
 ?>
 
 
