@@ -72,6 +72,12 @@
     -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.26);
     box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.26);
 }
+
+.box-card img {
+    min-width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 </style>
 <!-- CONTEÚDO -->
 
