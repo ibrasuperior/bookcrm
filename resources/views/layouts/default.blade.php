@@ -16,7 +16,7 @@
 
     <!-- JQUERY -->
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Signika:300,400,600,700&display=swap" rel="stylesheet">
 
@@ -213,7 +213,7 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
 
     <footer>
         <!-- JQUERY -->
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <!-- Coloque o JS no seu FOOTER, logo depois da jQuery -->
         <script src="/js/locastyle.js"></script>
 
