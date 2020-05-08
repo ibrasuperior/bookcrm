@@ -52,9 +52,29 @@ class UsersController extends Controller
     {
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->active = $request->input('active');
+        //$user->leads_active = $request->input('leads_active');
+        //$user->active = $request->input('active');
         $user->permissoes = $request->input('permissoes');
         $user->equipe_id = $request->input('equipe');
+
+        //USUÁRIO ATIVO NÃO RECEBE LEADS
+        if( $request->input('active') == 1 ){
+            $user->leads_active = 0 ;
+            $user->active = 1 ;
+        }
+
+         //USUÁRIO ATIVO RECEBE LEADS
+         if( $request->input('active') == 2 ){
+            $user->leads_active = 1 ;
+            $user->active = 1 ;
+        }
+
+         //USUÁRIO INATIVO
+         if( $request->input('active') == 3 ){
+            $user->leads_active = 0 ;
+            $user->active = 0 ;
+        }
+
 
         if(!empty($request->input('password'))){
             $user->password = Hash::make($request->input('password'));

@@ -14,11 +14,21 @@
         <div class="row">
 
             <label class="ls-label col-md-6">
-                <b class="ls-label-text">Recebe Leads ?</b>
+                <b class="ls-label-text">Usuário Ativo</b>
                 <div class="ls-custom-select">
                     <select name="active" class="ls-select">
-                        <option value="1" <?php if( $user->active == true ){ echo 'selected'; } ?>> Sim </option>
-                        <option value="0" <?php if( $user->active == false ){ echo 'selected'; } ?>> Não </option>
+                        <option value="1"
+                            <?php if( $user->active == true &&  $user->leads_active == false ){ echo 'selected'; } ?>>
+                            ATIVO / Não recebe Leads
+                        </option>
+                        <option value="2"
+                            <?php if( $user->active == true &&  $user->leads_active == true ){ echo 'selected'; } ?>>
+                            ATIVO / Recebe Leads
+                        </option>
+                        <option value="3"
+                            <?php if( $user->active == false &&  $user->leads_active == false ){ echo 'selected'; } ?>>
+                            INATIVO
+                        </option>
                     </select>
                 </div>
             </label>

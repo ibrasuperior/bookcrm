@@ -154,7 +154,7 @@ class ApiController extends Controller
         $lead = new Lead;
 
         $user = User::where('permissoes' ,'>', 1)
-        ->where('active', true)
+        ->where('leads_active', true)
         ->orderBy('educa_leads','asc')->first();
         
         $lead->nome = $request->input('name');
@@ -242,7 +242,7 @@ class ApiController extends Controller
         $lead = new Lead;
 
         $user = User::where('permissoes' ,'>', 1)
-        ->where('active', true)
+        ->where('leads_active', true)
         ->orderBy('leads_daily','asc')->first();
         
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');

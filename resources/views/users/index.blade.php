@@ -12,6 +12,13 @@
     </div>
     @endif
 
+    @if( session('danger') )
+    <div class="ls-alert-danger ls-dismissable">
+        <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
+        {{ session('danger') }}
+    </div>
+    @endif
+
 
 
     <a href="/users/novo" class="ls-btn-primary">Cadastrar novo</a>
