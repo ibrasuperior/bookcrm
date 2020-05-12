@@ -9,10 +9,44 @@ use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     
-    public function index()
-    {
-        $user = User::get();
-        return view('users.index')->with('users',$user);
+    public function index(Request $request){
+        $permissoes = $request->input('permissoes');
+        $equipe = $request->input('equipe');
+        $leads = $request->input('leads');
+        $name = $request->input('name');
+        
+        $query = User::query();
+        
+        if(!empty($permissoes)){
+            $query->where('permissoes', $permissoes );
+        }
+
+        if(!empty($leads) &&  $request->input('leads') == 1 ){
+            $query->where('active', 1 );
+            $query->where('leads_active', 1 );
+        }
+
+        if(!empty($leads) &&  $request->input('leads') == 2 ){
+            $query->where('active', 1 );
+            $query->where('leads_active', 0 );
+        }
+
+        if(!empty($leads) &&  $request->input('leads') == 3 ){
+            $query->where('active', 0 );
+            $query->where('leads_active', 0 );
+        }
+        
+        if(!empty($equipe)){
+            $query->where('equipe_id', $equipe );
+        }
+
+        if(!empty($name) ){
+            $query->where('name', 'LIKE', '%'.$name.'%');
+        }
+        
+        $data = $query->orderBy('id','asc')->paginate(20);
+         
+        return view('users.index')->with('users', $data);
     }
 
 

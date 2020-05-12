@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Exports\LeadsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Events\MyEvent;
 
 class leadsController extends Controller
 {
