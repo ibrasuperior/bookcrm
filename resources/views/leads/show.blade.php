@@ -376,7 +376,7 @@
                         <br>
 
                         <b>Descrição: </b>
-                        <textarea rows="6" name="corpo" id="editor2">
+                        <textarea required="required" rows="6" name="corpo" id="editor2">
                     </textarea><br>
                         <button type="submit" class="ls-ico-text ls-btn ls-btn-primary">
                             Adicionar nota

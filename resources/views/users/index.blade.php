@@ -20,8 +20,73 @@
     @endif
 
 
-
     <a href="/users/novo" class="ls-btn-primary">Cadastrar novo</a>
+
+    <div class="ls-box-filter">
+
+        <form action="/users" class="ls-form ls-form-inline  ">
+            <label class="ls-label" role="search">
+                <div class="ls-custom-select">
+                    <select name="leads" class="ls-select">
+                        <option value="">
+                            Status do Usuário
+                        </option>
+                        <option value="1" @if( Request::input('leads')==1 ) selected="selected" @endif>
+                            ATIVO / Recebe Leads
+                        </option>
+                        <option value="2" @if( Request::input('leads')==2 ) selected="selected" @endif>
+                            ATIVO / Não recebe Leads
+                        </option>
+                        <option value="3" @if( Request::input('leads')==3 ) selected="selected" @endif>
+                            INATIVO
+                        </option>
+                    </select>
+                </div>
+            </label>
+
+
+            <label class="ls-label" role="search">
+                <div class="ls-custom-select">
+                    <select name="permissoes" class="ls-select">
+                        <option value="">
+                            Permissões
+                        </option>
+                        <option value="1" @if( Request::input('permissoes')==1 ) selected="selected" @endif>
+                            Administrador
+                        </option>
+                        <option value="2" @if( Request::input('permissoes')==2 ) selected="selected" @endif>
+                            Operador
+                        </option>
+                    </select>
+                </div>
+            </label>
+
+            <label class="ls-label" role="search">
+                <div class="ls-custom-select">
+                    <select name="equipe" class="ls-select">
+                        <option value="">Equipe</option>
+                        <?php $equipes = \App\Equipe::get(); ?>
+                        @foreach($equipes as $equipe)
+                        <option value="{{$equipe->id}}" @if( Request::input('equipe')==$equipe->id )
+                            selected="selected"
+                            @endif>
+                            {{$equipe->nome}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </label>
+
+            <label class="ls-label" role="search">
+                <input type="text" name="name" class="ls-input" placeholder="Nome" />
+            </label>
+            <button type="submit" class="ls-btn ls-btn-primary">Filtrar</button>
+
+        </form>
+    </div>
+
+    <span>
+        {{ $users->total() }} Usuários Encontrados
+    </span>
 
 
     <table class="ls-table  ls-bg-header ">
@@ -77,6 +142,7 @@
         </tbody>
     </table>
 
+    {{  $users->appends(Request::except('page'))->links() }}
 
 </div>
 
