@@ -29,7 +29,7 @@
                 <div class="ls-custom-select">
                     <select name="leads" class="ls-select">
                         <option value="">
-                            Usuário ativo
+                            Status do Usuário
                         </option>
                         <option value="1" @if( Request::input('leads')==1 ) selected="selected" @endif>
                             ATIVO / Recebe Leads
