@@ -1,19 +1,5 @@
 <?php
 
-Route::get('welcome', function(){
-    return view('welcome')->with('user', '158');
-});
-
-Route::get('test', function () {
-    return view('test');
-});
-
-Route::post('sender', function () {
-    $text = request()->text;
-    event(new App\Events\PushLead($text));
-    return 'OK SEND';
-});
-
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/',"LeadsController@dashboard");

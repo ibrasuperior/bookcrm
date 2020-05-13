@@ -231,7 +231,7 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
     var current_user = "<?php echo $current_user;  ?>"
 
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    //Pusher.logToConsole = true;
 
     var pusher = new Pusher('f79d2982653448dfc962', {
         cluster: 'us2'
