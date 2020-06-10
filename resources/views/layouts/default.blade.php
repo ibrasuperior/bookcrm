@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="ls-theme-turquoise	">
+<html class="ls-theme-light-green">
 
 <head>
     <title>BOOK STATION CRM</title>
@@ -8,6 +8,9 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="Insira aqui a descrição da página.">
+
+    <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+
 
     <link href="https://assets.locaweb.com.br/locastyle/3.10.1/stylesheets/locastyle.css" rel="stylesheet"
         type="text/css">
@@ -38,7 +41,6 @@
             <!-- Dropdown com detalhes da conta de usuário -->
             <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
                 <a href="#" class="ls-ico-user">
-                    <img src="/locawebstyle/assets/images/locastyle/avatar-example.jpg" alt="" />
                     <span class="ls-name"><?php $nome= \Auth::user()->name; ?> {{$nome}}</span>
 
                 </a>
@@ -80,7 +82,7 @@
     <aside class="ls-sidebar">
 
         <div class="ls-sidebar-inner">
-            <a href="/locawebstyle/documentacao/exemplos//pre-painel" class="ls-go-prev"><span class="ls-text">Voltar à
+            <a href="/" class="ls-go-prev"><span class="ls-text">Voltar à
                     lista de serviços</span></a>
 
             <nav class="ls-menu">
@@ -210,6 +212,43 @@ $agendas = \App\Agenda::where('colaborador_id', \Auth::user()->id )->get();
         color: #666;
     }
     </style>
+
+    <!-- PUSHER NOTIFICATION -->
+    <?php $current_user = \Auth::user()->id; ?>
+
+    <script>
+    // request permission on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!Notification) {
+            alert('Desktop notifications not available in your browser. Try Chromium.');
+            return;
+        }
+
+        if (Notification.permission !== 'granted')
+            Notification.requestPermission();
+    });
+
+    var current_user = "<?php echo $current_user;  ?>"
+
+    // Enable pusher logging - don't include this in production
+    //Pusher.logToConsole = true;
+
+    var pusher = new Pusher('f79d2982653448dfc962', {
+        cluster: 'us2'
+    });
+
+    var channel = pusher.subscribe('lead-push');
+    channel.bind('lead-push', function(data) {
+        if (data.user == current_user) {
+            new Notification('Book CRM', {
+                body: 'Olá, você acaba de receber um novo lead!',
+                icon: "http://ibraeducacional.com.br/images/book.png"
+            });
+        }
+    });
+    </script>
+
+    <!-- PUSHER NOTIFICATION -->
 
     <footer>
         <!-- JQUERY -->

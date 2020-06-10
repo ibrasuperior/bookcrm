@@ -176,6 +176,7 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
                             <select name="canal_id" class="ls-select">
                                 <option value="50"> Outros </option>
                                 <option value="7"> Indicação </option>
+                                <option value="20"> Mídia Social </option>
                             </select>
                         </div>
                     </label>
