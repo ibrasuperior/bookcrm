@@ -96,6 +96,11 @@
                     <li>
                         <a href="/documentos" class="ls-ico-book"> Documentos Oficiais </a>
                     </li>
+
+                    <li><a href="http://ramais.ibraeducacional.com.br/" target="_blank" class="ls-ico-link">Ramais</a>
+
+                    </li>
+
                     @if( \Auth::user()->permissoes == 1 )
                     <li class="ls-submenu-parent" aria-expanded="false" aria-hidden="true">
                         <a href="#" class="ls-ico-stats" title="Configurações" role="menuitem">Relatórios</a>
