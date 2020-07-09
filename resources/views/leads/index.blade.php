@@ -87,7 +87,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                             <div class="ls-custom-select">
                                 <select name="matriculado" class="ls-select">
                                     <option value="">(selecione)</option>
-                                    <option value="true">Sim</option>
+                                    <option value="1">Sim</option>
                                     <option value="false">Não</option>
                                 </select>
                             </div>

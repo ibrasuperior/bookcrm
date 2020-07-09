@@ -64,10 +64,7 @@ class leadsController extends Controller
         if(empty($lead)){
             $query->where('colaborador_id', \Auth::user()->id);
         }
-        if(!empty($lead)){
-            $query->where('colaborador_id', $lead);
-        }
-        
+
         $leads = $query->orderBy('id', 'desc')->paginate(15);
         return view('leads.index')->with('leads', $leads);
     }
