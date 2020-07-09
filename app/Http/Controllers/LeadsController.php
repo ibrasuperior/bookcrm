@@ -35,11 +35,38 @@ class leadsController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $id = \Auth::user()->id ;
-        $data = Lead::where("colaborador_id",$id)->orderBy('id','desc')->paginate(10);
-        return view('leads.index')->with("leads",$data);
+        $nome = $request->input('nome');
+        $email = $request->input('email');
+        $telefone = $request->input('telefone');
+        $canal = $request->input('canal_id');
+        $matriculado = $request->input('matriculado');
+        $lead = $request->input('lead');
+
+        $query = Lead::query();
+
+        if(!empty($nome)){
+            $query->where('nome', 'LIKE', '%'.$nome.'%');
+        }
+        if(!empty($email)){
+            $query->where('email', $email);
+        }
+        if(!empty($telefone)){
+            $query->where('telefone', 'LIKE', '%'.$telefone.'%');
+        }
+        if(!empty($canal)){
+            $query->where('canal_id', $canal);
+        }
+        if(!empty($matriculado)){
+            $query->where('matriculado', $matriculado);
+        }
+        if(empty($lead)){
+            $query->where('colaborador_id', \Auth::user()->id);
+        }
+
+        $leads = $query->orderBy('id', 'desc')->paginate(15);
+        return view('leads.index')->with('leads', $leads);
     }
 
 
@@ -94,7 +121,7 @@ class leadsController extends Controller
     public function search(Request $request){
         $order = $request->input('order');
         $leads = Lead::where('nome', 'LIKE', '%'.$order.'%')->orWhere('email','LIKE',
-    '%'.$order.'%')->paginate(20);
+        '%'.$order.'%')->paginate(20);
 
         if( count($leads) > 0 ){
             return view('leads.index')->with('leads',$leads);
