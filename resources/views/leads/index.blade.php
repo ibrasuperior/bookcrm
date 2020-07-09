@@ -98,8 +98,8 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                             <b class="ls-label-text">Leads</b>
                             <div class="ls-custom-select">
                                 <select name="lead" class="ls-select">
-                                    <option>Meus leads</option>
-                                    <option valeu="1">Todos leads</option>
+                                    <option value="">Meus leads</option>
+                                    <option value="1">Todos leads</option>
                                 </select>
                             </div>
                         </label>
