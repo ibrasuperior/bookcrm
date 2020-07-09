@@ -1,7 +1,9 @@
 @extends('layouts.default')
 
 @section('content')
-
+<?php
+    $canais = \App\Canal::get();
+?>
 <div class="container-fluid">
     <h1 class="ls-title-intro ls-ico-users">Contatos</h1>
 
@@ -38,43 +40,86 @@
 
     <a class="ls-btn-primary ls-ico-spinner" onclick="return location.reload()">Recarregar</a>
 
-    <div class="ls-box-filter" style="-webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+    <div data-ls-module="collapse" data-target="#0" style="background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
 -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);">
-        <form action="/leads/filter" class="ls-form ls-form-inline ls-float-left">
-            <label class="ls-label col-md-6 col-sm-8">
-                <b class="ls-label-text">Status</b>
-                <div class="ls-custom-select ls-field-sm">
-                    <select name="order" class="ls-select">
-                        <option>Todos</option>
-                        <option value="2">Oportunidades </option>
-                        <option value="4">Desqualificados </option>
-                    </select>
+box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
+        <a class="ls-collapse-header">
+            <h3 class="ls-collapse-title">Filtro</h3>
+        </a>
+        <div class="ls-collapse-body">
+            <form action="/leads" class="ls-form ">
+                <fieldset>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="ls-label ">
+                            <b class="ls-label-text">Nome</b>
+                            <input type="text" name="nome" placeholder="Nome do lead">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">E-mail</b>
+                            <input type="text" name="email" placeholder="Escreva o Email">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">Telefone</b>
+                            <input type="text" name="telefone" class="ls-mask-phone9_with_ddd" placeholder="Número de Telefone" >
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">Canal</b>
+                            <div class="ls-custom-select">
+                                <select name="canal_id" class="ls-select">
+                                    <option value="">(selecione)</option>
+                                    @foreach($canais as $canal)
+                                        <option value="{{ $canal->id }}">{{ $canal->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">Matriculado</b>
+                            <div class="ls-custom-select">
+                                <select name="matriculado" class="ls-select">
+                                    <option value="">(selecione)</option>
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">Leads</b>
+                            <div class="ls-custom-select">
+                                <select name="lead" class="ls-select">
+                                    <option>Meus leads</option>
+                                    <option valeu="1">Todos leads</option>
+                                </select>
+                            </div>
+                        </label>
+                    </div>
                 </div>
-            </label>
-            <button class="submit ls-btn-primary">Filtrar</button>
-        </form>
-
-        <form action="/leads/search" method="GET" class="ls-form ls-form-inline ls-float-right">
-            <label class="ls-label" role="search">
-                <input type="text" name="order" autocomplete="off" aria-label="Faça sua busca por cliente"
-                    placeholder="Nome do lead" required="" class="ls-field-sm">
-            </label>
-            <div class="ls-actions-btn">
-                <input type="submit" value="Buscar" class="ls-btn ls-btn-sm" title="Buscar">
-            </div>
-        </form>
+                </fieldset>
+                <button class="ls-btn-primary ls-ico-search">Filtar</button>
+            </form>
+        </div>
     </div>
 
     <table class="ls-table  ls-bg-header ">
         <thead>
             <tr>
-                <th class="ls-txt-center ls-data-descending"> <a> Lead</a> </th>
-                <th class="ls-txt-center ls-data-descending"> <a>E-mail </a></th>
-                <th class="ls-txt-center ls-data-descending"><a>Telefone </a></th>
-                <th class="ls-txt-center ls-data-descending"><a>Mídia </a></th>
-                <th class="ls-txt-center ls-data-descending"><a>Responsável </a></th>
-                <th class="ls-txt-center ls-data-descending"><a>Ações </a></th>
+                <th class="ls-txt-center ls-data-descending"><a> Lead</a> </th>
+                <th class="ls-txt-center ls-data-descending"><a> E-mail </a></th>
+                <th class="ls-txt-center ls-data-descending"><a> Telefone </a></th>
+                <th class="ls-txt-center ls-data-descending"><a> Mídia </a></th>
+                <th class="ls-txt-center ls-data-descending"><a> Responsável </a></th>
+                <th class="ls-txt-center ls-data-descending"><a> Ações </a></th>
             </tr>
         </thead>
         <tbody>
