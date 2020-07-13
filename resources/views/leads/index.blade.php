@@ -40,11 +40,11 @@
 
     <a class="ls-btn-primary ls-ico-spinner" onclick="return location.reload()">Recarregar</a>
 
-    <div data-ls-module="collapse" data-target="#0" style="background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+    <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
 -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
 box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
         <a class="ls-collapse-header">
-            <h3 class="ls-collapse-title">Filtro</h3>
+            <h3 class="ls-collapse-title">Filtros</h3>
         </a>
         <div class="ls-collapse-body">
             <form action="/leads" class="ls-form ">
@@ -54,6 +54,17 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                         <label class="ls-label ">
                             <b class="ls-label-text">Nome</b>
                             <input type="text" name="nome" placeholder="Nome do lead">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="ls-label">
+                            <b class="ls-label-text">Leads</b>
+                            <div class="ls-custom-select">
+                                <select name="lead" class="ls-select">
+                                    <option value="1">Todos leads</option>
+                                    <option value="">Meus leads</option>
+                                </select>
+                            </div>
                         </label>
                     </div>
                     <div class="col-md-4">
@@ -93,20 +104,9 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                             </div>
                         </label>
                     </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">Leads</b>
-                            <div class="ls-custom-select">
-                                <select name="lead" class="ls-select">
-                                    <option value="">Meus leads</option>
-                                    <option value="1">Todos leads</option>
-                                </select>
-                            </div>
-                        </label>
-                    </div>
                 </div>
                 </fieldset>
-                <button class="ls-btn-primary ls-ico-search">Filtar</button>
+                <button class="ls-btn-primary ls-ico-search">Filtrar</button>
             </form>
         </div>
     </div>
