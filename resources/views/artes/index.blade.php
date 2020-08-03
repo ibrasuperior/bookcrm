@@ -28,9 +28,9 @@
     </div>
 
     @endif
-
+    @if( \Auth::user()->permissoes == 1 )
     <a href="/artes/nova" class="ls-btn-primary">Cadastrar Nova</a>
-
+    @endif
     <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
     -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
     box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
@@ -45,6 +45,16 @@
                             <label class="ls-label ">
                                 <b class="ls-label-text">Nome</b>
                                 <input type="text" name="nome" placeholder="Nome da Peça">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Personalizavel</b>
+                                <select class="ls-custom-select" name="personalizavel">
+                                    <option value="">Todos</option>
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
                             </label>
                         </div>
                     </div>
@@ -86,7 +96,9 @@
         <!-- FOREACH -->
         @endforeach
 
-
+        <nav class="text-center">
+            {{ $artes->appends(Request::except('page'))->links() }}
+        </nav>
     </div>
 
 </div>

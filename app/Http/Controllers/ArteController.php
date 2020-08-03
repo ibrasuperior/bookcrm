@@ -17,6 +17,14 @@ class ArteController extends Controller
         if(!empty($nome)){
             $query->where('nome', 'LIKE', '%'.$nome.'%');
         }
+        if(!empty($personalizavel)){
+            if($personalizavel == "true"){
+                $query->where('personalizavel', 1);
+            } else {
+                $query->where('personalizavel', 0);
+            }
+        }
+
 
         $artes = $query->orderBy('id', 'desc')->paginate(15);
 
