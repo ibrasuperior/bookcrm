@@ -2,8 +2,8 @@
 
 @section('content')
 <?php
- $connect = mysqli_connect('localhost','nzkbevgkvh',
- 'tRFv9GWCvX', 'nzkbevgkvh');
+ $connect = mysqli_connect('localhost','root',
+ '', 'nzkbevgkvh');
 
   $artes = mysqli_query($connect, 'select * from artes ORDER BY id DESC' );
 ?>
@@ -19,19 +19,38 @@
     </div>
     @endif
 
-    <div class="ls-box-filter">
-        <form action="" class="ls-form ls-form-inline">
-
-            <label class="ls-label col-md-3 col-sm-3">
-                <input type="text" placeholder="Nome da arte">
-            </label>
-
-            <label class="ls-label col-md-1 col-sm-1">
-                <input type="submit" class="ls-btn-primary" value="Filtrar">
-            </label>
-        </form>
-
-
+    <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+    -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+    box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
+        <a class="ls-collapse-header">
+            <h3 class="ls-collapse-title">Filtros</h3>
+        </a>
+        <div class="ls-collapse-body">
+            <form action="/arte" class="ls-form ">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Nome</b>
+                                <input type="text" name="nome" placeholder="Nome da Peça">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Personalizavel</b>
+                                <div class="ls-custom-select">
+                                    <select name="personalizavel" class="ls-select">
+                                        <option value="1">Sim</option>
+                                        <option value="0">Não</option>
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="ls-btn-primary ls-ico-search">Filtrar</button>
+            </form>
+        </div>
     </div>
 
     <div class="row">
@@ -42,11 +61,14 @@
                 <img src="https://admin.ibraeducacional.com.br/storage/documents/<?php echo $arte['img']; ?>"
                     style="max-width:100%;" alt="">
                 <h4 class="text-box"> <?php echo $arte['nome']; ?> </h4>
-                <div>
+                <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
                     <a href="https://admin.ibraeducacional.com.br/files/download?file=<?php echo $arte['img']; ?>"
-                        class="ls-btn ls-btn-lg ls-btn-block ls-ico-download">
+                        class="ls-btn ls-btn-block ls-ico-download">
                         Baixar
                     </a>
+                    @if($arte['personalizavel'] == 1)
+                    <a href="/pecas?img=<?php echo $arte['img']; ?>" class="ls-btn ls-ico-pencil"></a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -80,6 +102,7 @@
 }
 </style>
 <!-- CONTEÚDO -->
+
 
 
 
