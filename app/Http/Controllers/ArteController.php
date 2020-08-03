@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 use App\Arte;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,7 +68,7 @@ class ArteController extends Controller
     public function destroy($id){
     	$arte = Arte::findOrFail($id);
 
-		Storage::disk('local')->delete( $arte['img']);
+		Storage::delete( $arte['img']);
 		$arte->delete();
 
     	return redirect('/artes')->with('success', 'Deletado com sucesso !');
