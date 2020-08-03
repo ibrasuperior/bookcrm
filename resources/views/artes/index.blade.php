@@ -1,23 +1,35 @@
 @extends('layouts.default')
 
 @section('content')
-<?php
- $connect = mysqli_connect('localhost','root',
- '', 'nzkbevgkvh');
-
-  $artes = mysqli_query($connect, 'select * from artes ORDER BY id DESC' );
-?>
-
 
 <div class="container-fluid">
-    <h1 class="ls-title-intro ls-ico-calendar-check">Publicidade</h1>
+    <h1 class="ls-title-intro ls-ico-home">Publicidade</h1>
 
     @if( session('success') )
+
     <div class="ls-alert-success ls-dismissable">
+
         <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
+
         {{ session('success') }}
+
     </div>
+
     @endif
+
+    @if( session('danger') )
+
+    <div class="ls-alert-danger ls-dismissable">
+
+        <span data-ls-module="dismiss" class="ls-dismiss">&times;</span>
+
+        {{ session('danger') }}
+
+    </div>
+
+    @endif
+
+    <a href="/artes/nova" class="ls-btn-primary">Cadastrar Nova</a>
 
     <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
     -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
@@ -26,24 +38,13 @@
             <h3 class="ls-collapse-title">Filtros</h3>
         </a>
         <div class="ls-collapse-body">
-            <form action="/arte" class="ls-form ">
+            <form action="/artes" class="ls-form ">
                 <fieldset>
                     <div class="row">
                         <div class="col-md-4">
                             <label class="ls-label ">
                                 <b class="ls-label-text">Nome</b>
                                 <input type="text" name="nome" placeholder="Nome da Peça">
-                            </label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="ls-label">
-                                <b class="ls-label-text">Personalizavel</b>
-                                <div class="ls-custom-select">
-                                    <select name="personalizavel" class="ls-select">
-                                        <option value="1">Sim</option>
-                                        <option value="0">Não</option>
-                                    </select>
-                                </div>
                             </label>
                         </div>
                     </div>
@@ -53,27 +54,38 @@
         </div>
     </div>
 
+
     <div class="row">
         @foreach($artes as $arte)
         <!-- FOREACH -->
         <div class="col-md-3">
             <div class="box-card">
-                <img src="https://admin.ibraeducacional.com.br/storage/documents/<?php echo $arte['img']; ?>"
-                    style="max-width:100%;" alt="">
-                <h4 class="text-box"> <?php echo $arte['nome']; ?> </h4>
-                <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
-                    <a href="https://admin.ibraeducacional.com.br/files/download?file=<?php echo $arte['img']; ?>"
-                        class="ls-btn ls-btn-block ls-ico-download">
-                        Baixar
-                    </a>
-                    @if($arte['personalizavel'] == 1)
-                    <a href="/pecas?img=<?php echo $arte['img']; ?>" class="ls-btn ls-ico-pencil"></a>
-                    @endif
+                <img style="max-width:100%;" src="/storage/artes/{{$arte->img}}" />
+                <div style="display: flex;justify-content: space-between;">
+                    <h4 class="text-box">{{$arte->nome}} </h4>
+                    <div data-ls-module="dropdown" class="ls-dropdown">
+                        <button class="ls-btn"></button>
+                        <ul class="ls-dropdown-nav">
+                            <li><a href="/artes/download?file={{$arte->img}}" class=" ls-ico-download">Baixar</a></li>
+                            @if( \Auth::user()->permissoes == 1 )
+                            <li><a onclick="return confirm('Tem certeza?')" href="/artes/destroy/{{$arte->id}}"
+                                    class="ls-ico-remove ls-color-danger">Excluir</a></li>
+                            @endif
+                            @if( $arte->personalizavel == 1 )
+                            <li><a href="/artes/pecas?img={{$arte->img}}" class="ls-ico-pencil">Personalizar</a></li>
+                            @endif
+                            @if( \Auth::user()->permissoes == 1 )
+                            <li><a href="/artes/edit/{{$arte->id}}" class="ls-ico-pencil">Editar</a></li>
+                            @endif
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- FOREACH -->
         @endforeach
+
 
     </div>
 
@@ -100,10 +112,5 @@
     height: 200px;
     object-fit: cover;
 }
-</style>
-<!-- CONTEÚDO -->
 
-
-
-
-@stop
+</sty le>< !-- CONTEÚDO -->@stop

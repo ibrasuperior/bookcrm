@@ -6,7 +6,7 @@ Route::middleware(['auth'])->group(function(){
 
     //relatórios matricula
     Route::get('/matriculas/report', "MatriculaController@report");
-    
+
     //relatórios leads
     Route::get('/relatorios/leads', function(){
         if(\Auth::user()->permissoes == 1){
@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/relatorios/analise', function(){
         return view('relatorios.analise');
     });
-        
+
 
     Route::get('/relatorios/leads/filter', "LeadsController@reportFilter");
     Route::get('/relatorios/leads/report', "LeadsController@report");
@@ -73,10 +73,6 @@ Route::middleware(['auth'])->group(function(){
         return view('documentos.index');
     });
 
-
-    //publicidade
-    Route::get('/publicidade',"ArteController@index");
-
     //Formulario de matrícula
     Route::get('/formulario/{id}', 'FormularioController@index');
     Route::post('/formulario/envia', 'FormularioController@envia');
@@ -87,6 +83,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/api/user-attempt',"ApiController@userAttempt");
     Route::get('/api/estagios',"ApiController@estagios");
 
+    /*/ARTES/*/
+    Route::get('/artes',"ArteController@index");
+    Route::get('/artes/download',"ArteController@download");
+    Route::get('/artes/pecas',"ArteController@pecas");
+    Route::post('/artes/peca',"ArteController@peca");
+
 
 });
 
@@ -95,6 +97,15 @@ Auth::routes();
 Auth::routes(['register' => false]);
 
 Route::middleware(['security'])->group(function(){
+
+    /*/ARTES/*/
+    Route::get('/artes/destroy/{id}','ArteController@destroy');
+    Route::get('/artes/edit/{id}', 'ArteController@edit');
+    Route::get('/artes/nova', function(){
+       return view('artes.novo');
+    });
+    Route::post('/artes/store',"ArteController@store");
+    Route::post('/artes/update/{id}',"ArteController@update");
 
     /*/EQUIPES/*/
     Route::get("/equipes","EquipeController@index");
@@ -150,7 +161,7 @@ Route::get('/auth/callback', function(){
  Route::post('/api/analise',"ApiController@analise");
 
 
- //EDUCA EDU 
+ //EDUCA EDU
  Route::post('/api/edu',"ApiController@leadsEducaEdu");
 
  Route::get('/relatorios/matriculas/report',"MatriculaController@reportAdmin");
