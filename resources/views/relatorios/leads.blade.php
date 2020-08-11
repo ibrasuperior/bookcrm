@@ -17,13 +17,13 @@
         <form action="/relatorios/leads/filter" class="ls-form ls-form-inline  ">
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">De:</b>
-                <input autocomplete="off" type="text" name="dateStart" class="datepicker" placeholder="dd/mm/aaaa" @if(
+                <input autocomplete="off" type="date" name="dateStart" placeholder="dd/mm/aaaa" @if(
                     Request::input('dateStart')!=='' ) value="{{  Request::input('dateStart') }}" @endif>
             </label>
 
             <label class="ls-label col-md-3">
                 <b class="ls-label-text">Até:</b>
-                <input autocomplete="off" type="text" name="dateEnd" class="datepicker" placeholder="dd/mm/aaaa" @if(
+                <input autocomplete="off" type="date" name="dateEnd" placeholder="dd/mm/aaaa" @if(
                     Request::input('dateEnd')!=='' ) value="{{  Request::input('dateEnd') }}" @endif>
             </label>
 
