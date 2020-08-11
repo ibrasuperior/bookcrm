@@ -55,14 +55,8 @@ class ApiController extends Controller
 
 
     public function analise(Request $request){
-        $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('inicio') );
-        $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('final') );
-
-        $inicio =  Carbon::parse( $inputInicio )
-        ->format('Y-m-d');
-
-        $final = Carbon::parse( $inputFinal )
-        ->format('Y-m-d');
+        $inicio =  $request->input('inicio');
+        $final = $request->input('final');
 
         //INDICAÇÃO
         $indicacao = array();
@@ -87,30 +81,6 @@ class ApiController extends Controller
 
         $indicacao['Capacitação'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Capacitação')
         ->whereBetween('created_at',[$inicio,$final])->count();
-
-         //Actual
-         $actual = array();
-
-         $actual['leads'] = Lead::where('canal_id', 3)->whereBetween('created_at',[$inicio,$final])->count();
-         $actual['matriculas'] =  Matricula::where('canal', 'Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
-
-         if( !empty( $actual['leads']) && !empty( $actual['matriculas'] ) ){
-             $actual['conversao'] =  $actual['matriculas'] * 100 / $actual['leads'] ;
-         }else{
-            $actual['conversao'] = 0;
-        }
-
-         $actual['pos'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Pós-Graduação')
-         ->whereBetween('created_at',[$inicio,$final])->count();
-
-         $actual['segundaLicenciatura'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Segunda Licenciatura')
-         ->whereBetween('created_at',[$inicio,$final])->count();
-
-         $actual['r2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
-         ->whereBetween('created_at',[$inicio,$final])->count();
-
-         $actual['Capacitação'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Capacitação')
-         ->whereBetween('created_at',[$inicio,$final])->count();
 
          //Midia
          $midia = array();
@@ -138,7 +108,6 @@ class ApiController extends Controller
 
         $dados =  array(
             'indicacao' => $indicacao,
-            'actual' => $actual,
             'midia' => $midia
         );
 
@@ -147,7 +116,7 @@ class ApiController extends Controller
 
     /*
     /-------------------------------------------------------------------------
-    /   API PARA EDUCA EDU 
+    /   API PARA EDUCA EDU
     /-------------------------------------------------------------------------
     /
     /
@@ -158,7 +127,7 @@ class ApiController extends Controller
         $user = User::where('permissoes' ,'>', 1)
         ->where('leads_active', true)
         ->orderBy('educa_leads','asc')->first();
-        
+
         $lead->nome = $request->input('name');
         $lead->email = $request->input('email');
         $lead->telefone = $request->input('phone');
@@ -180,66 +149,66 @@ class ApiController extends Controller
             if(  $userToSelect['active'] == 1 ){
                 $lead->colaborador_id = $leadFind['colaborador_id'];
 
-                 //incrementa leads daily 
+                 //incrementa leads daily
                 User::where('id', $leadFind['colaborador_id'])->update(['educa_leads' => 1 ]);
-                
-                //collection leads daily 
+
+                //collection leads daily
                 $plucked = User::where('permissoes' ,'>', 1)
                 ->where('leads_active', true)->pluck('educa_leads');
-                
+
                 if( $plucked->sum() == count($plucked) ){
                     DB::table('users')->update(['educa_leads' => 0 ]);
                 }
-            
+
                 $leadFind->delete();
                 $lead->save();
 
                 event(new PushLead(  $leadFind['colaborador_id'] ));
-                
+
                 return $lead;
             }
 
 
-            //incrementa leads daily 
+            //incrementa leads daily
             User::where('id', $user['id'])->update(['educa_leads' => 1 ]);
-            
-            //collection leads daily 
+
+            //collection leads daily
             $plucked = User::where('permissoes' ,'>', 1)
             ->where('leads_active', true)->pluck('educa_leads');
-            
+
             if( $plucked->sum() == count($plucked) ){
                 DB::table('users')->update(['educa_leads' => 0 ]);
             }
-            
+
             $leadFind->delete();
             $lead->save();
             event(new PushLead(  $user['id'] ));
 
             return $lead;
         } else{
-            //incrementa leads daily 
+            //incrementa leads daily
             User::where('id', $user['id'])->update(['educa_leads' => 1 ]);
-            
-            //collection leads daily 
+
+            //collection leads daily
             $plucked = User::where('permissoes' ,'>', 1)
             ->where('leads_active', true)->pluck('educa_leads');
-            
+
             if( $plucked->sum() == count($plucked) ){
                 DB::table('users')->update(['educa_leads' => 0 ]);
             }
 
             $lead->save();
             event(new PushLead(  $user['id'] ));
-            
+
             return $lead;
         }
     }
-    
 
-    
+
+
     /*
     /-------------------------------------------------------------------------
-    /   API PARA RD STATION 
+    /   API PARA RD STATION
     /-------------------------------------------------------------------------
     /
     /
@@ -253,7 +222,7 @@ class ApiController extends Controller
         $user = User::where('permissoes' ,'>', 1)
         ->where('leads_active', true)
         ->orderBy('leads_daily','asc')->first();
-        
+
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
 
         //traduzir canais
@@ -316,17 +285,17 @@ class ApiController extends Controller
             if(  $userToSelect['active'] == 1 ){
             $lead->colaborador_id = $leadFind['colaborador_id'];
 
-            //incrementa leads daily 
+            //incrementa leads daily
             User::where('id', $leadFind['colaborador_id'])->update(['leads_daily' => 1 ]);
-            
-            //collection leads daily 
+
+            //collection leads daily
             $plucked = User::where('permissoes' ,'>', 1)
             ->where('leads_active', true)->pluck('leads_daily');
-            
+
             if( $plucked->sum() == count($plucked) ){
                 DB::table('users')->update(['leads_daily' => 0 ]);
             }
-            
+
             //verifica se é matriculado
             if( $leadFind['matriculado'] == 1){
                 $lead->matriculado = 1 ;
@@ -334,51 +303,51 @@ class ApiController extends Controller
 
             $leadFind->delete();
             $lead->save();
-            
+
             event(new PushLead(  $leadFind['colaborador_id'] ));
-            
+
             return $lead;
             }else{
                  //verifica se é matriculado
                 if( $leadFind['matriculado'] == 1){
                     $lead->matriculado = 1 ;
                 }
-                
+
                 $leadFind->delete();
 
                 $lead->colaborador_id = $user['id'];
 
-                //incrementa leads daily 
+                //incrementa leads daily
                 User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
-                
-                //collection leads daily 
+
+                //collection leads daily
                 $plucked = User::where('permissoes' ,'>', 1)
                 ->where('leads_active', true)->pluck('leads_daily');
-                
+
                 if( $plucked->sum() == count($plucked) ){
                     DB::table('users')->update(['leads_daily' => 0 ]);
                 }
-                
+
                 event(new PushLead(  $user['id'] ));
-                
+
                 $lead->save();
                 return $lead;
             }
-            
+
         } else{
             $lead->colaborador_id = $user['id'];
 
-            //incrementa leads daily 
+            //incrementa leads daily
             User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
-            
-            //collection leads daily 
+
+            //collection leads daily
             $plucked = User::where('permissoes' ,'>', 1)
             ->where('leads_active', true)->pluck('leads_daily');
-            
+
             if( $plucked->sum() == count($plucked) ){
                 DB::table('users')->update(['leads_daily' => 0 ]);
             }
-            
+
             $lead->save();
 
             event(new PushLead( $user['id'] ));

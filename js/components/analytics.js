@@ -1,23 +1,21 @@
 class Analytics extends React.Component {
     state = {
         indicacao: [],
-        actual: [],
         midia: [],
         inicio: "",
         final: "",
-        loading: false
+        loading: false,
     };
 
-    handleSubmit = async e => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         try {
             this.setState({ loading: true });
             const response = await axios.post(`/api/analise`, {
                 inicio: this.state.inicio,
-                final: this.state.final
+                final: this.state.final,
             });
             this.setState({ indicacao: response.data.indicacao });
-            this.setState({ actual: response.data.actual });
             this.setState({ midia: response.data.midia });
         } catch (err) {
             console.log(err);
@@ -26,10 +24,10 @@ class Analytics extends React.Component {
         }
     };
 
-    setFinal = e => {
+    setFinal = (e) => {
         this.setState({ final: e.target.value });
     };
-    setInicio = e => {
+    setInicio = (e) => {
         this.setState({ inicio: e.target.value });
     };
 
@@ -43,52 +41,34 @@ class Analytics extends React.Component {
                         className="ls-form ls-form-inline row"
                     >
                         <label className="ls-label col-md-4 col-sm-12">
-                            <div className="ls-prefix-group">
-                                <span
-                                    data-ls-module="popover"
-                                    data-content="Escolha o período desejado e clique em 'Filtrar'."
-                                />
-                                <input
-                                    autoComplete="off"
-                                    onSelect={this.setInicio}
-                                    onChange={this.setInicio}
-                                    value={this.state.inicio}
-                                    type="date"
-                                    name="range_start"
-                                    placeholder="dd/mm/aaaa"
-                                    id="datepicker1"
-                                    className="datepicker"
-                                />
-                                <a
-                                    className="ls-label-text-prefix ls-ico-calendar"
-                                    data-trigger-calendar="#datepicker1"
-                                    href="#"
-                                />
-                            </div>
+                            <span
+                                data-ls-module="popover"
+                                data-content="Escolha o período desejado e clique em 'Filtrar'."
+                            />
+                            <input
+                                autoComplete="off"
+                                onSelect={this.setInicio}
+                                onChange={this.setInicio}
+                                value={this.state.inicio}
+                                type="date"
+                                name="range_start"
+                                placeholder="dd/mm/aaaa"
+                            />
                         </label>
                         <label className="ls-label col-md-4 col-sm-12">
-                            <div className="ls-prefix-group">
-                                <span
-                                    data-ls-module="popover"
-                                    data-content="Clique em 'Filtrar' para exibir  o período selecionado."
-                                />
-                                <input
-                                    className="datepicker"
-                                    autoComplete="off"
-                                    onSelect={this.setFinal}
-                                    onChange={this.setFinal}
-                                    value={this.state.final}
-                                    type="date"
-                                    name="range_end"
-                                    placeholder="dd/mm/aaaa"
-                                    id="datepicker2"
-                                />
-                                <a
-                                    className="ls-label-text-prefix ls-ico-calendar"
-                                    data-trigger-calendar="#datepicker2"
-                                    href="#"
-                                />
-                            </div>
+                            <span
+                                data-ls-module="popover"
+                                data-content="Clique em 'Filtrar' para exibir  o período selecionado."
+                            />
+                            <input
+                                autoComplete="off"
+                                onSelect={this.setFinal}
+                                onChange={this.setFinal}
+                                value={this.state.final}
+                                type="date"
+                                name="range_end"
+                                placeholder="dd/mm/aaaa"
+                            />
                         </label>
                         <div className="ls-actions-btn">
                             <button className="ls-btn-primary ">
@@ -154,49 +134,6 @@ class Analytics extends React.Component {
                                 <strong>
                                     {" "}
                                     {this.state.indicacao.Capacitação}{" "}
-                                </strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td className="ls-txt-center">
-                                <strong>Actual Sales</strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong> {this.state.actual.leads} </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong>
-                                    {" "}
-                                    {this.state.actual.matriculas}{" "}
-                                </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong>
-                                    {" "}
-                                    {this.state.indicacao.conversao
-                                        ? Math.floor(
-                                              this.state.actual.conversao
-                                          ) + "%"
-                                        : ""}{" "}
-                                </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong> {this.state.actual.pos} </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong>
-                                    {" "}
-                                    {this.state.actual.segundaLicenciatura}{" "}
-                                </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong> {this.state.actual.r2} </strong>
-                            </td>
-                            <td className="ls-txt-center">
-                                <strong>
-                                    {" "}
-                                    {this.state.actual.Capacitação}{" "}
                                 </strong>
                             </td>
                         </tr>
