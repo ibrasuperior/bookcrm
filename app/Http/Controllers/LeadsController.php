@@ -104,7 +104,7 @@ class leadsController extends Controller
     {
         $lead = Lead::findOrFail($id);
         if(\Auth::user()->permissoes !== 1){
-            
+
             $lead->open = true ;
             $lead->update();
         }
@@ -183,27 +183,12 @@ class leadsController extends Controller
      // EXPORTAR DATA ----------------------------------
      public function reportFilter(Request $request)
      {
-         // TRANSFORMAR DATA ----------------------------------
-         if( !empty($request->input('dateStart')) ){
-             $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);     
-             $dateStart =  Carbon::parse( $inputInicio )
-             ->format('Y-m-d');
-    
-         }
-
-         if( !empty($request->input('dateEnd')) ){
-            $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') )->addDay(1);
-            $dateEnd = Carbon::parse( $inputFinal )
-            ->format('Y-m-d');
-        }
-         // TRANSFORMAR DATA ----------------------------------
- 
          $id = \Auth::user()->id;
          $query = Lead::query();
          $canal =  $request->input('canal');
          $user =  $request->input('user');
          $situacao =  $request->input('situacao');
-        
+
 
          if(!empty($dateStart) && !empty($dateEnd)){
              $query->whereBetween('created_at',[$dateStart, $dateEnd]);
@@ -211,7 +196,7 @@ class leadsController extends Controller
          if(!empty($dateStart) && empty($dateEnd)){
             $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
         }
-         
+
          if(!empty($situacao) && $situacao == 'Matriculado' ){
             $query->where('matriculado', 1);
         }
@@ -232,26 +217,26 @@ class leadsController extends Controller
          if(!empty($canal) ){
              $query->where('canal_id',$canal);
          }
- 
+
          if(!empty($user) ){
              $query->where('colaborador_id',$user);
          }
-         
+
          $data = $query->orderBy('id','desc')->paginate(20);
-         
+
          return view('relatorios.leads')->with('leads', $data);
      }
      // EXPORTAR DATA ----------------------------------
-     
+
      // EXPORTAR DATA ----------------------------------
      public function report(Request $request)
      {
          // TRANSFORMAR DATA ----------------------------------
          if( !empty($request->input('dateStart')) ){
-            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);     
+            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);
             $dateStart =  Carbon::parse( $inputInicio )
             ->format('Y-m-d');
-   
+
         }
 
         if( !empty($request->input('dateEnd')) ){
@@ -260,20 +245,20 @@ class leadsController extends Controller
            ->format('Y-m-d');
        }
         // TRANSFORMAR DATA ----------------------------------
- 
+
          $id = \Auth::user()->id;
          $query = Lead::query();
          $canal =  $request->input('canal');
          $user =  $request->input('user');
          $situacao =  $request->input('situacao');
-         
+
          if(!empty($dateStart) && !empty($dateEnd)){
             $query->whereBetween('created_at',[$dateStart, $dateEnd]);
         }
         if(!empty($dateStart) && empty($dateEnd)){
            $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
        }
-         
+
          if(!empty($situacao) && $situacao == 'Matriculado' ){
             $query->where('matriculado', 1);
         }
@@ -294,14 +279,14 @@ class leadsController extends Controller
          if(!empty($canal) ){
              $query->where('canal_id',$canal);
          }
- 
+
          if(!empty($user) ){
              $query->where('colaborador_id',$user);
          }
-         
-        
+
+
          $data = $query->orderBy('id','desc')->get();
-         
+
          return Excel::download(new LeadsExport($data), 'relatorio.xlsx');
      }
      // EXPORTAR DATA ----------------------------------
