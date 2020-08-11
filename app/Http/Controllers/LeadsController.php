@@ -183,12 +183,13 @@ class leadsController extends Controller
      // EXPORTAR DATA ----------------------------------
      public function reportFilter(Request $request)
      {
-         $id = \Auth::user()->id;
-         $query = Lead::query();
-         $canal =  $request->input('canal');
-         $user =  $request->input('user');
-         $situacao =  $request->input('situacao');
-
+        $id = \Auth::user()->id;
+        $query = Lead::query();
+        $canal =  $request->input('canal');
+        $user =  $request->input('user');
+        $situacao =  $request->input('situacao');
+        $dateStart = $request->input('dateStart');
+        $dateEnd = $request->input('dateEnd');
 
          if(!empty($dateStart) && !empty($dateEnd)){
              $query->whereBetween('created_at',[$dateStart, $dateEnd]);
