@@ -36,6 +36,7 @@
                         <option value="{{$canal->id}}" @if( Request::input('canal')==$canal->id )
                             selected="selected"
                             @endif>
+                            
                             {{$canal->nome}}</option>
                         @endforeach
                     </select>
@@ -121,7 +122,11 @@
                     </a>
                 </td>
                 <td class="ls-txt-center">{{$lead->email}}</td>
-                <td class="ls-txt-center">{{$lead->canal->nome}}</td>
+                <td class="ls-txt-center">
+                    @if($lead->canal_id !== null)
+                    {{$lead->canal->nome}}
+                    @endif
+                </td>
                 <td class="ls-txt-center">
                     @if( !empty($lead->colaborador->name) )
                     {{$lead->colaborador->name}}</td>
