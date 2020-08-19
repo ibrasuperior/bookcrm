@@ -98,7 +98,8 @@
                     </li>
 
                     <li><a href="http://ramais.ibraeducacional.com.br/" target="_blank" class="ls-ico-link">Ramais</a>
-
+                    <li><a href="https://docs.google.com/spreadsheets/d/1Oz-hqDmjEd0IOaaRzaEyznfSandw2B19DCIvg6NuEBE/edit?usp=sharing"
+                            target="_blank" class="ls-ico-link">Planilha Documentação</a>
                     </li>
 
                     @if( \Auth::user()->permissoes == 1 )
