@@ -137,7 +137,9 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                 <td class="ls-txt-center">{{$lead->email}}</td>
                 <td class="ls-txt-center">{{$lead->telefone}}</td>
                 <td class="ls-txt-center">
+                    @if($lead->canal_id !== null)
                     {{$lead->canal->nome}}
+                    @endif
                 </td>
                 <td class="ls-txt-center">
                     <?php if($lead->colaborador_id == 0 )
