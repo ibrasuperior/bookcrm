@@ -17,7 +17,9 @@
                 @csrf
                 <input type="hidden" value="{{$lead->id}}" name="id_lead">
                 <input type="hidden" value="{{$lead->nome}}" name="nome">
+                @if($lead->canal_id !== null)
                 <input type="hidden" value="{{$lead->canal->nome}}" name="canal">
+                @endif
                 <input type="hidden" value="{{$lead->colaborador_id}}" name="colaborador_id">
                 <?php $equipe = \Auth::user()->equipe_id; ?>
                 <input type="hidden" value="{{ $equipe }}" name="equipe_id">
@@ -455,7 +457,11 @@
                             <b class="ls-label-text">Canal</b>
                             <div class="ls-custom-select">
                                 <select name="canal_id" class="ls-select">
-                                    <option value="{{$lead->canal->id}}"> {{$lead->canal->nome}}</option>
+                                    @if($lead->canal_id !== null)
+                                    <option value="{{$lead->canal->id}}">
+                                        {{$lead->canal->nome}}
+                                    </option>
+                                    @endif
                                 </select>
                             </div>
                         </label>
