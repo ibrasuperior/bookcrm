@@ -29,8 +29,8 @@
                     <div class="div">
                         <div class="text">
                             <h5>Contato:</h5>
-                            <h6><i class="far fa-id-card"></i> <?php echo $_POST['nome'] ?> </h6>
-                            <h6><a class="fas fa-phone-square"></a> <?php echo $_POST['telefone'] ?></h6>
+                            <h6><i class="fas fa-user"></i> <?php echo $_POST['nome'] ?> </h6>
+                            <h6><i class="fab fa-whatsapp"></i> <?php echo $_POST['telefone'] ?></h6>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
             position: absolute;
             height: 63px;
             margin-left: 27px;
-            margin-top: 412px;
+            margin-top: 350px;
 
         }
 
