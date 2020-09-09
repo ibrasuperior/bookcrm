@@ -57,7 +57,7 @@
             width: 182px;
             position: absolute;
             height: 63px;
-            margin-left: 43px;
+            margin-left: 24px;
             margin-top: 425px;
 
         }
@@ -79,24 +79,16 @@
             font-weight: bold;
         }
 
-        span {
-            font-weight: bold;
-            font-size: 14px;
-            position: relative;
-            top: -5px;
-            color: #666;
-        }
-
         h5 {
             font-weight: bold;
-            font-size: 10px;
+            font-size: 12px;
             position: relative;
             top: -8px;
         }
 
         h6 {
             font-weight: bold;
-            font-size: 12px;
+            font-size: 14px;
             position: relative;
             top: -8px;
         }
