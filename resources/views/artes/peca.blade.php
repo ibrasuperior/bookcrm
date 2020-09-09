@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -21,12 +21,12 @@
     $img = $_POST['img'];
 ?>
 
-<body style="background-color: #f6f6f6; font-family: 'Montserrat', sans-serif;">
+<body style="zoom: 0.8; background-color: #f6f6f6; font-family: 'Montserrat', sans-serif;">
     <div class="container col-md-4 offset-md-4" style="display: flex; aling-items: bottom;">
         <div class="row mt-2 p-4 shadow-sm ">
             <div>
                 <div id="capture" class="img-capture">
-                    <div class="div">
+                    <div id="pai">
                         <div class="text">
                             <h5>Contato:</h5>
                             <h6><i class="fas fa-user"></i> <?php echo $_POST['nome'] ?> </h6>
@@ -55,21 +55,21 @@
         </script>
 
         <style type="text/css">
-        .div {
+        #pai {
             width: 182px;
             position: absolute;
             height: 63px;
-            margin-left: 27px;
-            margin-top: 350px;
+            margin-left: 43px;
+            margin-top: 425px;
 
         }
 
         .img-capture {
             background-image: url('/storage/artes/<?=$img?>');
             background-repeat: no-repeat;
-            background-size: 500px 500px;
-            width: 500px;
-            height: 500px;
+            background-size: 600px 600px;
+            width: 600px;
+            height: 600px;
         }
 
         .text {
