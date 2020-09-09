@@ -17,9 +17,7 @@
         type="text/javascript"></script>
 
 </head>
-<?php
-    $img = $_POST['img'];
-?>
+
 
 <body style="zoom: 0.8; background-color: #f6f6f6; font-family: 'Montserrat', sans-serif;">
     <div class="container col-md-4 offset-md-4" style="display: flex; aling-items: bottom;">
@@ -65,7 +63,7 @@
         }
 
         .img-capture {
-            background-image: url('/storage/artes/<?=$img?>');
+            background-image: url('/storage/artes/<?=$_POST['img']?>');
             background-repeat: no-repeat;
             background-size: 600px 600px;
             width: 600px;
