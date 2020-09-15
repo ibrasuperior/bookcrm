@@ -89,6 +89,7 @@ class Analytics extends React.Component {
                             <th className="ls-txt-center">Seg. Licenciatura</th>
                             <th className="ls-txt-center">R2</th>
                             <th className="ls-txt-center">Capacitação</th>
+                            <th className="ls-txt-center">EJA</th>
                         </tr>
                     </thead>
 
@@ -136,6 +137,9 @@ class Analytics extends React.Component {
                                     {this.state.indicacao.Capacitação}{" "}
                                 </strong>
                             </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.indicacao.EJA} </strong>
+                            </td>
                         </tr>
 
                         <tr>
@@ -175,6 +179,9 @@ class Analytics extends React.Component {
                                     {" "}
                                     {this.state.midia.Capacitação}{" "}
                                 </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.midia.EJA} </strong>
                             </td>
                         </tr>
                     </tbody>
