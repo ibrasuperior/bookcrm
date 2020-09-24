@@ -121,7 +121,7 @@
                             @if( \Auth::user()->permissoes == 1 )<li><a href="/canal">Canais</a></li>@endif
                             @if( \Auth::user()->permissoes == 1 ) <li><a href="/users">Usuários</a></li>@endif
                             @if( \Auth::user()->permissoes == 1 ) <li><a href="/estagio">Estágios</a></li>@endif
-
+                            @if( \Auth::user()->permissoes == 1 ) <li><a href="/avisos">Avisos</a></li>@endif
                         </ul>
                     </li>
                     @endif
