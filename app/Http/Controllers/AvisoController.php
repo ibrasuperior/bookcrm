@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 use App\Aviso;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,8 +27,11 @@ class AvisoController extends Controller
         $avisos->titulo = $request->input('titulo');
         $avisos->descricao = $request->input('editor1');
         $avisos->autor = $request->input('autor');
+        if(!empty($request->file('anexo'))){
+            $avisos->anexo = $request->file('anexo')->store('/');
+        }
         $avisos->save();
-        
+
         return redirect('/avisos')->with('success',"Cadastrado com sucesso!");
     }
   
@@ -39,21 +42,28 @@ class AvisoController extends Controller
 
     public function update(Request $request, Aviso $aviso)
     {
-        $aviso->titulo = $request->input('titulo');
-        $aviso->descricao = $request->input('editor1');
-        
-        $aviso->update();
+        $avisos = Aviso::findOrFail($aviso->id);
+
+        $avisos->titulo = $request->input('titulo');
+        $avisos->descricao = $request->input('editor1');
+        if(!empty($request->file('anexo'))){
+            Storage::delete( $aviso['anexo']);
+            $avisos->anexo = $request->file('anexo')->store('/');
+        } else {
+            $avisos->anexo = $aviso->anexo;
+        }
+        $avisos->update();
+   
         return redirect('/avisos')->with("success","Alterado com sucesso!");
 
     }
 
     public function destroy(Aviso $aviso,Request $request)
     {   
-        $id = $aviso->id;
-        $id = Aviso::findOrFail($id);
+        Aviso::findOrFail($aviso->id);
+        Storage::delete( $aviso['anexo']);
         $aviso->delete();
 
-    	return redirect('/avisos')->with('success', 'Deletado com sucesso !');
-        
+    	return redirect('/avisos')->with('success', 'Deletado com sucesso !');        
     }
 }
