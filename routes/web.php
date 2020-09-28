@@ -115,6 +115,13 @@ Route::middleware(['security'])->group(function(){
     Route::put('/equipe/update/{equipe}',"EquipeController@update");
     Route::get('/equipe/delete/{equipe}',"EquipeController@destroy");
 
+    /*/AVISOS/*/
+    Route::get("/avisos","AvisoController@index");
+    Route::get("/avisos/novo","AvisoController@create");
+    Route::post("/avisos/add","AvisoController@store");
+    Route::get("/avisos/{id}","AvisoController@edit");
+    Route::put('/avisos/update/{aviso}',"AvisoController@update");
+    Route::get('/avisos/delete/{aviso}',"AvisoController@destroy");
 
     /*/Canais/*/
     Route::get("/canal","CanalController@index");
