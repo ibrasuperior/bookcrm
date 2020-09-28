@@ -2,7 +2,7 @@
 
 @section('content')
 
-<script src="//cdn.ckeditor.com/4.15.0/basic/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 
 <div class="container-fluid">
     <h1 class="ls-title-intro ls-ico-users">Cadastrar Avisos</h1>
@@ -29,8 +29,9 @@
                 <button type="button" class="ls-btn-primary" onClick="chooseArchive()"
                     style="padding:25px 50px;">Escolha um
                     arquivo</button>
-                <input id="archive" class="ls-btn-primary" style="display:none;" autocomplete="off" type="file"
+                <input id="archive" onchange="loadFile(event)" class="ls-btn-primary" style="display:none;" autocomplete="off" type="file"
                     name="anexo">
+                <img id="output" style="max-width: 50%; margin-left: 0px; padding-left: 50px;">
             </label>
         </div>
         
@@ -43,6 +44,15 @@
 </div>
 
 <script>
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+        }
+    };
+
     CKEDITOR.replace( 'editor1' );
    
     function chooseArchive() {

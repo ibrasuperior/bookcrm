@@ -2,7 +2,7 @@
 
 @section('content')
 
-<script src="//cdn.ckeditor.com/4.15.0/basic/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 
 <div class="container-fluid">
     <h1 class="ls-title-intro ls-ico-users">Editar Equipe</h1>
@@ -29,7 +29,8 @@
             <label class="ls-label col-md-6">
                 <button type="button" class="ls-btn-primary" style="padding:25px 50px;"
                 onClick="chooseArchive()">Escolha um anexo</button>
-                <input type="file" style="display: none;" id="archive" name="anexo">
+                <input type="file" onchange="loadFile(event)" style="display: none;" id="archive" name="anexo">
+                <img id="output" style="max-width: 50%; margin-left: 0px; padding-left: 50px;">
             </label>
 
         </div>
@@ -43,6 +44,26 @@
 </div>
 
 <script>
+    addEventListener('load', imgPreView);
+    
+    function start(){
+        console.log('https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}');
+    }
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+        }
+    };
+
+    function imgPreView(event){
+        let src = 'https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}';
+        let img = document.getElementById('output');
+        output.src = src;
+    }
+
     CKEDITOR.replace( 'editor1' );
 
     function chooseArchive() {
