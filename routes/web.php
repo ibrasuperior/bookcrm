@@ -21,7 +21,6 @@ Route::middleware(['auth'])->group(function(){
         return view('relatorios.analise');
     });
 
-
     Route::get('/relatorios/leads/filter', "LeadsController@reportFilter");
     Route::get('/relatorios/leads/report', "LeadsController@report");
 

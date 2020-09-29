@@ -185,11 +185,26 @@ class leadsController extends Controller
      {
         $id = \Auth::user()->id;
         $query = Lead::query();
-        $canal =  $request->input('canal');
+        $canal =  $request->input('canal_id');
+        $nome =  $request->input('nome');
+        $email =  $request->input('email');
+        $telefone =  $request->input('telefone');
         $user =  $request->input('user');
         $situacao =  $request->input('situacao');
         $dateStart = $request->input('dateStart');
         $dateEnd = $request->input('dateEnd');
+
+        if(!empty($nome) ){
+            $query->where('nome',$nome);
+        
+        }
+        if(!empty($email) ){
+            $query->where('email',$email);
+        }
+
+        if(!empty($telefone) ){
+            $query->where('telefone',$telefone);
+        }
 
          if(!empty($dateStart) && !empty($dateEnd)){
              $query->whereBetween('created_at',[$dateStart, $dateEnd]);
@@ -213,7 +228,6 @@ class leadsController extends Controller
         if(!empty($situacao) && $situacao == 'Lead Defeituoso' ){
             $query->where('estagio_id', 4);
         }
-
 
          if(!empty($canal) ){
              $query->where('canal_id',$canal);

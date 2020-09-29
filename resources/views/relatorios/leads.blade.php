@@ -12,83 +12,123 @@
     </div>
     @endif
 
-    <div class="ls-box-filter">
+    <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+-moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
+box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
+        <a class="ls-collapse-header">
+            <h3 class="ls-collapse-title">Filtros</h3>
+        </a>
+        <div class="ls-collapse-body">
+            <form action="/relatorios/leads/filter" class="ls-form ">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Nome</b>
+                                <input type="text" name="nome" placeholder="Nome do lead">
+                            </label>
+                        </div>
 
-        <form action="/relatorios/leads/filter" class="ls-form ls-form-inline  ">
-            <label class="ls-label col-md-3">
-                <b class="ls-label-text">De:</b>
-                <input autocomplete="off" type="date" name="dateStart" placeholder="dd/mm/aaaa" @if(
-                    Request::input('dateStart')!=='' ) value="{{  Request::input('dateStart') }}" @endif>
-            </label>
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">De:</b>
+                                <input type="date" name="dateStart">
+                            </label>
+                        </div>
 
-            <label class="ls-label col-md-3">
-                <b class="ls-label-text">Até:</b>
-                <input autocomplete="off" type="date" name="dateEnd" placeholder="dd/mm/aaaa" @if(
-                    Request::input('dateEnd')!=='' ) value="{{  Request::input('dateEnd') }}" @endif>
-            </label>
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Até:</b>
+                                <input type="date" name="dateEnd">
+                            </label>
+                        </div>
 
-            <label class="ls-label" role="search">
-                <div class="ls-custom-select">
-                    <select name="canal" class="ls-select">
-                        <option value="">Canal</option>
-                        <?php $canais = \App\Canal::get(); ?>
-                        @foreach($canais as $canal)
-                        <option value="{{$canal->id}}" @if( Request::input('canal')==$canal->id )
-                            selected="selected"
-                            @endif>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">E-mail</b>
+                                <input type="text" name="email" placeholder="Escreva o Email">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Telefone</b>
+                                <input type="text" name="telefone" class="ls-mask-phone9_with_ddd"
+                                    placeholder="Número de Telefone">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                            <b class="ls-label-text">Situação</b>
+                                <div class="ls-custom-select">
                             
-                            {{$canal->nome}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </label>
+                                    <select name="situacao" class="ls-select">
+                                        <option value="">
+                                            (Selecione)
+                                        </option>
+                                        <option @if( Request::input('situacao')=='Matriculado' ) selected="selected" @endif>
+                                            Matriculado
+                                        </option>
+                                        <option @if( Request::input('situacao')=='Não Matriculado' ) selected="selected" @endif>
+                                            Não Matriculado
+                                        </option>
+                                        <option @if( Request::input('situacao')=='Defeituoso' ) selected="selected" @endif>
+                                            Lead Defeituoso
+                                        </option>
+                                        <option @if( Request::input('situacao')=='Novos' ) selected="selected" @endif>
+                                            Novos
+                                        </option>
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
 
-            <label class="ls-label" role="search">
-                <div class="ls-custom-select">
-                    <select name="situacao" class="ls-select">
-                        <option value="">
-                            Situação
-                        </option>
-                        <option @if( Request::input('situacao')=='Matriculado' ) selected="selected" @endif>Matriculado
-                        </option>
-
-                        <option @if( Request::input('situacao')=='Não Matriculado' ) selected="selected" @endif>Não
-                            Matriculado</option>
-
-                        <option @if( Request::input('situacao')=='Defeituoso' ) selected="selected" @endif>Lead
-                            Defeituoso</option>
-
-                        <option @if( Request::input('situacao')=='Novos' ) selected="selected" @endif>Novos
-                        </option>
-                    </select>
-                </div>
-            </label>
-
-            <label class=" ls-label" role="search" style="margin-top:10px;">
-                <div class="ls-custom-select">
-                    <select name="user" class="ls-select">
-                        <option value="">Usuário</option>
-                        <?php $users = \App\User::where('permissoes', 2)->get(); ?>
-                        @foreach($users as $user)
-                        <option value="{{$user->id}}" @if( Request::input('user')==$user->id )
-                            selected="selected"
-                            @endif>{{$user->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </label>
-
-            <div class="ls-actions-btn" style="margin-top:10px;">
-                <button type="submit" class="ls-btn ls-btn-primary">Buscar</button>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Canal</b>
+                                <div class="ls-custom-select">
+                                    <select name="canal_id" class="ls-select">
+                                        <option value="">(Selecione)</option>
+                                        <?php $canais = \App\Canal::get(); ?>
+                                        @foreach($canais as $canal)
+                                        <option value="{{ $canal->id }}">{{ $canal->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Usuário</b>
+                                <div class="ls-custom-select">
+                                    <select name="user" class="ls-select">
+                                        <option value="">
+                                            Usuário
+                                        </option>
+                                        
+                                        <?php $users = \App\User::where('permissoes', 2)->get(); ?>
+                                        
+                                        @foreach($users as $user)
+                                        <option value="{{$user->id}}"
+                                            @if( Request::input('user')==$user->id ) selected="selected" @endif >
+                                            {{$user->name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="ls-btn-primary ls-ico-search">Filtrar</button>
                 <?php $url =  \Request::fullUrl(); ?>
-
                 @if( strstr($url, 'filter') == true )
                 <a href="<?php echo str_replace('filter', 'report',$url); ?>" class="ls-btn">
                     Exportar
                 </a>
                 @endif
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     <div class="ls-alert-info ls-dismissable">
@@ -97,7 +137,6 @@
         </span>
 
     </div>
-
 
     <table class="ls-table  ls-bg-header ">
         <thead>
