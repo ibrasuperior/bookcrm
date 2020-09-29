@@ -25,7 +25,6 @@ class ArteController extends Controller
             }
         }
 
-
         $artes = $query->orderBy('id', 'desc')->paginate(15);
 
         return view('artes.index')->with('artes', $artes);
@@ -53,7 +52,7 @@ class ArteController extends Controller
     public function store(Request $request){
     	$arte = new Arte;
     	$arte->nome = $request->input('nome');
-    	$arte->img = $request->file('img')->store('/');
+        $arte->img = $request->file('img')->store('/');
         $arte->personalizavel = $request->input('personalizavel');
 
     	$arte->save();

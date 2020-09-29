@@ -50,6 +50,7 @@
                                 <option> Capacitação </option>
                                 <option> Segunda Licenciatura </option>
                                 <option> R2 </option>
+                                <option> EJA </option>
                             </select>
                         </div>
                     </label>
@@ -260,7 +261,8 @@
     <h1 class="ls-title-intro ls-ico-users">Lead : <strong>{{ $lead->nome }}</strong>
         @if( $lead->matriculado == true)
         <a href="#" class="ls-tag-success">Matriculado</a>
-        @endif</h1>
+        @endif
+    </h1>
 
 
     <!-- BOX INFORMATIVO -->

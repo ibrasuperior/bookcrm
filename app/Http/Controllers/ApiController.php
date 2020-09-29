@@ -82,6 +82,9 @@ class ApiController extends Controller
         $indicacao['Capacitação'] =  Matricula::where('canal', 'Indicação')->where('produto', 'Capacitação')
         ->whereBetween('created_at',[$inicio,$final])->count();
 
+        $indicacao['EJA'] =  Matricula::where('canal', 'Indicação')->where('produto', 'EJA')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
          //Midia
          $midia = array();
 
@@ -104,6 +107,9 @@ class ApiController extends Controller
          ->whereBetween('created_at',[$inicio,$final])->count();
 
          $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'Capacitação')
+         ->whereBetween('created_at',[$inicio,$final])->count();
+
+         $midia['EJA'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Actual Sales')->where('produto', 'EJA')
          ->whereBetween('created_at',[$inicio,$final])->count();
 
         $dados =  array(

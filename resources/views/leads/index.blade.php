@@ -49,62 +49,53 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
         <div class="ls-collapse-body">
             <form action="/leads" class="ls-form ">
                 <fieldset>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label class="ls-label ">
-                            <b class="ls-label-text">Nome</b>
-                            <input type="text" name="nome" placeholder="Nome do lead">
-                        </label>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">Leads</b>
-                            <div class="ls-custom-select">
-                                <select name="lead" class="ls-select">
-                                    <option value="1">Todos leads</option>
-                                    <option value="">Meus leads</option>
-                                </select>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">E-mail</b>
-                            <input type="text" name="email" placeholder="Escreva o Email">
-                        </label>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">Telefone</b>
-                            <input type="text" name="telefone" class="ls-mask-phone9_with_ddd" placeholder="Número de Telefone" >
-                        </label>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">Canal</b>
-                            <div class="ls-custom-select">
-                                <select name="canal_id" class="ls-select">
-                                    <option value="">(selecione)</option>
-                                    @foreach($canais as $canal)
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Nome</b>
+                                <input type="text" name="nome" placeholder="Nome do lead">
+                            </label>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">E-mail</b>
+                                <input type="text" name="email" placeholder="Escreva o Email">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Telefone</b>
+                                <input type="text" name="telefone" class="ls-mask-phone9_with_ddd"
+                                    placeholder="Número de Telefone">
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Canal</b>
+                                <div class="ls-custom-select">
+                                    <select name="canal_id" class="ls-select">
+                                        <option value="">(selecione)</option>
+                                        @foreach($canais as $canal)
                                         <option value="{{ $canal->id }}">{{ $canal->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </label>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label">
+                                <b class="ls-label-text">Matriculado</b>
+                                <div class="ls-custom-select">
+                                    <select name="matriculado" class="ls-select">
+                                        <option value="">(selecione)</option>
+                                        <option value="1">Sim</option>
+                                        <option value="false">Não</option>
+                                    </select>
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="ls-label">
-                            <b class="ls-label-text">Matriculado</b>
-                            <div class="ls-custom-select">
-                                <select name="matriculado" class="ls-select">
-                                    <option value="">(selecione)</option>
-                                    <option value="1">Sim</option>
-                                    <option value="false">Não</option>
-                                </select>
-                            </div>
-                        </label>
-                    </div>
-                </div>
                 </fieldset>
                 <button class="ls-btn-primary ls-ico-search">Filtrar</button>
             </form>
@@ -174,7 +165,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
         </tbody>
     </table>
 
-    {{ $leads->links() }}
+    {{ $leads->appends(Request::except('page'))->links() }}
 
 </div>
 

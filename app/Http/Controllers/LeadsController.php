@@ -51,6 +51,8 @@ class leadsController extends Controller
         }
         if(!empty($email)){
             $query->where('email', $email);
+        }else {
+            $query->where('colaborador_id', \Auth::user()->id);
         }
         if(!empty($telefone)){
             $query->where('telefone', 'LIKE', '%'.$telefone.'%');
@@ -61,11 +63,10 @@ class leadsController extends Controller
         if(!empty($matriculado)){
             $query->where('matriculado', $matriculado);
         }
-        if(empty($lead)){
-            $query->where('colaborador_id', \Auth::user()->id);
-        }
+
 
         $leads = $query->orderBy('id', 'desc')->paginate(15);
+
         return view('leads.index')->with('leads', $leads);
     }
 
