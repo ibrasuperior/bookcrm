@@ -20,12 +20,32 @@
                 <span class="ls-label-text">Titulo</span>
                 <input type="text" name="titulo" autocomplete="off" value="{{ $aviso->titulo  }}">
             </label>
-
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Tipo do Aviso</span>
+                <div class="ls-custom-select">
+                    <select id="selectType" onchange="typeSelect()" class="ls-select" name="typeNotice">
+                        <option value="aviso" @if($aviso->tipo == "aviso") selected="selected" @endif >Aviso</option>
+                        <option value="campanha" @if($aviso->tipo == "campanha") selected="selected" @endif >Campanha</option>
+                    </select>
+                </div>
+            </label>
+            <label id="dataValidity" style="display: none;" class="ls-label col-md-6">
+                <span class="ls-label-text">Data de Vigência</span>
+                <div style="display: flex; align-items: center;">
+                    <div style="margin-right: 15px">
+                        <span>De:</span>
+                        <input id="dateStart" type="datetime-local" value="2019-01-05T15:48:00" name="dateStart">
+                    </div>
+                    <div>
+                        <span>Até:</span>
+                        <input id="dateEnd" type="datetime-local" value="2019-01-05 15:48:00" name="dateEnd">
+                    </div>
+                </div>
+            </label>
             <label class="ls-label col-md-6">
                 <span class="ls-label-text">Descrição</span>
                 <textarea name="editor1" autocomplete="off">{{ $aviso->descricao }}</textarea>
             </label>
-            
             <label class="ls-label col-md-6">
                 <button type="button" class="ls-btn-primary" style="padding:25px 50px;"
                 onClick="chooseArchive()">Escolha um anexo</button>
@@ -44,7 +64,29 @@
 </div>
 
 <script>
-    addEventListener('load', imgPreView);
+    addEventListener('load', ()=>{
+        typeSelect();
+        imgPreView(event);
+    });
+    const dateSelect = () => {
+        
+
+    }
+    function typeSelect() {
+        $selectType = document.getElementById('selectType');
+        $dateStart = document.getElementById('dateStart');
+        $dateEnd = document.getElementById('dateEnd');
+        $dataValidity = document.getElementById('dataValidity');
+
+        if($selectType.value == "aviso"){
+            $dateStart.value = "";
+            $dateEnd.value = "";
+            $dataValidity.style.display = "none";
+        } else{   
+            $dataValidity.style.display = "inherit";
+        }
+        
+    }
     
     function start(){
         console.log('https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}');

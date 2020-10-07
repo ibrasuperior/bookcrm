@@ -19,6 +19,9 @@ class CreateAvisosTable extends Migration
             $table->text('descricao')->nullable;
             $table->string('autor');
             $table->string('anexo')->nullable;
+            $table->dateTime('dataInicio')->nullable;
+            $table->dateTime('dataFinal')->nullable;
+            $table->tinyInteger('tipo');
             $table->timestamps();
         });
     }

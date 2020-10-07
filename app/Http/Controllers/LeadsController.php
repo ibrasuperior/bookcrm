@@ -210,6 +210,7 @@ class leadsController extends Controller
          if(!empty($dateStart) && !empty($dateEnd)){
              $query->whereBetween('created_at',[$dateStart, $dateEnd]);
          }
+
          if(!empty($dateStart) && empty($dateEnd)){
             $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
         }
@@ -244,36 +245,39 @@ class leadsController extends Controller
      }
      // EXPORTAR DATA ----------------------------------
 
-     // EXPORTAR DATA ----------------------------------
-     public function report(Request $request)
-     {
-         // TRANSFORMAR DATA ----------------------------------
-         if( !empty($request->input('dateStart')) ){
-            $inputInicio = Carbon::createFromFormat('d/m/Y', $request->input('dateStart') )->subDays(1);
-            $dateStart =  Carbon::parse( $inputInicio )
-            ->format('Y-m-d');
+    // EXPORTAR DATA ----------------------------------
+    public function report(Request $request)
+    {
 
+        $query = Lead::query();
+        $canal =  $request->input('canal_id');
+        $nome =  $request->input('nome');
+        $email =  $request->input('email');
+        $telefone =  $request->input('telefone');
+        $user =  $request->input('user');
+        $situacao =  $request->input('situacao');
+        $dateStart = $request->input('dateStart');
+        $dateEnd = $request->input('dateEnd');
+
+        if(!empty($nome) ){
+            $query->where('nome',$nome);
+        
+        }
+        if(!empty($email) ){
+            $query->where('email',$email);
         }
 
-        if( !empty($request->input('dateEnd')) ){
-           $inputFinal = Carbon::createFromFormat('d/m/Y', $request->input('dateEnd') )->addDay(1);
-           $dateEnd = Carbon::parse( $inputFinal )
-           ->format('Y-m-d');
-       }
-        // TRANSFORMAR DATA ----------------------------------
-
-         $id = \Auth::user()->id;
-         $query = Lead::query();
-         $canal =  $request->input('canal');
-         $user =  $request->input('user');
-         $situacao =  $request->input('situacao');
+        if(!empty($telefone) ){
+            $query->where('telefone',$telefone);
+        }
 
          if(!empty($dateStart) && !empty($dateEnd)){
-            $query->whereBetween('created_at',[$dateStart, $dateEnd]);
+             $query->whereBetween('created_at',[$dateStart, $dateEnd]);
+         }
+
+         if(!empty($dateStart) && empty($dateEnd)){
+            $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
         }
-        if(!empty($dateStart) && empty($dateEnd)){
-           $query->whereBetween('created_at',[$dateStart,  Carbon::now()->addDay(1)]);
-       }
 
          if(!empty($situacao) && $situacao == 'Matriculado' ){
             $query->where('matriculado', 1);
@@ -291,20 +295,18 @@ class leadsController extends Controller
             $query->where('estagio_id', 4);
         }
 
+        if(!empty($canal) ){
+            $query->where('canal_id',$canal);
+        }
 
-         if(!empty($canal) ){
-             $query->where('canal_id',$canal);
-         }
+        if(!empty($user) ){
+            $query->where('colaborador_id',$user);
+        }
 
-         if(!empty($user) ){
-             $query->where('colaborador_id',$user);
-         }
+        $data = $query->orderBy('id','desc')->get();
 
-
-         $data = $query->orderBy('id','desc')->get();
-
-         return Excel::download(new LeadsExport($data), 'relatorio.xlsx');
-     }
+        return Excel::download(new LeadsExport($data), 'relatorio.xlsx');
+    }
      // EXPORTAR DATA ----------------------------------
 
 }

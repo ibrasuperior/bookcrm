@@ -21,6 +21,28 @@
                 <input name="titulo" autocomplete="off" type="text" >
             </label>
             <label class="ls-label col-md-6">
+                <span class="ls-label-text">Tipo do Aviso</span>
+                <div class="ls-custom-select">
+                    <select id="selectType" onchange="typeSelect()" class="ls-select" name="typeNotice">
+                        <option value="aviso">Aviso</option>
+                        <option value="campanha">Campanha</option>
+                    </select>
+                </div>
+            </label>
+            <label id="dataValidity" style="display: none;" class="ls-label col-md-6">
+                <span class="ls-label-text">Data de Vigência</span>
+                <div style="display: flex; align-items: center;">
+                    <div style="margin-right: 15px">
+                        <span>De:</span>
+                        <input id="dateStart" type="datetime-local" name="dateStart">
+                    </div>
+                    <div>
+                        <span>Até:</span>
+                        <input id="dateEnd" type="datetime-local" name="dateEnd">
+                    </div>
+                </div>
+            </label>
+            <label class="ls-label col-md-6">
                 <span class="ls-label-text">Descrição</span>
                 <textarea name="editor1"></textarea>
             </label>
@@ -44,6 +66,27 @@
 </div>
 
 <script>
+    addEventListener('load', typeSelect);
+    
+    function typeSelect() {
+
+        $selectType = document.getElementById('selectType'); 
+        $dateStart = document.getElementById('dateStart');
+        $dateEnd = document.getElementById('dateEnd');
+        $dataValidity = document.getElementById('dataValidity');
+
+        if($selectType.value == "aviso"){
+            $dateStart.value = "";
+            $dateEnd.value = "";
+            $dataValidity.style.display = "none";
+        } else{   
+            $dateStart.value = "";
+            $dateEnd.value = "";
+            $dataValidity.style.display = "inherit";
+        }
+
+    }
+
 
     var loadFile = function(event) {
         var output = document.getElementById('output');
@@ -54,7 +97,7 @@
     };
 
     CKEDITOR.replace( 'editor1' );
-   
+
     function chooseArchive() {
         document.getElementById("archive").click();
     }
