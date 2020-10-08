@@ -30,17 +30,17 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                         <div class="col-md-4">
                             <label class="ls-label">
                                 <b class="ls-label-text">Vigência De:</b>
-                                <input onchange="fieldLock()" type="datetime-local" name="dateStart" >
+                                <input type="datetime-local" name="dateStart">
                             </label>
                         </div>
                         <div class="col-md-4">
                             <label class="ls-label">
                                 <b class="ls-label-text">Até:</b>
-                                <input id="dataEnd" type="datetime-local" name="dateEnd" >
+                                <input id="dataEnd" type="datetime-local" name="dateEnd">
                             </label>
                         </div>
                         <div class="col-md-4">
-                            <label class="ls-label"> 
+                            <label class="ls-label">
                                 <b class="ls-label-text">Autor</b>
                                 <input name="autor" type="text" placeholder="Nome do Autor">
                             </label>
@@ -76,7 +76,9 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                     <div data-ls-module="dropdown" class="ls-dropdown">
                         <a href="#" class="ls-btn" role="combobox" aria-expanded="false"></a>
                         <ul class="ls-dropdown-nav" aria-hidden="true">
-                            <li><a href="/avisos/delete/{{$aviso->id}}" onclick="return confirm('tem certeza que quer excluir?')" class="ls-color-danger" role="option">Excluir</a></li>
+                            <li><a href="/avisos/delete/{{$aviso->id}}"
+                                    onclick="return confirm('tem certeza que quer excluir?')" class="ls-color-danger"
+                                    role="option">Excluir</a></li>
                         </ul>
                     </div>
                 </td>
@@ -85,13 +87,5 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
         </tbody>
     </table>
 </div>
-<script>
-    function fieldLock(){
-
-        $inputDateEnd = document.getElementById('dataEnd');
-        $inputDateEnd.property = 'require'
-
-    }
-</script>
 
 @stop

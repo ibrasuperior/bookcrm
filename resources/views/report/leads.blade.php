@@ -19,7 +19,7 @@
             <td>{{ $lead->telefone }}</td>
             <td>{{ $lead->canal->nome }}</td>
             <td> @if( $lead->matriculado == true) Matriculado @else Não Matriculado @endif </td>
-            <td> @if($lead->colaborador_id != null) {{$lead->colaborador->name}} @endif</td>
+            <td> @if( $lead->colaborador_id != null) {{$lead->colaborador->name}} @endif</td>
             <td>{{ $lead->created_at}}</td>
         </tr>
         @endforeach
