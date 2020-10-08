@@ -14,7 +14,7 @@
         <div class="row">
             <label class="ls-label col-md-6">
                 <span class="ls-label-text">Autor</span>
-                <input name="autor" autocomplete="off" type="text" value="{{ \Auth::user()->name}}" >
+                <input name="autor" autocomplete="off" type="text" value="{{ \Auth::user()->name}}">
             </label>
             <label class="ls-label col-md-6">
                 <span class="ls-label-text">Titulo</span>
@@ -25,20 +25,25 @@
                 <div class="ls-custom-select">
                     <select id="selectType" onchange="typeSelect()" class="ls-select" name="typeNotice">
                         <option value="aviso" @if($aviso->tipo == "aviso") selected="selected" @endif >Aviso</option>
-                        <option value="campanha" @if($aviso->tipo == "campanha") selected="selected" @endif >Campanha</option>
+                        <option value="campanha" @if($aviso->tipo == "campanha") selected="selected" @endif >Campanha
+                        </option>
                     </select>
                 </div>
             </label>
             <label id="dataValidity" style="display: none;" class="ls-label col-md-6">
+                <?php
+                $dataInicio = date('Y-m-d\TH:i:s',strtotime($aviso->dataInicio));
+                $dataFinal = date('Y-m-d\TH:i:s',strtotime($aviso->dataFinal));
+                ?>
                 <span class="ls-label-text">Data de Vigência</span>
                 <div style="display: flex; align-items: center;">
                     <div style="margin-right: 15px">
                         <span>De:</span>
-                        <input id="dateStart" type="datetime-local" value="2019-01-05T15:48:00" name="dateStart">
+                        <input id="dateStart" type="datetime-local" value="{{$dataInicio}}" name="dateStart">
                     </div>
                     <div>
                         <span>Até:</span>
-                        <input id="dateEnd" type="datetime-local" value="2019-01-05 15:48:00" name="dateEnd">
+                        <input id="dateEnd" type="datetime-local" value="{{$dataFinal}}" name="dateEnd">
                     </div>
                 </div>
             </label>
@@ -48,7 +53,7 @@
             </label>
             <label class="ls-label col-md-6">
                 <button type="button" class="ls-btn-primary" style="padding:25px 50px;"
-                onClick="chooseArchive()">Escolha um anexo</button>
+                    onClick="chooseArchive()">Escolha um anexo</button>
                 <input type="file" onchange="loadFile(event)" style="display: none;" id="archive" name="anexo">
                 <img id="output" style="max-width: 50%; margin-left: 0px; padding-left: 50px;">
             </label>
@@ -64,54 +69,52 @@
 </div>
 
 <script>
-    addEventListener('load', ()=>{
-        typeSelect();
-        imgPreView(event);
-    });
-    const dateSelect = () => {
-        
+addEventListener('load', () => {
+    typeSelect();
+    imgPreView(event);
+});
+const dateSelect = () => {
+    console.log('teste');
+}
+const typeSelect = () => {
+    $selectType = document.getElementById('selectType');
+    $dateStart = document.getElementById('dateStart');
+    $dateEnd = document.getElementById('dateEnd');
+    $dataValidity = document.getElementById('dataValidity');
 
-    }
-    function typeSelect() {
-        $selectType = document.getElementById('selectType');
-        $dateStart = document.getElementById('dateStart');
-        $dateEnd = document.getElementById('dateEnd');
-        $dataValidity = document.getElementById('dataValidity');
-
-        if($selectType.value == "aviso"){
-            $dateStart.value = "";
-            $dateEnd.value = "";
-            $dataValidity.style.display = "none";
-        } else{   
-            $dataValidity.style.display = "inherit";
-        }
-        
-    }
-    
-    function start(){
-        console.log('https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}');
+    if ($selectType.value == "aviso") {
+        $dateStart.value = "";
+        $dateEnd.value = "";
+        $dataValidity.style.display = "none";
+    } else {
+        $dataValidity.style.display = "inherit";
     }
 
-    var loadFile = function(event) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-            URL.revokeObjectURL(output.src)
-        }
-    };
+}
 
-    function imgPreView(event){
-        let src = 'https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}';
-        let img = document.getElementById('output');
-        output.src = src;
+const start = () => {
+    console.log('https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}');
+}
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src)
     }
+};
 
-    CKEDITOR.replace( 'editor1' );
+const imgPreView = (event) => {
+    let src = 'https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}';
+    let img = document.getElementById('output');
+    output.src = src;
+}
 
-    function chooseArchive() {
-        document.getElementById("archive").click();
-    }
+CKEDITOR.replace('editor1');
 
+const chooseArchive = () => {
+    document.getElementById("archive").click();
+}
 </script>
 
 @stop

@@ -24,14 +24,18 @@ class AvisoController extends Controller
             $query->where('autor', $autor);
         }
         if(!empty($dateStart) && !empty($dateEnd)){
-            $query->where('dataInicio', '>=' ,$dateStart)->where('dataFinal', '<=', $dateEnd);
+            $query->where('dataInicio', '>' ,$dateStart)->where('dataFinal', '<', $dateEnd);
         }
         if(!empty($dateStart)){
             $query->where('dataInicio', '>=' ,$dateStart)->where('dataFinal', '<=', Carbon::now()->addDay(1));
         }
 
+        if( !isset($dateStart) ){
+            $query->where('dataFinal', '>',  Carbon::now()->addDay(1))->orWhere('dataFinal', null);
+        }    
+
         $avisos = $query->orderBy('id', 'desc')->paginate(15);
-        
+
         return view('avisos.index')->with('avisos',$avisos);
     }
 
