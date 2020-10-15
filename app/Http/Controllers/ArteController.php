@@ -38,7 +38,7 @@ class ArteController extends Controller
 
         $img->save('storage/thumbnail/'. $src);
 
-        return redirect('/artes')->with('success', 'Image Upload successful');
+        return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
     }
 
     public function pecas(){
@@ -84,13 +84,15 @@ class ArteController extends Controller
     }
 
     public function destroy($id){
-    	$arte = Arte::findOrFail($id);
 
-		Storage::delete( $arte['img']);
-		$arte->delete();
+        $arte = Arte::findOrFail($id);
 
-    	return redirect('/artes')->with('success', 'Deletado com sucesso !');
+        Storage::delete($arte['img']);
+        Storage::disk('thumbnail')->delete($arte['img']);
 
+        $arte->delete();
+
+        return redirect('/artes')->with('success', 'Deletado com sucesso !');
     }
 
 }
