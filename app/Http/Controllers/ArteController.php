@@ -27,7 +27,7 @@ class ArteController extends Controller
             }
         }
 
-        $artes = $query->orderBy('id', 'desc')->paginate(15);
+        $artes = $query->orderBy('id', 'desc')->paginate(16);
 
         return view('artes.index')->with('artes', $artes);
     }
