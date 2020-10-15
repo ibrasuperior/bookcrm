@@ -69,7 +69,7 @@
         @foreach($artes as $arte)
         <!-- FOREACH -->
         <div class="col-md-3">
-            <div style="height: 270px" class="box-card">
+            <div style="height: 300px" class="box-card">
                 <img style="max-width:100%;" src="/storage/thumbnail/{{$arte->img}}" />
                 <div style="display: flex;justify-content: space-between;">
                     <h4 class="text-box">{{$arte->nome}} </h4>
