@@ -32,7 +32,7 @@ class AvisoController extends Controller
 
         if( !isset($dateStart) ){
             $query->where('dataFinal', '>',  Carbon::now()->addDay(1))->orWhere('dataFinal', null);
-        }    
+        }
 
         $avisos = $query->orderBy('id', 'desc')->paginate(15);
 

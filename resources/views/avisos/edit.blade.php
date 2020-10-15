@@ -73,9 +73,7 @@ addEventListener('load', () => {
     typeSelect();
     imgPreView(event);
 });
-const dateSelect = () => {
-    console.log('teste');
-}
+
 const typeSelect = () => {
     $selectType = document.getElementById('selectType');
     $dateStart = document.getElementById('dateStart');
@@ -90,10 +88,6 @@ const typeSelect = () => {
         $dataValidity.style.display = "inherit";
     }
 
-}
-
-const start = () => {
-    console.log('https://book.ibraeducacional.com.br/storage/artes/{{$aviso->anexo}}');
 }
 
 var loadFile = function(event) {
