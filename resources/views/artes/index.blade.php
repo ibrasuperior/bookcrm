@@ -70,7 +70,7 @@
         <!-- FOREACH -->
         <div class="col-md-3">
             <div class="box-card">
-                <img style="max-width:100%;" src="/storage/artes/{{$arte->img}}" />
+                <img style="max-width:100%;" src="/storage/thumbnail/{{$arte->img}}" />
                 <div style="display: flex;justify-content: space-between;">
                     <h4 class="text-box">{{$arte->nome}} </h4>
                     <div data-ls-module="dropdown" class="ls-dropdown">

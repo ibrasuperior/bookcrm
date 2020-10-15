@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Arte;
+use Image;
+use File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,6 +30,15 @@ class ArteController extends Controller
         $artes = $query->orderBy('id', 'desc')->paginate(15);
 
         return view('artes.index')->with('artes', $artes);
+    }
+    
+    function resize_image($arte){
+        $src = $arte->img;
+        $img = Image::make('storage/artes/' . $src)->resize(200, 200);
+
+        $img->save('storage/thumbnail/'. $src);
+
+        return redirect('/artes')->with('success', 'Image Upload successful');
     }
 
     public function pecas(){
@@ -57,7 +68,7 @@ class ArteController extends Controller
 
     	$arte->save();
 
-    	return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
+    	return $this->resize_image($arte); 
     }
 
     public function update(Request $request, $id){
