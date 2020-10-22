@@ -16,11 +16,11 @@ class CreateAvisosTable extends Migration
         Schema::create('avisos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->text('descricao')->nullable;
+            $table->text('descricao')->nullable();
             $table->string('autor');
-            $table->string('anexo')->nullable;
-            $table->dateTime('dataInicio')->nullable;
-            $table->dateTime('dataFinal')->nullable;
+            $table->string('anexo')->nullable();
+            $table->dateTime('dataInicio')->nullable();
+            $table->dateTime('dataFinal')->nullable();
             $table->tinyInteger('tipo');
             $table->timestamps();
         });
