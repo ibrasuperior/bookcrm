@@ -31,19 +31,15 @@
                 </div>
             </label>
             <label id="dataValidity" style="display: none;" class="ls-label col-md-6">
-                <?php
-                $dataInicio = date('Y-m-d\TH:i:s',strtotime($aviso->dataInicio));
-                $dataFinal = date('Y-m-d\TH:i:s',strtotime($aviso->dataFinal));
-                ?>
                 <span class="ls-label-text">Data de Vigência</span>
                 <div style="display: flex; align-items: center;">
                     <div style="margin-right: 15px">
                         <span>De:</span>
-                        <input id="dateStart" type="datetime-local" value="{{$dataInicio}}" name="dateStart">
+                        <input id="dateStart" type="date" value="{{$aviso->dataInicio}}" name="dateStart">
                     </div>
                     <div>
                         <span>Até:</span>
-                        <input id="dateEnd" type="datetime-local" value="{{$dataFinal}}" name="dateEnd">
+                        <input id="dateEnd" type="date" value="{{$aviso->dataFinal}}" name="dateEnd">
                     </div>
                 </div>
             </label>

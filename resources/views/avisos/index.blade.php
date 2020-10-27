@@ -30,13 +30,13 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                         <div class="col-md-4">
                             <label class="ls-label">
                                 <b class="ls-label-text">Vigência De:</b>
-                                <input type="datetime-local" name="dateStart">
+                                <input type="date" name="dateStart">
                             </label>
                         </div>
                         <div class="col-md-4">
                             <label class="ls-label">
                                 <b class="ls-label-text">Até:</b>
-                                <input id="dataEnd" type="datetime-local" name="dateEnd">
+                                <input id="dataEnd" type="date" name="dateEnd">
                             </label>
                         </div>
                         <div class="col-md-4">

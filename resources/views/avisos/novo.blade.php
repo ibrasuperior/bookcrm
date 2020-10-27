@@ -34,11 +34,11 @@
                 <div style="display: flex; align-items: center;">
                     <div style="margin-right: 15px">
                         <span>De:</span>
-                        <input id="dateStart" type="datetime-local" name="dateStart">
+                        <input id="dateStart" type="date" name="dateStart">
                     </div>
                     <div>
                         <span>Até:</span>
-                        <input id="dateEnd" type="datetime-local" name="dateEnd">
+                        <input id="dateEnd" type="date" name="dateEnd">
                     </div>
                 </div>
             </label>
