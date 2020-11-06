@@ -58,20 +58,22 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                         </div>
                         <div class="col-md-4">
                             <label class="ls-label">
-                            <b class="ls-label-text">Situação</b>
+                                <b class="ls-label-text">Situação</b>
                                 <div class="ls-custom-select">
-                            
                                     <select name="situacao" class="ls-select">
                                         <option value="">
                                             (Selecione)
                                         </option>
-                                        <option @if( Request::input('situacao')=='Matriculado' ) selected="selected" @endif>
+                                        <option @if( Request::input('situacao')=='Matriculado' ) selected="selected"
+                                            @endif>
                                             Matriculado
                                         </option>
-                                        <option @if( Request::input('situacao')=='Não Matriculado' ) selected="selected" @endif>
+                                        <option @if( Request::input('situacao')=='Não Matriculado' ) selected="selected"
+                                            @endif>
                                             Não Matriculado
                                         </option>
-                                        <option @if( Request::input('situacao')=='Defeituoso' ) selected="selected" @endif>
+                                        <option @if( Request::input('situacao')=='Defeituoso' ) selected="selected"
+                                            @endif>
                                             Lead Defeituoso
                                         </option>
                                         <option @if( Request::input('situacao')=='Novos' ) selected="selected" @endif>
@@ -96,7 +98,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                                 </div>
                             </label>
                         </div>
-                        
+
                         <div class="col-md-4">
                             <label class="ls-label">
                                 <b class="ls-label-text">Usuário</b>
@@ -105,17 +107,27 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                                         <option value="">
                                             Usuário
                                         </option>
-                                        
+
                                         <?php $users = \App\User::where('permissoes', 2)->get(); ?>
-                                        
+
                                         @foreach($users as $user)
-                                        <option value="{{$user->id}}"
-                                            @if( Request::input('user')==$user->id ) selected="selected" @endif >
+                                        <option value="{{$user->id}}" @if( Request::input('user')==$user->id )
+                                            selected="selected" @endif >
                                             {{$user->name}}
                                         </option>
                                         @endforeach
                                     </select>
                                 </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="ls-label ">
+                                <b class="ls-label-text">Leads sem operador</b>
+                                <input autocomplete="off" list="listColaborador" type="text" name="semOperador">
+                                <datalist id="listColaborador">
+                                    <option>Sim</option>
+                                    <option>Não</option>
+                                </datalist>
                             </label>
                         </div>
                     </div>
