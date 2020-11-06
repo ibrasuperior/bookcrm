@@ -194,6 +194,7 @@ class leadsController extends Controller
         $situacao =  $request->input('situacao');
         $dateStart = $request->input('dateStart');
         $dateEnd = $request->input('dateEnd');
+        $semOperador = $request->input('semOperador');
 
         if(!empty($nome) ){
             $query->where('nome',$nome);
@@ -237,6 +238,9 @@ class leadsController extends Controller
 
          if(!empty($user) ){
              $query->where('colaborador_id',$user);
+         }
+         if(!empty($semOperador) && ($semOperador == 'Sim') ){
+             $query->where('colaborador_id', '=', 'null');
          }
 
          $data = $query->orderBy('id','desc')->paginate(20);
