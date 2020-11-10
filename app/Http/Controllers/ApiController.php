@@ -362,5 +362,143 @@ class ApiController extends Controller
         }
 
     }
+    
+    public function leadsAssertiva(Request $request){
+        $lead = new Lead;
 
+        $user = 382 ;
+
+        $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
+
+        //traduzir canais
+        if( $channel == 'Direct'){
+            $channel = 'Tráfego Direto' ;
+        }
+
+        if( $channel == 'Referral'){
+            $channel = 'Referência' ;
+        }
+
+        if( $channel == 'Social'){
+            $channel = 'Mídia Social' ;
+        }
+
+        if( $channel == 'Organic Search'){
+            $channel = 'Busca Orgânica' ;
+        }
+
+        if( $channel == 'Paid Search'){
+            $channel = 'Busca Paga' ;
+        }
+        if( $channel == '(Other)'){
+            $channel = 'Outros' ;
+        }
+        if( $channel == 'Other advertisements'){
+            $channel = 'Outras Publicidades' ;
+        }
+        if( $channel == 'Unknown'){
+            $channel = 'Actual Sales' ;
+        }
+
+        //CANAL PARA INSERÇÃO
+        $canal = Canal::where('nome', $channel )->first();
+
+        $conversao = $request->input('leads.0.last_conversion.content.identificador');
+        $link = $request->input('leads.0.public_url');
+
+        //regras
+        $lead->nome = $request->input('leads.0.name');
+        $lead->email = $request->input('leads.0.email');
+        $lead->telefone = $request->input('leads.0.personal_phone');
+        $lead->origem = $conversao . '<a target="_blank" class="ls-btn-xs ls-btn-default" href=" ' . $link . ' ">
+            Link do RD Station
+        </a>' ;
+
+        $lead->canal_id = $canal['id'];
+
+        //Verifica se já é lead
+        $verifica = Lead::where('email', $request->input('leads.0.email') )
+        ->count();
+
+        if( $verifica > 0  ){
+            $leadFind = Lead::where('email', $request->input('leads.0.email') )
+            ->first();
+
+            //verifica se o user esta ativo
+            $userToSelect = User::where('id', $leadFind['colaborador_id'] )->first();
+
+            if(  $userToSelect['active'] == 1 ){
+            $lead->colaborador_id = $leadFind['colaborador_id'];
+
+            //incrementa leads daily
+            User::where('id', $leadFind['colaborador_id'])->update(['leads_daily' => 1 ]);
+
+            //collection leads daily
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('leads_active', true)->pluck('leads_daily');
+
+            if( $plucked->sum() == count($plucked) ){
+                DB::table('users')->update(['leads_daily' => 0 ]);
+            }
+
+            //verifica se é matriculado
+            if( $leadFind['matriculado'] == 1){
+                $lead->matriculado = 1 ;
+            }
+
+            $leadFind->delete();
+            $lead->save();
+
+            event(new PushLead(  $leadFind['colaborador_id'] ));
+
+            return $lead;
+            }else{
+                 //verifica se é matriculado
+                if( $leadFind['matriculado'] == 1){
+                    $lead->matriculado = 1 ;
+                }
+
+                $leadFind->delete();
+
+                $lead->colaborador_id = $user;
+
+                //incrementa leads daily
+                User::where('id', $user)->update(['leads_daily' => 1 ]);
+
+                //collection leads daily
+                $plucked = User::where('permissoes' ,'>', 1)
+                ->where('leads_active', true)->pluck('leads_daily');
+
+                if( $plucked->sum() == count($plucked) ){
+                    DB::table('users')->update(['leads_daily' => 0 ]);
+                }
+
+                event(new PushLead(  $user ));
+
+                $lead->save();
+                return $lead;
+            }
+
+        } else{
+            $lead->colaborador_id = $user;
+
+            //incrementa leads daily
+            User::where('id', $user)->update(['leads_daily' => 1 ]);
+
+            //collection leads daily
+            $plucked = User::where('permissoes' ,'>', 1)
+            ->where('leads_active', true)->pluck('leads_daily');
+
+            if( $plucked->sum() == count($plucked) ){
+                DB::table('users')->update(['leads_daily' => 0 ]);
+            }
+
+            $lead->save();
+
+            event(new PushLead( $user ));
+
+            return $lead;
+        }
+
+    }
 }
