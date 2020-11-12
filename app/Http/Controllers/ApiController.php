@@ -258,7 +258,7 @@ class ApiController extends Controller
             $channel = 'Outras Publicidades' ;
         }
         if( $channel == 'Unknown'){
-            $channel = 'Actual Sales' ;
+            $channel = 'Outros' ;
         }
 
         //CANAL PARA INSERÇÃO
@@ -397,7 +397,7 @@ class ApiController extends Controller
             $channel = 'Outras Publicidades' ;
         }
         if( $channel == 'Unknown'){
-            $channel = 'Actual Sales' ;
+            $channel = 'Outros' ;
         }
 
         //CANAL PARA INSERÇÃO
