@@ -1,6 +1,7 @@
 class Analytics extends React.Component {
     state = {
         indicacao: [],
+        educaedu: [],
         midia: [],
         inicio: "",
         final: "",
@@ -16,6 +17,7 @@ class Analytics extends React.Component {
                 final: this.state.final,
             });
             this.setState({ indicacao: response.data.indicacao });
+            this.setState({ educaedu: response.data.educaedu });
             this.setState({ midia: response.data.midia });
         } catch (err) {
             console.log(err);
@@ -139,6 +141,54 @@ class Analytics extends React.Component {
                             </td>
                             <td className="ls-txt-center">
                                 <strong> {this.state.indicacao.EJA} </strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td className="ls-txt-center">
+                                <strong>EducaEdu</strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.educaedu.leads} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.educaedu.matriculas}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.educaedu.conversao
+                                        ? Math.floor(
+                                              this.state.educaedu.conversao
+                                          ) + "%"
+                                        : ""}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.educaedu.pos} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {
+                                        this.state.educaedu.segundaLicenciatura
+                                    }{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.educaedu.r2} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.educaedu.Capacitação}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.educaedu.EJA} </strong>
                             </td>
                         </tr>
 
