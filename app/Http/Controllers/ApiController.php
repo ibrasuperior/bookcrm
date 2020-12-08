@@ -84,6 +84,34 @@ class ApiController extends Controller
 
         $indicacao['EJA'] =  Matricula::where('canal', 'Indicação')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
+        
+        
+        //EducaEdu
+        $educaedu = array();
+
+        $educaedu['leads'] = Lead::where('canal_id', 25)->whereBetween('created_at',[$inicio,$final])->count();
+        $educaedu['matriculas'] =  Matricula::where('canal', 'Educa Edu')->whereBetween('created_at',[$inicio,$final])->count();
+
+        if( !empty( $educaedu['leads']) && !empty( $educaedu['matriculas'] ) ){
+            $educaedu['conversao'] =  $educaedu['matriculas'] * 100 / $educaedu['leads'] ;
+        }else{
+            $educaedu['conversao'] = 0;
+        }
+
+        $educaedu['pos'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'Pós-Graduação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $educaedu['segundaLicenciatura'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'Segunda Licenciatura')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $educaedu['r2'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'R2')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $educaedu['Capacitação'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'Capacitação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $educaedu['EJA'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'EJA')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
          //Midia
          $midia = array();
@@ -111,10 +139,11 @@ class ApiController extends Controller
 
          $midia['EJA'] =  Matricula::where('canal','!=','Indicação')->where('produto', 'EJA')
          ->whereBetween('created_at',[$inicio,$final])->count();
-
+         
         $dados =  array(
             'indicacao' => $indicacao,
-            'midia' => $midia
+            'midia' => $midia,
+            'educaedu' => $educaedu
         );
 
         return $dados;
