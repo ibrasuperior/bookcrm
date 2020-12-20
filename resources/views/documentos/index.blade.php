@@ -32,7 +32,7 @@
                 </td>
 
                 <td class="ls-txt-center ls-regroup ">
-                    <a href="http://admin.ibraeducacional.com.br/files/download?file=<?php echo $documento['url']; ?>"
+                    <a href="https://admin.ibraeducacional.com.br/files/download?file=<?php echo $documento['url']; ?>"
                         class="ls-btn ls-btn-primary ls-ico-download ">Baixar</a>
                 </td>
             </tr>
