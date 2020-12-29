@@ -306,6 +306,10 @@ class ApiController extends Controller
 
         $lead->canal_id = $canal['id'];
 
+        if($conversao == "Actual Sales"){
+            $lead->canal_id = 51;
+        }
+        
         //Verifica se já é lead
         $verifica = Lead::where('email', $request->input('leads.0.email') )
         ->count();
