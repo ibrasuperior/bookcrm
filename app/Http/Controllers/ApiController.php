@@ -112,38 +112,66 @@ class ApiController extends Controller
 
         $educaedu['EJA'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
+        
+        //Actual Sales
+        $actualSales = array();
 
-         //Midia
-         $midia = array();
+        $actualSales['leads'] = Lead::where('canal_id', 51)->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['matriculas'] =  Matricula::where('canal', 'Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
 
-         $midia['leads'] = Lead::where('canal_id','!=','7')->where('canal_id','!=','25')->whereBetween('created_at',[$inicio,$final])->count();
-         $midia['matriculas'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->whereBetween('created_at',[$inicio,$final])->count();
-
-         if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
-             $midia['conversao'] =  $midia['matriculas'] * 100 / $midia['leads'] ;
-         }else{
-            $midia['conversao'] = 0;
+        if( !empty( $actualSales['leads']) && !empty( $actualSales['matriculas'] ) ){
+            $actualSales['conversao'] =  $actualSales['matriculas'] * 100 / $actualSales['leads'] ;
+        }else{
+            $actualSales['conversao'] = 0;
         }
 
-         $midia['pos'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('produto', 'Pós-Graduação')
-         ->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['pos'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Pós-Graduação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
-         $midia['segundaLicenciatura'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('produto', 'Segunda Licenciatura')
-         ->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['segundaLicenciatura'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Segunda Licenciatura')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
-         $midia['r2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('produto', 'R2')
-         ->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['r2'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'R2')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
-         $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('produto', 'Capacitação')
-         ->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['Capacitação'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'Capacitação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
-         $midia['EJA'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('produto', 'EJA')
-         ->whereBetween('created_at',[$inicio,$final])->count();
+        $actualSales['EJA'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'EJA')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        //Midia
+        $midia = array();
+
+        $midia['leads'] = Lead::where('canal_id','!=','7')->where('canal_id','!=','25')->where('canal_id','!=','51')->whereBetween('created_at',[$inicio,$final])->count();
+        $midia['matriculas'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->whereBetween('created_at',[$inicio,$final])->count();
+
+        if( !empty( $midia['leads']) && !empty( $midia['matriculas'] ) ){
+            $midia['conversao'] =  $midia['matriculas'] * 100 / $midia['leads'] ;
+        }else{
+        $midia['conversao'] = 0;
+        }
+
+        $midia['pos'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->where('produto', 'Pós-Graduação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $midia['segundaLicenciatura'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->where('produto', 'Segunda Licenciatura')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $midia['r2'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->where('produto', 'R2')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $midia['Capacitação'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->where('produto', 'Capacitação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $midia['EJA'] =  Matricula::where('canal','!=','Indicação')->where('canal','!=','Educa Edu')->where('canal','!=','Actual Sales')->where('produto', 'EJA')
+        ->whereBetween('created_at',[$inicio,$final])->count();
          
         $dados =  array(
             'indicacao' => $indicacao,
             'midia' => $midia,
-            'educaedu' => $educaedu
+            'educaedu' => $educaedu,
+            'actualSales' => $actualSales
         );
 
         return $dados;
