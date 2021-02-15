@@ -322,6 +322,7 @@ class ApiController extends Controller
         $canal = Canal::where('nome', $channel )->first();
 
         $conversao = $request->input('leads.0.last_conversion.content.identificador');
+        
         $link = $request->input('leads.0.public_url');
 
         //regras
@@ -337,6 +338,7 @@ class ApiController extends Controller
         if($conversao == "Actual Sales"){
             $lead->canal_id = 51;
         }
+    
         
         //Verifica se já é lead
         $verifica = Lead::where('email', $request->input('leads.0.email') )
@@ -368,6 +370,10 @@ class ApiController extends Controller
                 $lead->matriculado = 1 ;
             }
 
+            if($conversao == "lp-4-graduacao-fabras"){
+                $lead->colaborador_id = 427;
+            }
+
             $leadFind->delete();
             $lead->save();
 
@@ -383,9 +389,14 @@ class ApiController extends Controller
                 $leadFind->delete();
 
                 $lead->colaborador_id = $user['id'];
-
-                //incrementa leads daily
-                User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+                
+                if($conversao == "lp-4-graduacao-fabras"){
+                    $lead->colaborador_id = 427;
+                } else{
+                    //incrementa leads daily
+                    User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+                }
+                
 
                 //collection leads daily
                 $plucked = User::where('permissoes' ,'>', 1)
@@ -403,9 +414,13 @@ class ApiController extends Controller
 
         } else{
             $lead->colaborador_id = $user['id'];
-
-            //incrementa leads daily
-            User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            
+            if($conversao == "lp-4-graduacao-fabras"){
+                $lead->colaborador_id = 427;
+            } else{
+                //incrementa leads daily
+                User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+            }
 
             //collection leads daily
             $plucked = User::where('permissoes' ,'>', 1)
