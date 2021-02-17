@@ -370,7 +370,7 @@ class ApiController extends Controller
                 $lead->matriculado = 1 ;
             }
 
-            if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")){
+            if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")||($conversao == "lp-4-graduacao-ibra2")){
                 $lead->colaborador_id = 427;
             }
 
@@ -390,7 +390,7 @@ class ApiController extends Controller
 
                 $lead->colaborador_id = $user['id'];
                 
-                if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")){
+                if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")||($conversao == "lp-4-graduacao-ibra2")){
                     $lead->colaborador_id = 427;
                 } else{
                     //incrementa leads daily
@@ -415,7 +415,7 @@ class ApiController extends Controller
         } else{
             $lead->colaborador_id = $user['id'];
             
-            if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")){
+            if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")||($conversao == "lp-4-graduacao-ibra2")){
                 $lead->colaborador_id = 427;
             } else{
                 //incrementa leads daily
