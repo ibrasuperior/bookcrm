@@ -34,11 +34,12 @@ class ArteController extends Controller
     
     function resize_image($arte){
         $src = $arte->img;
-        $img = Image::make('storage/artes/' . $src)->resize(200, 200);
+        $img = Image::make(Storage::get($src))->resize(200, 200);
+        // $img->store('/');
+        // $img->save('storage/thumbnail/'. $src);
 
-        $img->save('storage/thumbnail/'. $src);
-
-        return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
+        // return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
+        return $img;
     }
 
     public function pecas(){
@@ -54,10 +55,10 @@ class ArteController extends Controller
         return view('artes.edit',['artes' => Arte::findOrFail($id)]);
     }
 
-    public function download(Request $request){
+    public function download(Request $request){ 
         $file = $request->input('file');
-        return response()->download('storage/artes/' . $file);
 
+        return storage::download($file);
     }
 
     public function store(Request $request){
