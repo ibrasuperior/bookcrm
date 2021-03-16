@@ -108,7 +108,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                                             Usuário
                                         </option>
 
-                                        <?php $users = \App\User::where('permissoes', 2)->get(); ?>
+                                        <?php $users = \App\User::where('permissoes', 2)->orderBy('name', 'asc')->get(); ?>
 
                                         @foreach($users as $user)
                                         <option value="{{$user->id}}" @if( Request::input('user')==$user->id )
