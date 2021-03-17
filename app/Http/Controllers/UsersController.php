@@ -44,9 +44,10 @@ class UsersController extends Controller
             $query->where('name', 'LIKE', '%'.$name.'%');
         }
         
-        $data = $query->orderBy('id','asc')->paginate(20);
+        $users = $query->orderBy('id','asc')->with('equipe')->paginate(20);
          
-        return view('users.index')->with('users', $data);
+        return view('users.index')->with('users', $users);
+        // return $users;  
     }
 
 
