@@ -111,7 +111,7 @@
                 </td>
                 <td class="ls-txt-center">
                     <a href="/users/{{$user->id}}">
-                        @if($user->equipe_id !== 0)
+                        @if($user->equipe_id != null)
                         {{ $user->equipe->nome}}
                         @endif
                     </a>
