@@ -44,7 +44,7 @@ class UsersController extends Controller
             $query->where('name', 'LIKE', '%'.$name.'%');
         }
         
-        $data = $query->orderBy('id','asc')->paginate(20);
+        $data = $query->orderBy('id','asc')->with('equipe')->paginate(20);
          
         return view('users.index')->with('users', $data);
     }
@@ -60,6 +60,8 @@ class UsersController extends Controller
     {
         $user = new User;
         $user->name = $request->input('name');
+        $user->supervisor = $request->input('supervisor');
+        $user->gerente = $request->input('gerente');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password')) ;
         $user->permissoes = $request->input('permissoes');

@@ -76,6 +76,20 @@
                 <input type="text" name="password" autocomplete="off">
             </label>
 
+
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Supervisor</span>
+                <input autocomplete="off" type="text" value="{{$user->supervisor}}" required name="supervisor">
+            </label>
+
+
+
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Gerente</span>
+                <input autocomplete="off" type="text" value="{{$user->gerente}}" required name="gerente">
+            </label>
+
+
         </div>
 
         <hr>

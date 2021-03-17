@@ -12,6 +12,7 @@ class CreateEquipesTable extends Migration
         Schema::create('equipes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->integer('meta');
             $table->timestamps();
         });
     }
