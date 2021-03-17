@@ -46,8 +46,8 @@ class UsersController extends Controller
         
         $users = $query->orderBy('id','asc')->with('equipe')->paginate(20);
          
-        // return view('users.index')->with('users', $users);
-        return $users;  
+        return view('users.index')->with('users', $users);
+        // return $users;  
     }
 
 
