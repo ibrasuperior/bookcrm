@@ -33,10 +33,10 @@ class ArteController extends Controller
     }
     
     function resize_image($arte){
-        $src = $arte->img;
-        $img = Image::make('storage/artes/' . $src)->resize(200, 200);
+        
+        $img = Image::make(storage_path('artes/') . $arte->img)->resize(200, 200);
 
-        $img->save('storage/thumbnail/'. $src);
+        $img->save(storage_path('thumbnail/'). $arte->img);
 
         return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
     }
