@@ -2,8 +2,8 @@
 
 @section('content')
 <?php
- $connect = mysqli_connect('localhost','root',
- '', 'nzkbevgkvh');
+ $connect = mysqli_connect('localhost','jnxzmzfnrj',
+ 'jDy7P5xFed', 'jnxzmzfnrj');
 
   $artes = mysqli_query($connect, 'select * from artes ORDER BY id DESC' );
 ?>

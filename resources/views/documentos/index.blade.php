@@ -3,8 +3,8 @@
 @section('content')
 <?php
   $id = $_GET['id'];
-  $connect = mysqli_connect('localhost','nzkbevgkvh',
-  'tRFv9GWCvX', 'nzkbevgkvh');
+  $connect = mysqli_connect('localhost','jnxzmzfnrj',
+  'jDy7P5xFed', 'jnxzmzfnrj');
 
   $documentos = mysqli_query($connect, 'select * from files where documento_id=' . $id  );
 ?>

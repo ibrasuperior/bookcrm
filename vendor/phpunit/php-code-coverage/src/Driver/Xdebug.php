@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of the php-code-coverage package.
  *
@@ -9,6 +9,7 @@
  */
 namespace SebastianBergmann\CodeCoverage\Driver;
 
+use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\RuntimeException;
 
 /**
@@ -24,17 +25,39 @@ final class Xdebug implements Driver
     private $cacheNumLines = [];
 
     /**
+     * @var Filter
+     */
+    private $filter;
+
+    /**
      * @throws RuntimeException
      */
-    public function __construct()
+    public function __construct(Filter $filter = null)
     {
         if (!\extension_loaded('xdebug')) {
             throw new RuntimeException('This driver requires Xdebug');
         }
 
-        if (!\ini_get('xdebug.coverage_enable')) {
-            throw new RuntimeException('xdebug.coverage_enable=On has to be set in php.ini');
+        if (\version_compare(\phpversion('xdebug'), '3', '>=')) {
+            $mode = \getenv('XDEBUG_MODE');
+
+            if ($mode === false) {
+                $mode = \ini_get('xdebug.mode');
+            }
+
+            if ($mode === false ||
+                !\in_array('coverage', \explode(',', $mode), true)) {
+                throw new RuntimeException('XDEBUG_MODE=coverage or xdebug.mode=coverage has to be set');
+            }
+        } elseif (!\ini_get('xdebug.coverage_enable')) {
+            throw new RuntimeException('xdebug.coverage_enable=On has to be set');
         }
+
+        if ($filter === null) {
+            $filter = new Filter;
+        }
+
+        $this->filter = $filter;
     }
 
     /**
@@ -66,13 +89,15 @@ final class Xdebug implements Driver
         foreach (\array_keys($data) as $file) {
             unset($data[$file][0]);
 
-            if (\strpos($file, 'xdebug://debug-eval') !== 0 && \file_exists($file)) {
-                $numLines = $this->getNumberOfLinesInFile($file);
+            if (!$this->filter->isFile($file)) {
+                continue;
+            }
 
-                foreach (\array_keys($data[$file]) as $line) {
-                    if ($line > $numLines) {
-                        unset($data[$file][$line]);
-                    }
+            $numLines = $this->getNumberOfLinesInFile($file);
+
+            foreach (\array_keys($data[$file]) as $line) {
+                if ($line > $numLines) {
+                    unset($data[$file][$line]);
                 }
             }
         }
