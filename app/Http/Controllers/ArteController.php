@@ -56,11 +56,14 @@ class ArteController extends Controller
         return view('artes.edit',['artes' => Arte::findOrFail($id)]);
     }
 
-    public function download(Request $request){
-        
+    // public function download(Request $request){
+    //     $file = $request->input('file');
+    //     return Storage::download($file);
+    // }
+        public function download(Request $request){
         $file = $request->input('file');
+        return response()->download('storage/' . $file);
 
-        return Storage::download($file);
     }
 
     public function store(Request $request){
