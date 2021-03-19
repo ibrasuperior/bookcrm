@@ -30,16 +30,18 @@ class ArteController extends Controller
         $artes = $query->orderBy('id', 'desc')->paginate(16);
 
         return view('artes.index')->with('artes', $artes);
+        
     }
     
     function resize_image($arte){
-        
-        $img = Image::make(storage_path('artes/') . $arte->img)->resize(200, 200);
+        $src = $arte->img;
+        $img = Image::make('storage/' . $src)->resize(200, 200);
 
-        $img->save(storage_path('thumbnail/'). $arte->img);
+        $img->save('storage/'. 'thumbnail'.$src);
 
         return redirect('/artes')->with('success', 'Arte cadastrada com sucesso !');
     }
+
 
     public function pecas(){
         return view('artes.pecas');
@@ -56,7 +58,7 @@ class ArteController extends Controller
 
     public function download(Request $request){
         $file = $request->input('file');
-        return response()->download('storage/artes/' . $file);
+        return response()->download('storage/' . $file);
 
     }
 
