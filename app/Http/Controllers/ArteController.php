@@ -90,7 +90,7 @@ class ArteController extends Controller
         $arte = Arte::findOrFail($id);
 
         Storage::delete($arte['img']);
-        Storage::disk('thumbnail')->delete($arte['img']);
+        Storage::delete('thumbnail'.$arte['img']);
 
         $arte->delete();
 
