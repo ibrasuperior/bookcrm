@@ -60,7 +60,7 @@ class ArteController extends Controller
         
         $file = $request->input('file');
 
-        return response()->download('storage/' . $file);
+        return Storage::download($file);
     }
 
     public function store(Request $request){
