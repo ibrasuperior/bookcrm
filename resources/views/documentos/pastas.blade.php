@@ -2,8 +2,8 @@
 
 @section('content')
 <?php
- $connect = mysqli_connect('localhost','nzkbevgkvh',
- 'tRFv9GWCvX', 'nzkbevgkvh');
+ $connect = mysqli_connect('localhost','jnxzmzfnrj',
+ 'jDy7P5xFed', 'jnxzmzfnrj');
 
   $documentos = mysqli_query($connect, 'select * from documentos' );
 ?>

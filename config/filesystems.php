@@ -45,12 +45,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('artes'),
-        ],
-
-        'thumbnail' => [
-            'driver' => 'local',
-            'root' => storage_path('thumbnail'),
+            'root' => storage_path('app/public'),
         ],
 
         'public' => [
