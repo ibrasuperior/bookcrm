@@ -47,8 +47,7 @@ class ApiController extends Controller
         return $users;
     }
 
-    public function report(Request $request)
-    {
+    public function report(Request $request){
         $data = $request->all();
         return Excel::download(new ReportExport($data), 'relatorio.xlsx');
     }
@@ -139,6 +138,33 @@ class ApiController extends Controller
 
         $actualSales['EJA'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
+        
+        //ISSOE
+        $issoe = array();
+
+        $issoe['leads'] = Lead::where('canal_id', 52)->whereBetween('created_at',[$inicio,$final])->count();
+        $issoe['matriculas'] =  Matricula::where('canal', 'ISSO É')->whereBetween('created_at',[$inicio,$final])->count();
+
+        if( !empty( $issoe['leads']) && !empty( $issoe['matriculas'] ) ){
+            $issoe['conversao'] =  $issoe['matriculas'] * 100 / $issoe['leads'] ;
+        }else{
+            $issoe['conversao'] = 0;
+        }
+
+        $issoe['pos'] =  Matricula::where('canal', 'ISSO É')->where('produto', 'Pós-Graduação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $issoe['segundaLicenciatura'] =  Matricula::where('canal', 'ISSO É')->where('produto', 'Segunda Licenciatura')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $issoe['r2'] =  Matricula::where('canal', 'ISSO É')->where('produto', 'R2')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $issoe['Capacitação'] =  Matricula::where('canal', 'ISSO É')->where('produto', 'Capacitação')
+        ->whereBetween('created_at',[$inicio,$final])->count();
+
+        $issoe['EJA'] =  Matricula::where('canal', 'ISSO É')->where('produto', 'EJA')
+        ->whereBetween('created_at',[$inicio,$final])->count();
 
         //Midia
         $midia = array();
@@ -171,7 +197,8 @@ class ApiController extends Controller
             'indicacao' => $indicacao,
             'midia' => $midia,
             'educaedu' => $educaedu,
-            'actualSales' => $actualSales
+            'actualSales' => $actualSales,
+            'issoe' => $issoe
         );
 
         return $dados;
@@ -337,6 +364,10 @@ class ApiController extends Controller
 
         if($conversao == "Actual Sales"){
             $lead->canal_id = 51;
+        }
+        
+        if($conversao == "ISSO É"){
+            $lead->canal_id = 52;
         }
     
         

@@ -4,6 +4,7 @@ class Analytics extends React.Component {
         educaedu: [],
         actualSales: [],
         midia: [],
+        issoe: [],
         inicio: "",
         final: "",
         loading: false,
@@ -20,6 +21,7 @@ class Analytics extends React.Component {
             this.setState({ indicacao: response.data.indicacao });
             this.setState({ educaedu: response.data.educaedu });
             this.setState({ actualSales: response.data.actualSales });
+            this.setState({ issoe: response.data.issoe });
             this.setState({ midia: response.data.midia });
         } catch (err) {
             console.log(err);
@@ -96,7 +98,6 @@ class Analytics extends React.Component {
                             <th className="ls-txt-center">EJA</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <tr>
                             <td className="ls-txt-center">
@@ -145,7 +146,6 @@ class Analytics extends React.Component {
                                 <strong> {this.state.indicacao.EJA} </strong>
                             </td>
                         </tr>
-
                         <tr>
                             <td className="ls-txt-center">
                                 <strong>EducaEdu</strong>
@@ -198,7 +198,10 @@ class Analytics extends React.Component {
                                 <strong>Actual Sales</strong>
                             </td>
                             <td className="ls-txt-center">
-                                <strong> {this.state.actualSales.leads} </strong>
+                                <strong>
+                                    {" "}
+                                    {this.state.actualSales.leads}{" "}
+                                </strong>
                             </td>
                             <td className="ls-txt-center">
                                 <strong>
@@ -223,7 +226,8 @@ class Analytics extends React.Component {
                                 <strong>
                                     {" "}
                                     {
-                                        this.state.actualSales.segundaLicenciatura
+                                        this.state.actualSales
+                                            .segundaLicenciatura
                                     }{" "}
                                 </strong>
                             </td>
@@ -240,7 +244,6 @@ class Analytics extends React.Component {
                                 <strong> {this.state.actualSales.EJA} </strong>
                             </td>
                         </tr>
-
                         <tr>
                             <td className="ls-txt-center">
                                 <strong>Mídia</strong>
@@ -281,6 +284,48 @@ class Analytics extends React.Component {
                             </td>
                             <td className="ls-txt-center">
                                 <strong> {this.state.midia.EJA} </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="ls-txt-center">
+                                <strong>ISSOE</strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.issoe.leads} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.issoe.matriculas} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.indicacao.conversao
+                                        ? Math.floor(
+                                              this.state.issoe.conversao
+                                          ) + "%"
+                                        : ""}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.issoe.pos} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.issoe.segundaLicenciatura}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.issoe.r2} </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong>
+                                    {" "}
+                                    {this.state.issoe.Capacitação}{" "}
+                                </strong>
+                            </td>
+                            <td className="ls-txt-center">
+                                <strong> {this.state.issoe.EJA} </strong>
                             </td>
                         </tr>
                     </tbody>
