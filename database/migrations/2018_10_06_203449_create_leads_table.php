@@ -14,7 +14,7 @@ class CreateLeadsTable extends Migration
             $table->string('nome');
             $table->string('email');
             $table->string('telefone');
-            $table->integer('canal_id')->default(0);
+            $table->integer('canal_id')->default(0)->nullable();
             $table->text('obs')->nullable();
             $table->text('origem')->nullable();
             $table->integer('estagio_id')->references('id')->on('users');
