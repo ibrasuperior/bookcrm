@@ -60,8 +60,6 @@ class UsersController extends Controller
     {
         $user = new User;
         $user->name = $request->input('name');
-        $user->supervisor = $request->input('supervisor');
-        $user->gerente = $request->input('gerente');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password')) ;
         $user->permissoes = $request->input('permissoes');

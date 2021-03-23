@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->boolean('leads_daily')->default(0);
             $table->boolean('active')->default(1);
             $table->rememberToken();
-            $table->string('supervisor')->nullable();;
-            $table->string('gerente')->nullable();;
             $table->timestamps();
         });
     }

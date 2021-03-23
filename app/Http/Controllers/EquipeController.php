@@ -25,6 +25,8 @@ class EquipeController extends Controller
     {
         $equipe = new Equipe;
         $equipe->nome = $request->input('nome');
+        $equipe->gerente = $request->input('gerente');
+        $equipe->supervisor = $request->input('supervisor');
         $equipe->save();
         
         return redirect('/equipes')->with('success',"Cadastrado com sucesso!");
@@ -40,6 +42,8 @@ class EquipeController extends Controller
     {
         $equipe->nome = $request->input('nome');
         $equipe->meta = $request->input('meta');
+        $equipe->nome = $request->input('nome');
+        $equipe->gerente = $request->input('gerente');
         
         $equipe->update();
         return redirect('/equipes')->with("success","Alterado com sucesso!");

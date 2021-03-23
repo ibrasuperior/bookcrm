@@ -41,21 +41,6 @@
                 </div>
             </label>
         </div>
-
-        <div class="row">
-            <label class="ls-label col-md-6">
-                <span class="ls-label-text">Supervisor</span>
-                <input autocomplete="off" type="text" required name="supervisor">
-            </label>
-        </div>
-
-        <div class="row">
-            <label class="ls-label col-md-6">
-                <span class="ls-label-text">Gerente</span>
-                <input autocomplete="off" type="text" required name="gerente">
-            </label>
-        </div>
-
         <hr>
 
         <button type="submit" class="ls-btn-primary">Salvar</button>

@@ -21,6 +21,18 @@
                 <span class="ls-label-text">Meta</span>
                 <input type="number" name="meta" autocomplete="off" value="{{ $equipe->meta  }}">
             </label>
+
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Supervisor</span>
+                <input autocomplete="off" type="text" value="{{$equipe->supervisor}}" required name="supervisor">
+            </label>
+
+
+
+            <label class="ls-label col-md-6">
+                <span class="ls-label-text">Gerente</span>
+                <input autocomplete="off" type="text" value="{{$equipe->gerente}}" required name="gerente">
+            </label>
         </div>
 
         <hr>
