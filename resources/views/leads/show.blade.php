@@ -425,10 +425,6 @@
                                     data-toggle-class="ls-display-none" data-target=".domain-actions"
                                     class="domain-actions" role="option">Editar</a>
                             </li>
-
-                            <li><a href="/leads/delete/{{$lead->id}}" class="ls-color-danger"
-                                    onclick="return confirm('tem certeza que quer excluir?')" role="option">Excluir</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
