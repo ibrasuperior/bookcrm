@@ -83,8 +83,8 @@ class ApiController extends Controller
 
         $indicacao['EJA'] =  Matricula::where('canal', 'Indicação')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
-        
-        
+
+
         //EducaEdu
         $educaedu = array();
 
@@ -111,7 +111,7 @@ class ApiController extends Controller
 
         $educaedu['EJA'] =  Matricula::where('canal', 'Educa Edu')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
-        
+
         //Actual Sales
         $actualSales = array();
 
@@ -138,7 +138,7 @@ class ApiController extends Controller
 
         $actualSales['EJA'] =  Matricula::where('canal', 'Actual Sales')->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
-        
+
         //ISSOE
         $issoe = array();
 
@@ -212,7 +212,7 @@ class ApiController extends Controller
         ->where('canal','!=','Actual Sales')
         ->where('produto', 'EJA')
         ->whereBetween('created_at',[$inicio,$final])->count();
-         
+
         $dados =  array(
             'indicacao' => $indicacao,
             'midia' => $midia,
@@ -369,7 +369,7 @@ class ApiController extends Controller
         $canal = Canal::where('nome', $channel )->first();
 
         $conversao = $request->input('leads.0.last_conversion.content.identificador');
-        
+
         $link = $request->input('leads.0.public_url');
 
         //regras
@@ -385,12 +385,12 @@ class ApiController extends Controller
         if($conversao == "Actual Sales"){
             $lead->canal_id = 51;
         }
-        
+
         if($conversao == "ISSO É"){
             $lead->canal_id = 52;
         }
-    
-        
+
+
         //Verifica se já é lead
         $verifica = Lead::where('email', $request->input('leads.0.email') )
         ->count();
@@ -440,14 +440,14 @@ class ApiController extends Controller
                 $leadFind->delete();
 
                 $lead->colaborador_id = $user['id'];
-                
+
                 if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")||($conversao == "lp-4-graduacao-ibra2")){
                     $lead->colaborador_id = 427;
                 } else{
                     //incrementa leads daily
                     User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
                 }
-                
+
 
                 //collection leads daily
                 $plucked = User::where('permissoes' ,'>', 1)
@@ -465,7 +465,7 @@ class ApiController extends Controller
 
         } else{
             $lead->colaborador_id = $user['id'];
-            
+
             if(($conversao == "lp-4-graduacao-fabras")||($conversao == "lp-4-graduacao-fitec")||($conversao == "lp-4-graduacao")||($conversao == "lp-4-graduacao-ibra2")){
                 $lead->colaborador_id = 427;
             } else{
@@ -489,7 +489,16 @@ class ApiController extends Controller
         }
 
     }
-    
+
+    /*
+    /-------------------------------------------------------------------------
+    /   API PARA ASSERTIVA
+    /-------------------------------------------------------------------------
+    /
+    /
+    /
+    /
+    */
     public function leadsAssertiva(Request $request){
         $lead = new Lead;
 
@@ -627,5 +636,29 @@ class ApiController extends Controller
             return $lead;
         }
 
+    }
+
+    /*
+    /-------------------------------------------------------------------------
+    /   API INDICAÇÃO LOJA
+    /-------------------------------------------------------------------------
+    /
+    /
+    /
+    /
+    */
+    public function leadsLoja(Request $request){
+        $lead = new Lead;
+        $lead->name = $request->input('name');
+        $lead->phone = $request->input('phone');
+        $lead->obs = $request->input('course');
+        $lead->colaborador_id = $request->input('user_id');
+
+        $lead->origem = 'Indicação Loja';
+        $lead->canal_id = 53;
+
+        $lead->save();
+
+        return $lead;
     }
 }

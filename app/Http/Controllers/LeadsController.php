@@ -198,7 +198,7 @@ class leadsController extends Controller
 
         if(!empty($nome) ){
             $query->where('nome',$nome);
-        
+
         }
         if(!empty($email) ){
             $query->where('email',$email);
@@ -265,7 +265,7 @@ class leadsController extends Controller
 
         if(!empty($nome) ){
             $query->where('nome',$nome);
-        
+
         }
         if(!empty($email) ){
             $query->where('email',$email);
