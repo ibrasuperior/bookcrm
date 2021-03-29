@@ -649,8 +649,8 @@ class ApiController extends Controller
     */
     public function leadsLoja(Request $request){
         $lead = new Lead;
-        $lead->name = $request->input('name');
-        $lead->phone = $request->input('phone');
+        $lead->nome = $request->input('name');
+        $lead->telefone = $request->input('phone');
         $lead->obs = $request->input('course');
         $lead->colaborador_id = $request->input('user_id');
 
