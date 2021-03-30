@@ -153,22 +153,24 @@ Route::middleware(['security'])->group(function(){
 
 });
 
+Route::middleware(['cors'])->group(function(){
+    Route::post('/api/export',"ApiController@export");
+    Route::post('/api/lead', 'ApiController@leadsStation');
+    Route::post('/api/refer', 'ApiController@leadsLoja');
+    Route::post('/api/lead-assertiva', 'ApiController@leadsAssertiva');
+    Route::get('/api/chart-matriculas',"ApiController@chartSales");
+    Route::get('/auth/callback', function(){
+        echo 'ok';
+    });
 
-Route::post('/api/export',"ApiController@export");
-Route::post('/api/lead', 'ApiController@leadsStation');
-Route::post('/api/lead-assertiva', 'ApiController@leadsAssertiva');
-Route::get('/api/chart-matriculas',"ApiController@chartSales");
-Route::get('/auth/callback', function(){
-     echo 'ok';
+    /* Route::get('/home', 'HomeController@index')->name('home'); */
+
+    //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
+    Route::post('/api/analise',"ApiController@analise");
+
+
+    //EDUCA EDU
+    Route::post('/api/edu',"ApiController@leadsEducaEdu");
+
+    Route::get('/relatorios/matriculas/report',"MatriculaController@reportAdmin");
 });
-
- /* Route::get('/home', 'HomeController@index')->name('home'); */
-
- //JOGAR PARA MIDDLEWARE NA PRODUÇÃO
- Route::post('/api/analise',"ApiController@analise");
-
-
- //EDUCA EDU
- Route::post('/api/edu',"ApiController@leadsEducaEdu");
-
- Route::get('/relatorios/matriculas/report',"MatriculaController@reportAdmin");

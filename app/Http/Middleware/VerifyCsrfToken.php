@@ -23,6 +23,7 @@ class VerifyCsrfToken extends Middleware
         "api/lead-assertiva",
         'api/analise',
         'api/edu',
+        'api/refer',
     ];
-    
+
 }
