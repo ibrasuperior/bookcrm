@@ -89,8 +89,8 @@
         <ul>
           <li><a href="/" class="ls-ico-dashboard" title="Dashboard">Dashboard</a></li>
           <li><a href="/leads" class="ls-ico-users" title="Leads">Leads</a></li>
-          <li><a href="https://loja.ibraeducacional.com.br/register-students?id={{\Auth::user()->id}}&name={{\Auth::user()->name}}"
-              class="ls-ico-users" title="Leads">Registro Loja</a></li>
+          <!-- <li><a href="https://loja.ibraeducacional.com.br/register-students?id={{\Auth::user()->id}}&name={{\Auth::user()->name}}"
+              class="ls-ico-users" title="Leads">Registro Loja</a></li> -->
           <li><a href="/agenda" class="ls-ico-calendar-check" title="Agenda">Agenda</a></li>
           <li><a href="/matriculas" class="ls-ico-checkmark" title="Matrículas">Matrículas</a></li>
           <li><a href="/artes" class="ls-ico-images">Publicidade</a></li>
