@@ -661,4 +661,105 @@ class ApiController extends Controller
 
         return $lead;
     }
-}
+
+    /*
+    /-------------------------------------------------------------------------
+    /   API LEADS IPATINGA
+    /-------------------------------------------------------------------------
+    /
+    /
+    /
+    /
+    */
+    public function leadsIpatinga(Request $request){
+        $lead = new Lead;
+
+        $user = User::where('permissoes' ,'>', 1)
+        ->where('equipe_id', 8)
+        ->orderBy('leads_daily','asc')->first();
+
+        $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
+
+        //traduzir canais
+        if( $channel == 'Direct'){
+            $channel = 'Tráfego Direto' ;
+        }
+
+        if( $channel == 'Referral'){
+            $channel = 'Referência' ;
+        }
+
+        if( $channel == 'Social'){
+            $channel = 'Mídia Social' ;
+        }
+
+        if( $channel == 'Organic Search'){
+            $channel = 'Busca Orgânica' ;
+        }
+
+        if( $channel == 'Paid Search'){
+            $channel = 'Busca Paga' ;
+        }
+        if( $channel == '(Other)'){
+            $channel = 'Outros' ;
+        }
+        if( $channel == 'Other advertisements'){
+            $channel = 'Outras Publicidades' ;
+        }
+        if( $channel == 'Unknown'){
+            $channel = 'Outros' ;
+        }
+
+        //CANAL PARA INSERÇÃO
+        $canal = Canal::where('nome', $channel )->first();
+
+        $conversao = $request->input('leads.0.last_conversion.content.identificador');
+
+        $link = $request->input('leads.0.public_url');
+
+        //regras
+        $lead->nome = $request->input('leads.0.name');
+        $lead->email = $request->input('leads.0.email');
+        $lead->telefone = $request->input('leads.0.personal_phone');
+        $lead->origem = $conversao . '<a target="_blank" class="ls-btn-xs ls-btn-default" href=" ' . $link . ' ">
+            Link do RD Station
+        </a>' ;
+
+        $lead->canal_id = $canal['id'];
+
+        if($conversao == "Actual Sales"){
+            $lead->canal_id = 51;
+        }
+
+        if($conversao == "ISSO É"){
+            $lead->canal_id = 52;
+        }
+
+        $lead->colaborador_id = $user['id'];
+        
+        //incrementa leads daily
+        User::where('id', $user['id'])->update(['leads_daily' => 1 ]);
+    
+        //collection leads daily
+        $plucked = User::where('permissoes' ,'>', 1)
+        ->where('equipe_id', 8)->pluck('leads_daily');
+
+        if( $plucked->sum() == count($plucked) ){
+            User::where('equipe_id', 8)->update(['leads_daily' => 0 ]);
+        }
+
+        //Verifica se já é lead
+        $verifica = Lead::where('email', $request->input('leads.0.email') )
+        ->count();
+
+        if( $verifica > 0  ){
+            $verificaLead = Lead::where('email', $request->input('leads.0.email'))->delete();
+        }
+
+        $lead->save();
+
+        event(new PushLead( $user['id'] ));
+
+        return $lead;
+        }
+    }
