@@ -45,7 +45,7 @@
                         "image/jpeg"
                     ).replace("image/jpeg",
                         "image/octet-stream");
-                    a.download = 'signature.jpg';
+                    a.download = 'custom_art.jpg';
                     a.click();
                 }
             });
@@ -63,7 +63,7 @@
         }
 
         .img-capture {
-            background-image: url('/storage/artes/<?=$_POST['img']?>');
+            background-image: url('/storage/<?=$_POST['img']?>');
             background-repeat: no-repeat;
             background-size: 600px 600px;
             width: 600px;
