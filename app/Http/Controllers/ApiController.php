@@ -386,7 +386,7 @@ class ApiController extends Controller
             $lead->canal_id = 51;
         }
 
-        if($conversao == "ISSO É"){
+        if($conversao === "pos-graduacao-issoe-midia" || $conversao === "ISSO É"){
             $lead->canal_id = 52;
         }
 
