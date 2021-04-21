@@ -114,7 +114,17 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
             </tr>
         </thead>
         <tbody>
+
+            @if ($leads->total() == 0)
+            <div class="ls-alert-info">
+                <span>
+                    Nenhum Lead Encontrado!
+                </span>
+            </div>
+            @endif
+
             @foreach( $leads as $lead )
+
             <tr class="shadow">
                 <td class="ls-txt-center">
                     <a href="/leads/show/{{$lead->id}}">{{ $lead->nome}}</a>
