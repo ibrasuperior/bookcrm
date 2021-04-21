@@ -34,7 +34,6 @@ class leadsController extends Controller
         return view('dashboard')->with('leadCount',$lead)->with('matriculaCount',$matricula)->with('agendaCount',$agenda);
     }
 
-
     public function index(Request $request)
     {
         $nome = $request->input('nome');
@@ -70,13 +69,11 @@ class leadsController extends Controller
         return view('leads.index')->with('leads', $leads);
     }
 
-
     public function create()
     {
         $canais = Canal::get();
         return view('leads.novo')->with("canais",$canais);
     }
-
 
     public function store(Request $request)
     {
@@ -96,10 +93,8 @@ class leadsController extends Controller
         }else{
             $lead->save();
             return redirect('/leads')->with('success',"Cadastrado com sucesso!");
-
         }
     }
-
 
     public function show($id)
     {
@@ -146,7 +141,6 @@ class leadsController extends Controller
         $canais = Canal::get();
         return view('leads.edit', ['lead' => Lead::findOrFail($id)])->with("canais", $canais);
     }
-
 
     public function update(Request $request, Lead $lead)
     {
