@@ -157,6 +157,7 @@ Route::middleware(['cors'])->group(function(){
     Route::post('/api/export',"ApiController@export");
     Route::post('/api/lead', 'ApiController@leadsStation');
     Route::post('/api/lead-ipatinga', 'ApiController@leadsIpatinga');
+    Route::post('/api/lead-fitec', 'ApiController@leadsFitec');
     Route::post('/api/refer', 'ApiController@leadsLoja');
     Route::post('/api/lead-assertiva', 'ApiController@leadsAssertiva');
     Route::get('/api/chart-matriculas',"ApiController@chartSales");
