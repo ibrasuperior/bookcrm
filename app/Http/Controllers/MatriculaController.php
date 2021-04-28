@@ -62,9 +62,17 @@ class MatriculaController extends Controller
 
         if(!empty($user) ){
             $query->where('colaborador_id',$user);
-        }else{
-            $query->where('colaborador_id', $id);
+
+        } else {
+
+            if(\Auth::user()->permissoes == 1 ){
+             
+            } else {
+                $query->where('colaborador_id', $id);
+            }     
         }
+
+
         
         $data = $query->orderBy('id','desc')->paginate(20);
 
@@ -458,7 +466,8 @@ class MatriculaController extends Controller
         $order = $request->input('order');
         $matriculas = Matricula::orderBy('id','DESC')->where('nome', 'LIKE', '%'.$order.'%')->paginate(20);
 
-        if( count($matriculas) > 0 ){
+        
+       if( count($matriculas) > 0 ){
             return view('matriculas.index')->with('matriculas',$matriculas);
         }else{
             return redirect('/matriculas')->with('info','nenhum registro foi localizado');

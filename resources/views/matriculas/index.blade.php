@@ -123,10 +123,11 @@
                                     data-ls-module="modal" data-target="#modalSmall" role="option">Cancelar
                                     Pagamento</a></li>
                             @endif
+                            @if(\Auth::user()->permissoes == 1 )
                             <li><a onclick="return confirm('Tem certeza que quer apagar ?')"
                                     href="/matriculas/delete/{{$matricula->id}}" class="ls-color-danger"
                                     role="option">Excluir</a></li>
-
+                            @endif
                         </ul>
                     </div>
                 </td>

@@ -37,7 +37,6 @@
     }
     </style>
 
-
     <a class="ls-btn-primary ls-ico-spinner" onclick="return location.reload()">Recarregar</a>
 
     <div data-ls-module="collapse" data-target="#0" style="margin-top: 20px; background-color: #EEE; -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.45);
@@ -127,7 +126,7 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
 
             <tr class="shadow">
                 <td class="ls-txt-center">
-                    <a href="/leads/show/{{$lead->id}}">{{ $lead->nome}}</a>
+                    <a href="/leads/show/{{$lead->id}}">{{$lead->nome}}</a>
                     @if( $lead->matriculado == true )
                     </br><span class="ls-tag-success">Matriculado</span>
                     @endif
@@ -167,7 +166,6 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                         </ul>
                     </div>
                 </td>
-
             </tr>
 
             @endforeach
@@ -236,8 +234,6 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
                         <textarea rows="2" name="obs"></textarea>
                     </label>
                 </div>
-
-
         </div>
         <div class="ls-modal-footer">
             <button type="submit" class="ls-btn-block ls-btn-primary">Adicionar</button>
@@ -245,6 +241,4 @@ font-size:110%;width:60px; height:60px;border-radius:35px; z-index:999;position:
         </form>
     </div>
 </div>
-
-
 @stop
