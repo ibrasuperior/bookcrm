@@ -763,6 +763,16 @@ class ApiController extends Controller
         return $lead;
         }
 
+        /*
+        /-------------------------------------------------------------------------
+        /   API LEADS FITEC
+        /-------------------------------------------------------------------------
+        /
+        /
+        /
+        /
+        */
+
         public function leadsFitec(Request $request){
         $lead = new Lead;
 
