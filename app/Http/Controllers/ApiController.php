@@ -862,7 +862,7 @@ class ApiController extends Controller
 
         $lead->save();
 
-        event(new PushLead( $user['id'] ));
+        // event(new PushLead( $user['id'] ));
 
         return $user;
         }
