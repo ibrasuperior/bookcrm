@@ -676,6 +676,7 @@ class ApiController extends Controller
 
         $user = User::where('permissoes' ,'>', 1)
         ->where('equipe_id', 8)
+        ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
 
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
@@ -778,6 +779,7 @@ class ApiController extends Controller
 
         $user = User::where('permissoes' ,'>', 1)
         ->where('equipe_id', 7)
+        ->where('active', '!=', 0)
         ->orderBy('leads_daily','asc')->first();
 
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
@@ -862,6 +864,6 @@ class ApiController extends Controller
 
         event(new PushLead( $user['id'] ));
 
-        return $lead;
+        return $user;
         }
     }
