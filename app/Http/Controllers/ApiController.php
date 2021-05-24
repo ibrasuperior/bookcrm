@@ -846,7 +846,7 @@ class ApiController extends Controller
     
         //collection leads daily
         $plucked = User::where('permissoes' ,'>', 1)
-        ->where('equipe_id', 7)->pluck('leads_daily');
+        ->where('equipe_id', 7)->where('active', '!=', '0')->pluck('leads_daily');
 
         if( $plucked->sum() == count($plucked) ){
             User::where('equipe_id', 7)->update(['leads_daily' => 0 ]);
@@ -864,6 +864,6 @@ class ApiController extends Controller
 
         // event(new PushLead( $user['id'] ));
 
-        return $user;
+        return $lead;
         }
     }
