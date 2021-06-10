@@ -681,38 +681,8 @@ class ApiController extends Controller
 
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
 
-        //traduzir canais
-        if( $channel == 'Direct'){
-            $channel = 'Tráfego Direto' ;
-        }
-
-        if( $channel == 'Referral'){
-            $channel = 'Referência' ;
-        }
-
-        if( $channel == 'Social'){
-            $channel = 'Mídia Social' ;
-        }
-
-        if( $channel == 'Organic Search'){
-            $channel = 'Busca Orgânica' ;
-        }
-
-        if( $channel == 'Paid Search'){
-            $channel = 'Busca Paga' ;
-        }
-        if( $channel == '(Other)'){
-            $channel = 'Outros' ;
-        }
-        if( $channel == 'Other advertisements'){
-            $channel = 'Outras Publicidades' ;
-        }
-        if( $channel == 'Unknown'){
-            $channel = 'Outros' ;
-        }
-
         //CANAL PARA INSERÇÃO
-        $canal = Canal::where('nome', $channel )->first();
+        $canal = Canal::where('id', 54 )->first();
 
         $conversao = $request->input('leads.0.last_conversion.content.identificador');
 
@@ -727,14 +697,6 @@ class ApiController extends Controller
         </a>' ;
 
         $lead->canal_id = $canal['id'];
-
-        if($conversao == "Actual Sales"){
-            $lead->canal_id = 51;
-        }
-
-        if($conversao == "ISSO É"){
-            $lead->canal_id = 52;
-        }
 
         $lead->colaborador_id = $user['id'];
         
@@ -779,43 +741,13 @@ class ApiController extends Controller
 
         $user = User::where('permissoes' ,'>', 1)
         ->where('equipe_id', 7)
-        ->where('active', '!=', 0)
+        ->where('active', true)
         ->orderBy('leads_daily','asc')->first();
 
         $channel = $request->input('leads.0.last_conversion.conversion_origin.channel');
 
-        //traduzir canais
-        if( $channel == 'Direct'){
-            $channel = 'Tráfego Direto' ;
-        }
-
-        if( $channel == 'Referral'){
-            $channel = 'Referência' ;
-        }
-
-        if( $channel == 'Social'){
-            $channel = 'Mídia Social' ;
-        }
-
-        if( $channel == 'Organic Search'){
-            $channel = 'Busca Orgânica' ;
-        }
-
-        if( $channel == 'Paid Search'){
-            $channel = 'Busca Paga' ;
-        }
-        if( $channel == '(Other)'){
-            $channel = 'Outros' ;
-        }
-        if( $channel == 'Other advertisements'){
-            $channel = 'Outras Publicidades' ;
-        }
-        if( $channel == 'Unknown'){
-            $channel = 'Outros' ;
-        }
-
         //CANAL PARA INSERÇÃO
-        $canal = Canal::where('nome', $channel )->first();
+        $canal = Canal::where('id', 54 )->first();
 
         $conversao = $request->input('leads.0.last_conversion.content.identificador');
 
@@ -831,14 +763,6 @@ class ApiController extends Controller
 
         $lead->canal_id = $canal['id'];
 
-        if($conversao == "Actual Sales"){
-            $lead->canal_id = 51;
-        }
-
-        if($conversao == "ISSO É"){
-            $lead->canal_id = 52;
-        }
-
         $lead->colaborador_id = $user['id'];
         
         //incrementa leads daily
@@ -846,10 +770,10 @@ class ApiController extends Controller
     
         //collection leads daily
         $plucked = User::where('permissoes' ,'>', 1)
-        ->where('equipe_id', 7)->where('active', '!=', '0')->pluck('leads_daily');
+        ->where('equipe_id', 8)->where('active', '!=', '0')->pluck('leads_daily');
 
         if( $plucked->sum() == count($plucked) ){
-            User::where('equipe_id', 7)->update(['leads_daily' => 0 ]);
+            User::where('equipe_id', 8)->update(['leads_daily' => 0 ]);
         }
 
         //Verifica se já é lead
