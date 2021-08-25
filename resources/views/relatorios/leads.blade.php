@@ -180,9 +180,9 @@ box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.15);" class="ls-collapse ">
                     @endif
                 </td>
                 <td class="ls-txt-center">
-                    @if( !empty($lead->colaborador->name) )
-                    {{$lead->colaborador->name}}</td>
-                @endif
+                    @if( $lead->colaborador )
+                        {{$lead->colaborador->name}}</td>
+                    @endif
                 <td class="ls-txt-center">{{ $lead->created_at }}</td>
                 <td class="ls-txt-center ls-regroup">
                     <div data-ls-module="dropdown" class="ls-dropdown">
